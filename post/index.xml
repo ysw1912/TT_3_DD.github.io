@@ -27,7 +27,7 @@
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</guid>
-      <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、</description>
+      <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&amp;C++/CUDA01/01.png) 三</description>
     </item>
     
   </channel>

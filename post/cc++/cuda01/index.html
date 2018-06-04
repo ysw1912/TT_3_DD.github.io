@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、" />
+  <meta name="description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&amp;C&#43;&#43;/CUDA01/01.png) 三" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="Win10&#43;VS2017配置CUDA项目" />
-<meta property="og:description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、" />
+<meta property="og:description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&C&#43;&#43;/CUDA01/01.png) 三" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/" />
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="Win10&#43;VS2017配置CUDA项目">
-<meta itemprop="description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、">
+<meta itemprop="description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&C&#43;&#43;/CUDA01/01.png) 三">
 
 
 <meta itemprop="datePublished" content="2018-06-04T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-06-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="932">
+<meta itemprop="wordCount" content="938">
 
 
 
 <meta itemprop="keywords" content="C/C&#43;&#43;,CUDA," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Win10&#43;VS2017配置CUDA项目"/>
-<meta name="twitter:description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、"/>
+<meta name="twitter:description" content="一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&C&#43;&#43;/CUDA01/01.png) 三"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,7 +294,7 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 932 字 </span>
+        <span class="more-meta"> 约 938 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
@@ -334,13 +334,15 @@
 
 <p>右键项目 → 属性 → 配置管理器 → 全改为“x64”</p>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/01.png" alt="" /></p>
+<div align=center>
+![](/image/post/C&C++/CUDA01/01.png)
+</div>
 
 <h2 id="三-配置生成属性">三、配置生成属性</h2>
 
 <p>右键项目 → 生成依赖项 → 生成自定义 → 勾选“CUDA 9.0XXX”</p>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/02.png" alt="" /></p>
+<div align=center>![](/image/post/C&C++/CUDA01/02.png)</div>
 
 <h2 id="四-配置基本库目录">四、配置基本库目录</h2>
 
@@ -360,7 +362,7 @@
 <li>C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.0\common\lib\x64</li>
 </ul>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/03.png" alt="" /></p>
+<div align=center>![](/image/post/C&C++/CUDA01/03.png)</div>
 
 <h2 id="五-配置cuda静态链接库路径">五、配置CUDA静态链接库路径</h2>
 
@@ -370,7 +372,7 @@
 <li>$(CUDA_PATH_V9_0)\lib\$(Platform)</li>
 </ul>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/04.png" alt="" /></p>
+<div align=center>![](/image/post/C&C++/CUDA01/04.png)</div>
 
 <h2 id="六-选用cuda静态链接库">六、选用CUDA静态链接库</h2>
 
@@ -380,7 +382,7 @@
 <li>cublas.lib;cublas_device.lib;cuda.lib;cudadevrt.lib;cudart.lib;cudart_static.lib;cufft.lib;cufftw.lib;curand.lib;cusolver.lib;cusparse.lib;nppc.lib;nppial.lib;nppicc.lib;nppicom.lib;nppidei.lib;nppif.lib;nppig.lib;nppim.lib;nppist.lib;nppisu.lib;nppitc.lib;npps.lib;nvblas.lib;nvcuvid.lib;nvgraph.lib;nvml.lib;nvrtc.lib;OpenCL.lib;</li>
 </ul>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/05.png" alt="" /></p>
+<div align=center>![](/image/post/C&C++/CUDA01/05.png)</div>
 
 <p>以上为 ”第四步” 中添加的库目录 “C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64” 中的库！</p>
 
@@ -394,7 +396,7 @@
 <p>右键源文件 → 添加 → 新建项 → 选择 “CUDA C/C++ File”<br />
 右键 “xxx.cu&rdquo; 源文件 → 属性 → 配置属性 → 常规 → 项类型 → 设置为“CUDA C/C++”</p>
 
-<p><img src="/image/post/C&amp;C++/CUDA01/06.png" alt="" /></p>
+<div align=center>![](/image/post/C&C++/CUDA01/06.png)</div>
 
 <h2 id="八-测试">八、测试</h2>
 <div class="highlight"><div class="chroma">
@@ -494,7 +496,7 @@
 </div>
 </div>
 <p>输出结果：
-<img src="/image/post/C&amp;C++/CUDA01/07.png" alt="" /></p>
+<div align=center><img src="/image/post/C&amp;C++/CUDA01/07.png" alt="" /></div></p>
 
     </div>
 
@@ -570,7 +572,7 @@
     id: 'cuda01.md',
     title: 'Win10\x2bVS2017配置CUDA项目',
     link: decodeURI(location.href),
-    desc: '一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、',
+    desc: '一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](\/image\/post\/C\x26C\x2b\x2b\/CUDA01\/01.png) 三',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {

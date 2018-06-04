@@ -101,13 +101,15 @@
 
 &lt;p&gt;右键项目 → 属性 → 配置管理器 → 全改为“x64”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/01.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;
+![](/image/post/C&amp;C++/CUDA01/01.png)
+&lt;/div&gt;
 
 &lt;h2 id=&#34;三-配置生成属性&#34;&gt;三、配置生成属性&lt;/h2&gt;
 
 &lt;p&gt;右键项目 → 生成依赖项 → 生成自定义 → 勾选“CUDA 9.0XXX”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/02.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;![](/image/post/C&amp;C++/CUDA01/02.png)&lt;/div&gt;
 
 &lt;h2 id=&#34;四-配置基本库目录&#34;&gt;四、配置基本库目录&lt;/h2&gt;
 
@@ -127,7 +129,7 @@
 &lt;li&gt;C:\ProgramData\NVIDIA Corporation\CUDA Samples\v9.0\common\lib\x64&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/03.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;![](/image/post/C&amp;C++/CUDA01/03.png)&lt;/div&gt;
 
 &lt;h2 id=&#34;五-配置cuda静态链接库路径&#34;&gt;五、配置CUDA静态链接库路径&lt;/h2&gt;
 
@@ -137,7 +139,7 @@
 &lt;li&gt;$(CUDA_PATH_V9_0)\lib\$(Platform)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;![](/image/post/C&amp;C++/CUDA01/04.png)&lt;/div&gt;
 
 &lt;h2 id=&#34;六-选用cuda静态链接库&#34;&gt;六、选用CUDA静态链接库&lt;/h2&gt;
 
@@ -147,7 +149,7 @@
 &lt;li&gt;cublas.lib;cublas_device.lib;cuda.lib;cudadevrt.lib;cudart.lib;cudart_static.lib;cufft.lib;cufftw.lib;curand.lib;cusolver.lib;cusparse.lib;nppc.lib;nppial.lib;nppicc.lib;nppicom.lib;nppidei.lib;nppif.lib;nppig.lib;nppim.lib;nppist.lib;nppisu.lib;nppitc.lib;npps.lib;nvblas.lib;nvcuvid.lib;nvgraph.lib;nvml.lib;nvrtc.lib;OpenCL.lib;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/05.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;![](/image/post/C&amp;C++/CUDA01/05.png)&lt;/div&gt;
 
 &lt;p&gt;以上为 ”第四步” 中添加的库目录 “C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0\lib\x64” 中的库！&lt;/p&gt;
 
@@ -161,7 +163,7 @@
 &lt;p&gt;右键源文件 → 添加 → 新建项 → 选择 “CUDA C/C++ File”&lt;br /&gt;
 右键 “xxx.cu&amp;rdquo; 源文件 → 属性 → 配置属性 → 常规 → 项类型 → 设置为“CUDA C/C++”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/06.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;![](/image/post/C&amp;C++/CUDA01/06.png)&lt;/div&gt;
 
 &lt;h2 id=&#34;八-测试&#34;&gt;八、测试&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -261,7 +263,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;输出结果：
-&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/07.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/CUDA01/07.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
 </description>
       
     </item>
