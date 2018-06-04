@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Hide on bush</title>
-    <link>https://ysw1912.github.io/post/</link>
-    <description>Recent content in Posts on Hide on bush</description>
+    <title>C/C&#43;&#43; on Hide on bush</title>
+    <link>https://ysw1912.github.io/categories/c/c&#43;&#43;/</link>
+    <description>Recent content in C/C&#43;&#43; on Hide on bush</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw</copyright>
-    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://ysw1912.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ysw1912.github.io/categories/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Hello World</title>
-      <link>https://ysw1912.github.io/post/jottings/hello-world/</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://ysw1912.github.io/post/jottings/hello-world/</guid>
-      <description>引言 一名程序员渣渣开始使用github blog，发篇博文纪念一波 曾使用博客园，移植工作进行ing 希望自己越来越强壮！Good Good Study, Day Day Up！ Hello</description>
-    </item>
     
     <item>
       <title>Hello World</title>
