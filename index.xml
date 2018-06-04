@@ -85,7 +85,7 @@
     </item>
     
     <item>
-      <title>Hello World</title>
+      <title>Win10 &#43; VS2017 新CUDA项目配置</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/win10-&#43;-vs2017%E6%96%B0-cuda-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
@@ -101,7 +101,7 @@
 
 &lt;p&gt;右键项目 → 属性 → 配置管理器 → 全改为“x64”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;./image/post/C&amp;amp;C++/Win10 + VS2017新 CUDA 项目配置/01.png&#34; alt=&#34;a&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;./image/post/C&amp;amp;C++/CUDA01/01.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
       
     </item>

@@ -42,13 +42,6 @@
     "content": ""
 },
 {
-    "uri": "https://ysw1912.github.io/post/cc++/win10-+-vs2017%E6%96%B0-cuda-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/",
-    "title": "Hello World",
-    "tags": ["C/C++", "CUDA"],
-    "description": "",
-    "content": " 一、新建项目 打开VS2017 → 新建项目 → Win32控制台应用程序 → “空项目”\n二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64”\n"
-},
-{
     "uri": "https://ysw1912.github.io/",
     "title": "Hide on bush",
     "tags": [],
@@ -82,4 +75,11 @@
     "tags": [],
     "description": "",
     "content": ""
+},
+{
+    "uri": "https://ysw1912.github.io/post/cc++/win10-+-vs2017%E6%96%B0-cuda-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/",
+    "title": "Win10 + VS2017 新CUDA项目配置",
+    "tags": ["C/C++", "CUDA"],
+    "description": "",
+    "content": " 一、新建项目 打开VS2017 → 新建项目 → Win32控制台应用程序 → “空项目”\n二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64”\n"
 }]
