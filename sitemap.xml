@@ -17,25 +17,36 @@
   </url>
   
   <url>
-    <loc>https://ysw1912.github.io/tags/c/c&#43;&#43;/</loc>
+    <loc>https://ysw1912.github.io/post/cc&#43;&#43;/win10-&#43;-vs2017%E6%96%B0-cuda-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ysw1912.github.io/categories/c/c&#43;&#43;/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ysw1912.github.io/categories/c/c&#43;&#43;/</loc>
+    <loc>https://ysw1912.github.io/tags/c/c&#43;&#43;/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/tags/cuda/</loc>
+    <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -48,14 +59,14 @@
   </url>
   
   <url>
-    <loc>https://ysw1912.github.io/tags/jotting/</loc>
+    <loc>https://ysw1912.github.io/categories/jotting/</loc>
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ysw1912.github.io/categories/jotting/</loc>
+    <loc>https://ysw1912.github.io/tags/jotting/</loc>
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -73,12 +84,6 @@
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ysw1912.github.io/post/cc&#43;&#43;/win10-&#43;-vs2017%E6%96%B0-cuda-%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
 </urlset>
