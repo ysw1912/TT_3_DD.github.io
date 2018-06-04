@@ -27,7 +27,16 @@
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</guid>
-      <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” ![](/image/post/C&amp;C++/CUDA01/01.png) 三</description>
+      <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、</description>
+    </item>
+    
+    <item>
+      <title>我的花里胡哨的VS2017</title>
+      <link>https://ysw1912.github.io/post/ide/vs01/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/ide/vs01/</guid>
+      <description>&amp;ensp;&amp;ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C++ Coding~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方</description>
     </item>
     
   </channel>
