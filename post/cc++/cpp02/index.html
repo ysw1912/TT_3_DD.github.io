@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>分类 - Hide on bush</title>
+  <title>Effective C&#43;&#43; 笔记 - Hide on bush</title>
   <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="ysw&#39;s blog." />
+  <meta name="description" content="条款2 对于单纯常量，尽量以const对象或enums替换#define enum是一个右值，无法被取地址，可以充当 int 常量 对于类似函数的宏mac" />
+
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
 
@@ -36,8 +37,7 @@
 <meta name="generator" content="Hugo 0.41" />
 
 
-<link rel="canonical" href="https://ysw1912.github.io/categories/" />
-<link href="https://ysw1912.github.io/categories/index.xml" rel="alternate" type="application/rss+xml" title="Hide on bush" />
+<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/" />
 
 
 
@@ -57,30 +57,41 @@
 
 
 
-<meta property="og:title" content="Categories" />
-<meta property="og:description" content="ysw&#39;s blog." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://ysw1912.github.io/categories/" />
+<meta property="og:title" content="Effective C&#43;&#43; 笔记" />
+<meta property="og:description" content="条款2 对于单纯常量，尽量以const对象或enums替换#define enum是一个右值，无法被取地址，可以充当 int 常量 对于类似函数的宏mac" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/" />
 
 
 
-<meta property="og:updated_time" content="2018-06-05T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2018-06-05T00:00:00&#43;00:00"/>
 
-
-
-
-
-
+<meta property="article:modified_time" content="2018-06-05T00:00:00&#43;00:00"/>
 
 
 
 
-<meta itemprop="name" content="Categories">
-<meta itemprop="description" content="ysw&#39;s blog.">
 
+
+
+
+
+
+
+<meta itemprop="name" content="Effective C&#43;&#43; 笔记">
+<meta itemprop="description" content="条款2 对于单纯常量，尽量以const对象或enums替换#define enum是一个右值，无法被取地址，可以充当 int 常量 对于类似函数的宏mac">
+
+
+<meta itemprop="datePublished" content="2018-06-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-06-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="167">
+
+
+
+<meta itemprop="keywords" content="C/C&#43;&#43;," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Categories"/>
-<meta name="twitter:description" content="ysw&#39;s blog."/>
+<meta name="twitter:title" content="Effective C&#43;&#43; 笔记"/>
+<meta name="twitter:description" content="条款2 对于单纯常量，尽量以const对象或enums替换#define enum是一个右值，无法被取地址，可以充当 int 常量 对于类似函数的宏mac"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -271,119 +282,166 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          
-  
-  
-  
-
-  
-  
+          <article class="post bg-white">
     
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="/categories/c/c&#43;&#43;/">
-                分类： c/c&#43;&#43;
-              </a>
-            </h2>
+    <header class="post-header">
+      <h1 class="post-title">Effective C&#43;&#43; 笔记</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-05 </span>
+        <div class="post-category">
+            
+              <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
+            
           </div>
+        <span class="more-meta"> 约 167 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+      </div>
+    </header>
 
-          
-            <div class="archive-post">
-              <span class="archive-post-time">
-                2018-06-05
-              </span>
-              <span class="archive-post-title">
-                <a href="/post/cc&#43;&#43;/cpp02/" class="archive-post-link">
-                  Effective C&#43;&#43; 笔记
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <span class="archive-post-time">
-                2018-06-05
-              </span>
-              <span class="archive-post-title">
-                <a href="/post/cc&#43;&#43;/cpp01/" class="archive-post-link">
-                  const和static
-                </a>
-              </span>
-            </div>
-          
-            <div class="archive-post">
-              <span class="archive-post-time">
-                2018-06-04
-              </span>
-              <span class="archive-post-title">
-                <a href="/post/cc&#43;&#43;/cuda01/" class="archive-post-link">
-                  Win10&#43;VS2017配置CUDA项目
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
     
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="/categories/ide/">
-                分类： ide
-              </a>
-            </h2>
-          </div>
-
-          
-            <div class="archive-post">
-              <span class="archive-post-time">
-                2018-06-04
-              </span>
-              <span class="archive-post-title">
-                <a href="/post/ide/vs01/" class="archive-post-link">
-                  我的花里胡哨的VS2017
-                </a>
-              </span>
-            </div>
-          
-          
-      </section>
     
-      <section id="archive" class="archive">
-        <div class="archive-title">
-        </div>
-          <div class="collection-title">
-            <h2 class="archive-year">
-              <a href="/categories/jotting/">
-                分类： jotting
-              </a>
-            </h2>
-          </div>
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#条款2">条款2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
 
+    
+    <div class="post-content">
+      
+
+<h3 id="条款2">条款2</h3>
+
+<ul>
+<li>对于单纯常量，尽量以const对象或enums替换#define
+
+<ul>
+<li>enum是一个右值，无法被取地址，可以充当 int 常量</li>
+</ul></li>
+<li>对于类似函数的宏macros，最好改用inline函数替换#define
+
+<ul>
+<li>#define函数宏的缺点：</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
+</span><span class="cp"></span><span class="p">...</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>  <span class="c1">// 7，a累加2次
+</span><span class="c1"></span><span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>  <span class="c1">// 8，a累加1次
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ysw1912</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-06-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
           
-            <div class="archive-post">
-              <span class="archive-post-time">
-                2018-06-04
-              </span>
-              <span class="archive-post-title">
-                <a href="/post/jottings/hello-world/" class="archive-post-link">
-                  Hello World
-                </a>
-              </span>
-            </div>
+          <a href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>
           
-          
-      </section>
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/cc&#43;&#43;/cpp01/">
+            <span class="next-text nav-default">const和static</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
     
 
   
+
   
 
-
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'cpp02.md',
+    title: 'Effective C\x2b\x2b 笔记',
+    link: decodeURI(location.href),
+    desc: '条款2 对于单纯常量，尽量以const对象或enums替换#define enum是一个右值，无法被取地址，可以充当 int 常量 对于类似函数的宏mac',
+    owner: 'ysw1912',
+    repo: 'blog_comments',
+    oauth: {
+      client_id: '85cc0c5a3f49196bdeb0',
+      client_secret: 'd35ce92810461ae478b60b96a11ed65df8f978bd'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
         </div>
       </div>
     </main>
