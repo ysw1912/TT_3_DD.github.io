@@ -41,7 +41,7 @@
 
 &lt;p&gt;&amp;ensp;&amp;ensp;红黑树是一种自平衡的二叉查找树（BST），可在&lt;code&gt;O(logN)&lt;/code&gt;时间内完成查找、插入、删除等操作。&lt;/p&gt;
 
-&lt;p&gt;&amp;ensp;&amp;ensp;鉴于插入操作比较容易理解，这里只重点描述删除节点的操作。&lt;/p&gt;
+&lt;p&gt;&amp;ensp;&amp;ensp;鉴于插入操作比较容易理解，删除操作相对较难，这里只描述删除节点的操作。&lt;/p&gt;
 
 &lt;h2 id=&#34;红黑树性质&#34;&gt;红黑树性质&lt;/h2&gt;
 
@@ -88,19 +88,19 @@
 &lt;p&gt;&amp;ensp;&amp;ensp;说明重新平衡之前，首先假设最终被删除的节点为&lt;code&gt;Z&lt;/code&gt;（至多一个孩子节点），其孩子节点为&lt;code&gt;X&lt;/code&gt;。删除黑色节点&lt;code&gt;Z&lt;/code&gt;，&lt;code&gt;X&lt;/code&gt;取代&lt;code&gt;Z&lt;/code&gt;后，假设&lt;code&gt;X&lt;/code&gt;的父节点（原来&lt;code&gt;Z&lt;/code&gt;的父节点）为&lt;code&gt;P&lt;/code&gt;，&lt;code&gt;X&lt;/code&gt;的兄弟节点为&lt;code&gt;W&lt;/code&gt;，&lt;code&gt;W&lt;/code&gt;的左孩子为&lt;code&gt;WL&lt;/code&gt;，右孩子为&lt;code&gt;WR&lt;/code&gt;。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/02.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;p&gt;&amp;ensp;&amp;ensp;下面对各种情况展开说明：&lt;/p&gt;
+&lt;p&gt;&amp;ensp;&amp;ensp;假设&lt;code&gt;X&lt;/code&gt;为&lt;code&gt;P&lt;/code&gt;的左孩子，&lt;code&gt;X&lt;/code&gt;是右孩子的情况只需与之对称操作即可，下面对各种情况展开说明：&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;case 1&lt;/code&gt;：&lt;code&gt;X&lt;/code&gt;是红色或为新的根节点。&lt;br /&gt;
 &amp;ensp;&amp;ensp;直接将其变为黑色即可，这样分别恢复了性质&lt;code&gt;4&lt;/code&gt;和性质&lt;code&gt;2&lt;/code&gt;。&lt;br /&gt;
 &amp;ensp;&amp;ensp;剩下都是&lt;code&gt;X&lt;/code&gt;为黑色的情况，需要考虑&lt;code&gt;X&lt;/code&gt;的兄弟&lt;code&gt;W&lt;/code&gt;的颜色。&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;&lt;code&gt;case 2&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为红色。&lt;br /&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 2&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为红色（&lt;code&gt;X&lt;/code&gt;为黑色）。&lt;br /&gt;
 &amp;ensp;&amp;ensp;由性质&lt;code&gt;3&lt;/code&gt;可知，节点&lt;code&gt;P&lt;/code&gt;、&lt;code&gt;WL&lt;/code&gt;、&lt;code&gt;WR&lt;/code&gt;都为黑色。&lt;br /&gt;
 &amp;ensp;&amp;ensp;对&lt;code&gt;P&lt;/code&gt;左旋，互换&lt;code&gt;P&lt;/code&gt;和&lt;code&gt;W&lt;/code&gt;的颜色，节点&lt;code&gt;W&lt;/code&gt;重新指向&lt;code&gt;X&lt;/code&gt;当前的兄弟&lt;code&gt;WL&lt;/code&gt;。此时虽然所有经过&lt;code&gt;X&lt;/code&gt;的路径（路径1、2）上的黑色节点依然比其他路径少一个，和之前一样没有变。但已经将该情况转变为&lt;code&gt;case 3&lt;/code&gt;，可从&lt;code&gt;case 3&lt;/code&gt;开始继续判断。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/03.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为黑色。&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为黑色（&lt;code&gt;X&lt;/code&gt;为黑色）。&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.1&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;的孩子节点&lt;code&gt;WL&lt;/code&gt;、&lt;code&gt;WR&lt;/code&gt;均为黑色。&lt;/p&gt;
@@ -118,13 +118,19 @@
 &lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.2&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;的孩子节点有红色，&lt;code&gt;P&lt;/code&gt;可红可黑。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;case 3.2.1&lt;/code&gt;：&lt;code&gt;WL&lt;/code&gt;为红色，&lt;code&gt;WR&lt;/code&gt;为黑。&lt;br /&gt;
+&lt;li&gt;&lt;code&gt;case 3.2.1&lt;/code&gt;：&lt;code&gt;WL&lt;/code&gt;为红色，&lt;code&gt;WR&lt;/code&gt;为黑色。&lt;br /&gt;
 &amp;ensp;&amp;ensp;对&lt;code&gt;W&lt;/code&gt;进行右旋操作，并互换&lt;code&gt;W&lt;/code&gt;和&lt;code&gt;WL&lt;/code&gt;的颜色，此时所有路径的黑色节点数并未受到影响，但将该情况转化为&lt;code&gt;case 3.2.2&lt;/code&gt;。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/06.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;case 3.2.2&lt;/code&gt;：&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;case 3.2.2&lt;/code&gt;：&lt;code&gt;WR&lt;/code&gt;为红色，&lt;code&gt;WL&lt;/code&gt;可红可黑。&lt;font color=#ff0000&gt;（终止情况）&lt;/font&gt;&lt;br /&gt;
+&amp;ensp;&amp;ensp;对&lt;code&gt;P&lt;/code&gt;进行左旋操作，并互换&lt;code&gt;P&lt;/code&gt;和&lt;code&gt;W&lt;/code&gt;的颜色，并将&lt;code&gt;WR&lt;/code&gt;变为黑色。因为&lt;code&gt;P&lt;/code&gt;变为黑色，经过&lt;code&gt;X&lt;/code&gt;的路径（路径1、2）多了一个黑色节点，与删除&lt;code&gt;Z&lt;/code&gt;节点前的数量一致。而其他路径（路径3、4、5、6）上的黑色节点数并未受到影响，因此红黑树恢复性质&lt;code&gt;4&lt;/code&gt;，重平衡完毕。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/07.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&#34;总结&#34;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;&amp;ensp;&amp;ensp;学习红黑树时，发现许多数据结构相关书籍，包括《STL源码剖析》都没有详细分析红黑树的删除操作。网上博客的许多资料总觉得不够清晰，关于删除节点后重新平衡这一关键步骤讲得不够有条理。总之，&lt;code&gt;case 1&lt;/code&gt;、&lt;code&gt;case 2&lt;/code&gt;、&lt;code&gt;case 3&lt;/code&gt;通过相互转化，不断调整红黑树，最终转化成&lt;code&gt;case 3.2.2&lt;/code&gt;结束调整。具体代码可以参见我 github 中实现的 &lt;a href=&#34;https://github.com/ysw1912/TinySTL&#34;&gt;TinySTL&lt;/a&gt; 中的&lt;code&gt;tree.h&lt;/code&gt;头文件。&lt;/p&gt;
 </description>
       
     </item>
