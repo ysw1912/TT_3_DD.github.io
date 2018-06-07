@@ -29,6 +29,51 @@
     </item>
     
     <item>
+      <title>红黑树删除节点</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</link>
+      <pubDate>Thu, 07 Jun 2018 10:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;红黑树&#34;&gt;红黑树&lt;/h2&gt;
+
+&lt;p&gt;&amp;ensp;&amp;ensp;红黑树是一种自平衡的二叉查找树（BST），可在&lt;code&gt;O(logN)&lt;/code&gt;时间内完成查找、插入、删除等操作。&lt;/p&gt;
+
+&lt;p&gt;&amp;ensp;&amp;ensp;鉴于插入操作比较容易理解，这里只重点描述删除节点的操作。&lt;/p&gt;
+
+&lt;h2 id=&#34;红黑树性质&#34;&gt;红黑树性质&lt;/h2&gt;
+
+&lt;p&gt;&amp;ensp;&amp;ensp;红黑树通过如下规则，控制任意节点的左右子树高度差，以实现自平衡：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;节点是红色或黑色。&lt;/li&gt;
+&lt;li&gt;根节点为黑色。&lt;/li&gt;
+&lt;li&gt;如果节点为红，其子节点必须为黑（每个叶节点到根节点所有路径上不能有两个连续的红色节点）。&lt;/li&gt;
+&lt;li&gt;任一节点至树尾端的所有简单路径，所含黑节点数必须相同。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;删除节点&#34;&gt;删除节点&lt;/h2&gt;
+
+&lt;h3 id=&#34;旋转&#34;&gt;旋转&lt;/h3&gt;
+
+&lt;p&gt;旋转操作在红黑树的插入和删除中都会使用&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;左旋：将节点旋转为其右孩子的左孩子&lt;/li&gt;
+&lt;li&gt;右旋：将节点旋转为其左孩子的右孩子
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/01.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;删除&#34;&gt;删除&lt;/h3&gt;
+
+&lt;h3 id=&#34;删除后重平衡&#34;&gt;删除后重平衡&lt;/h3&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>Effective C&#43;&#43; 笔记</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/</link>
       <pubDate>Tue, 05 Jun 2018 10:00:00 +0800</pubDate>
