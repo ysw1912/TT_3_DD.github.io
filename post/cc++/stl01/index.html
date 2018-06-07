@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-06-07T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-07T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1002">
+<meta itemprop="wordCount" content="1348">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
             
           </div>
-        <span class="more-meta"> 约 1002 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta"> 约 1348 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
       </div>
     </header>
 
@@ -389,7 +389,30 @@
 &ensp;&ensp;对<code>P</code>左旋，互换<code>P</code>和<code>W</code>的颜色，节点<code>W</code>重新指向<code>X</code>当前的兄弟<code>WL</code>。此时虽然所有经过<code>X</code>的路径（路径1、2）上的黑色节点依然比其他路径少一个，和之前一样没有变。但已经将该情况转变为<code>case 3</code>，可从<code>case 3</code>开始继续判断。
 <div align=center><img src="/image/post/C&amp;C++/STL01/03.png" alt="" /></div></p></li>
 
-<li><p><code>case 3</code>：<code>W</code>为黑色。</p></li>
+<li><p><code>case 3</code>：<code>W</code>为黑色。</p>
+
+<ul>
+<li><p><code>case 3.1</code>：<code>W</code>的孩子节点<code>WL</code>、<code>WR</code>均为黑色。</p>
+
+<ul>
+<li><p><code>case 3.1.1</code>：<code>P</code>为黑色。<br />
+&ensp;&ensp;只需把<code>W</code>变为红色，这样所有经过<code>W</code>的路径（路径3、4、5、6）比之前少一个黑色节点，就与经过<code>X</code>的路径（路径1、2）上的黑色节点数一致了。但经过<code>P</code>的路径比不经过<code>P</code>的路径少一个黑色节点，再把<code>X</code>节点指向<code>P</code>，从<code>case 1</code>开始重新进行平衡处理。
+<div align=center><img src="/image/post/C&amp;C++/STL01/04.png" alt="" /></div></p></li>
+
+<li><p><code>case 3.1.2</code>：<code>P</code>为红色。<br />
+&ensp;&ensp;只需互换<code>W</code>和<code>P</code>的颜色即可，此时所有路径的黑色节点数并未受到影响，但将该情况转化为<code>case 2</code>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/05.png" alt="" /></div></p></li>
+</ul></li>
+
+<li><p><code>case 3.2</code>：<code>W</code>的孩子节点有红色，<code>P</code>可红可黑。</p>
+
+<ul>
+<li><code>case 3.2.1</code>：<code>WL</code>为红色，<code>WR</code>为黑。<br />
+&ensp;&ensp;对<code>W</code>进行右旋操作，并互换<code>W</code>和<code>WL</code>的颜色，此时所有路径的黑色节点数并未受到影响，但将该情况转化为<code>case 3.2.2</code>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/06.png" alt="" /></div></li>
+<li><code>case 3.2.2</code>：</li>
+</ul></li>
+</ul></li>
 </ul>
 
     </div>

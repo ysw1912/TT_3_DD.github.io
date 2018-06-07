@@ -100,7 +100,30 @@
 &amp;ensp;&amp;ensp;对&lt;code&gt;P&lt;/code&gt;左旋，互换&lt;code&gt;P&lt;/code&gt;和&lt;code&gt;W&lt;/code&gt;的颜色，节点&lt;code&gt;W&lt;/code&gt;重新指向&lt;code&gt;X&lt;/code&gt;当前的兄弟&lt;code&gt;WL&lt;/code&gt;。此时虽然所有经过&lt;code&gt;X&lt;/code&gt;的路径（路径1、2）上的黑色节点依然比其他路径少一个，和之前一样没有变。但已经将该情况转变为&lt;code&gt;case 3&lt;/code&gt;，可从&lt;code&gt;case 3&lt;/code&gt;开始继续判断。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/03.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为黑色。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;为黑色。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.1&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;的孩子节点&lt;code&gt;WL&lt;/code&gt;、&lt;code&gt;WR&lt;/code&gt;均为黑色。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.1.1&lt;/code&gt;：&lt;code&gt;P&lt;/code&gt;为黑色。&lt;br /&gt;
+&amp;ensp;&amp;ensp;只需把&lt;code&gt;W&lt;/code&gt;变为红色，这样所有经过&lt;code&gt;W&lt;/code&gt;的路径（路径3、4、5、6）比之前少一个黑色节点，就与经过&lt;code&gt;X&lt;/code&gt;的路径（路径1、2）上的黑色节点数一致了。但经过&lt;code&gt;P&lt;/code&gt;的路径比不经过&lt;code&gt;P&lt;/code&gt;的路径少一个黑色节点，再把&lt;code&gt;X&lt;/code&gt;节点指向&lt;code&gt;P&lt;/code&gt;，从&lt;code&gt;case 1&lt;/code&gt;开始重新进行平衡处理。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/04.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.1.2&lt;/code&gt;：&lt;code&gt;P&lt;/code&gt;为红色。&lt;br /&gt;
+&amp;ensp;&amp;ensp;只需互换&lt;code&gt;W&lt;/code&gt;和&lt;code&gt;P&lt;/code&gt;的颜色即可，此时所有路径的黑色节点数并未受到影响，但将该情况转化为&lt;code&gt;case 2&lt;/code&gt;。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/05.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;case 3.2&lt;/code&gt;：&lt;code&gt;W&lt;/code&gt;的孩子节点有红色，&lt;code&gt;P&lt;/code&gt;可红可黑。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;case 3.2.1&lt;/code&gt;：&lt;code&gt;WL&lt;/code&gt;为红色，&lt;code&gt;WR&lt;/code&gt;为黑。&lt;br /&gt;
+&amp;ensp;&amp;ensp;对&lt;code&gt;W&lt;/code&gt;进行右旋操作，并互换&lt;code&gt;W&lt;/code&gt;和&lt;code&gt;WL&lt;/code&gt;的颜色，此时所有路径的黑色节点数并未受到影响，但将该情况转化为&lt;code&gt;case 3.2.2&lt;/code&gt;。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL01/06.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;case 3.2.2&lt;/code&gt;：&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       
