@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-06-07T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-07T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="305">
+<meta itemprop="wordCount" content="1002">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
             
           </div>
-        <span class="more-meta"> 约 305 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span class="more-meta"> 约 1002 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
 
@@ -347,7 +347,7 @@
 
 <h3 id="旋转">旋转</h3>
 
-<p>旋转操作在红黑树的插入和删除中都会使用</p>
+<p>&ensp;&ensp;旋转操作在红黑树的插入和删除中都会使用</p>
 
 <ul>
 <li>左旋：将节点旋转为其右孩子的左孩子</li>
@@ -357,7 +357,40 @@
 
 <h3 id="删除">删除</h3>
 
+<p>&ensp;&ensp;删除操作首先要确定待删除节点的孩子数。</p>
+
+<ul>
+<li><p><code>case 1</code>：待删除节点有两个孩子。找到该节点的前驱或后继，将前驱或后继的复制到待删除节点中，最后将这个前驱或后继删除。由于前驱或后继至多只有一个孩子节点，问题就被简化为<code>case 2</code>。只要节点里的值被删除就行，树结构发生变化并不影响。</p></li>
+
+<li><p><code>case 2</code>：待删除节点只有一个孩子或没有孩子。直接让它的孩子取代待删节点的位置即可。</p></li>
+</ul>
+
+<p>&ensp;&ensp;红黑树删除操作的复杂度在于删除节点的颜色。</p>
+
+<ul>
+<li>当删除的节点是红色时，直接拿其孩子节点补空位即可。</li>
+<li>当删除的节点是黑色时，所有经过该节点的路径上的黑色节点数量少了一个，破坏了性质4。此时需要重新平衡红黑树。</li>
+</ul>
+
 <h3 id="删除后重平衡">删除后重平衡</h3>
+
+<p>&ensp;&ensp;说明重新平衡之前，首先假设最终被删除的节点为<code>Z</code>（至多一个孩子节点），其孩子节点为<code>X</code>。删除黑色节点<code>Z</code>，<code>X</code>取代<code>Z</code>后，假设<code>X</code>的父节点（原来<code>Z</code>的父节点）为<code>P</code>，<code>X</code>的兄弟节点为<code>W</code>，<code>W</code>的左孩子为<code>WL</code>，右孩子为<code>WR</code>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/02.png" alt="" /></div></p>
+
+<p>&ensp;&ensp;下面对各种情况展开说明：</p>
+
+<ul>
+<li><p><code>case 1</code>：<code>X</code>是红色或为新的根节点。<br />
+&ensp;&ensp;直接将其变为黑色即可，这样分别恢复了性质<code>4</code>和性质<code>2</code>。<br />
+&ensp;&ensp;剩下都是<code>X</code>为黑色的情况，需要考虑<code>X</code>的兄弟<code>W</code>的颜色。</p></li>
+
+<li><p><code>case 2</code>：<code>W</code>为红色。<br />
+&ensp;&ensp;由性质<code>3</code>可知，节点<code>P</code>、<code>WL</code>、<code>WR</code>都为黑色。<br />
+&ensp;&ensp;对<code>P</code>左旋，互换<code>P</code>和<code>W</code>的颜色，节点<code>W</code>重新指向<code>X</code>当前的兄弟<code>WL</code>。此时虽然所有经过<code>X</code>的路径（路径1、2）上的黑色节点依然比其他路径少一个，和之前一样没有变。但已经将该情况转变为<code>case 3</code>，可从<code>case 3</code>开始继续判断。
+<div align=center><img src="/image/post/C&amp;C++/STL01/03.png" alt="" /></div></p></li>
+
+<li><p><code>case 3</code>：<code>W</code>为黑色。</p></li>
+</ul>
 
     </div>
 
