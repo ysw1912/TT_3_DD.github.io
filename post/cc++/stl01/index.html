@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-06-07T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-07T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1730">
+<meta itemprop="wordCount" content="1886">
 
 
 
@@ -294,7 +294,7 @@
               <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
             
           </div>
-        <span class="more-meta"> 约 1730 字 </span>
+        <span class="more-meta"> 约 1886 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
       </div>
     </header>
@@ -361,47 +361,50 @@
 <p>&ensp;&ensp;删除操作首先要确定待删除节点的孩子数。</p>
 
 <ul>
-<li><p><code>case 1</code>：待删除节点有两个孩子。找到该节点的前驱或后继，将前驱或后继的复制到待删除节点中，最后将这个前驱或后继删除。由于前驱或后继至多只有一个孩子节点，问题就被简化为<code>case 2</code>。只要节点里的值被删除就行，树结构发生变化并不影响。</p></li>
+<li><p><code>case 1</code>：待删除节点有两个孩子。<br />
+&ensp;&ensp;找到该节点的前驱或后继，将前驱或后继的复制到待删除节点中，最后将这个前驱或后继删除。由于前驱或后继至多只有一个孩子节点，问题就被简化为<code>case 2</code>。只要节点里的值被删除就行，树结构发生变化并不影响。</p></li>
 
-<li><p><code>case 2</code>：待删除节点只有一个孩子或没有孩子。直接让它的孩子取代待删节点的位置即可。</p></li>
-</ul>
-
-<p>&ensp;&ensp;红黑树删除操作的复杂度在于删除节点的颜色。</p>
+<li><p><code>case 2</code>：待删除节点只有一个孩子或没有孩子。<br />
+&ensp;&ensp;直接让它的孩子取代待删节点的位置即可。<br />
+&ensp;&ensp;红黑树删除操作的复杂度在于删除节点的颜色。</p>
 
 <ul>
-<li>当删除的节点是红色时，直接拿其孩子节点补空位即可。</li>
-<li>当删除的节点是黑色时，所有经过该节点的路径上的黑色节点数量少了一个，破坏了性质4。此时需要重新平衡红黑树。</li>
+<li><code>case 2.1</code>：删除的节点是红色。<br />
+&ensp;&ensp;直接拿其孩子节点补空位即可。</li>
+<li><code>case 2.2</code>：删除的节点是黑色。<br />
+&ensp;&ensp;所有经过该节点的路径上的黑色节点数量少了一个，破坏了性质<code>4</code>。此时需要重新平衡红黑树，具体见下。</li>
+</ul></li>
 </ul>
 
 <h3 id="删除后重平衡">删除后重平衡</h3>
 
-<p>&ensp;&ensp;说明重新平衡之前，首先假设最终被删除的节点为<code>Z</code>（至多一个孩子节点），其孩子节点为<code>X</code>。删除黑色节点<code>Z</code>，<code>X</code>取代<code>Z</code>后，假设<code>X</code>的父节点（原来<code>Z</code>的父节点）为<code>P</code>，<code>X</code>的兄弟节点为<code>W</code>，<code>W</code>的左孩子为<code>WL</code>，右孩子为<code>WR</code>。
+<p>&ensp;&ensp;说明之前，首先假设最终被删除的节点为<code>Z</code>（至多一个孩子节点），其孩子节点为<code>X</code>。删除黑色节点<code>Z</code>，<code>X</code>取代<code>Z</code>后，假设<code>X</code>的父节点（原来<code>Z</code>的父节点）为<code>P</code>，<code>X</code>的兄弟节点为<code>W</code>，<code>W</code>的左孩子为<code>WL</code>，右孩子为<code>WR</code>。
 <div align=center><img src="/image/post/C&amp;C++/STL01/02.png" alt="" /></div></p>
 
-<p>&ensp;&ensp;假设<code>X</code>为<code>P</code>的左孩子，<code>X</code>是右孩子的情况只需与之对称操作即可，下面对各种情况展开说明：</p>
+<p>&ensp;&ensp;假设<code>X</code>为<code>P</code>的左孩子，<code>X</code>是右孩子的情况只需与之对称操作即可，下面对各种情况展开讨论：</p>
 
 <ul>
-<li><p><code>case 1</code>：<code>X</code>是红色或为新的根节点。<br />
+<li><p><code>case 1</code>：<code>X</code>是红色或为新的根节点。<font color=#ff0000>（终止情况）</font><br />
 &ensp;&ensp;直接将其变为黑色即可，这样分别恢复了性质<code>4</code>和性质<code>2</code>。<br />
 &ensp;&ensp;剩下都是<code>X</code>为黑色的情况，需要考虑<code>X</code>的兄弟<code>W</code>的颜色。</p></li>
 
-<li><p><code>case 2</code>：<code>W</code>为红色（<code>X</code>为黑色）。<br />
-&ensp;&ensp;由性质<code>3</code>可知，节点<code>P</code>、<code>WL</code>、<code>WR</code>都为黑色。<br />
-&ensp;&ensp;对<code>P</code>左旋，互换<code>P</code>和<code>W</code>的颜色，节点<code>W</code>重新指向<code>X</code>当前的兄弟<code>WL</code>。此时虽然所有经过<code>X</code>的路径（路径1、2）上的黑色节点依然比其他路径少一个，和之前一样没有变。但已经将该情况转变为<code>case 3</code>，可从<code>case 3</code>开始继续判断。
+<li><p><code>case 2</code>：<code>W</code>为红色，<code>X</code>为黑色。<br />
+&ensp;&ensp;由性质<code>3</code>可知，节点<code>P</code>、<code>WL</code>、<code>WR</code>必为黑色。<br />
+&ensp;&ensp;对<code>P</code>左旋，互换<code>P</code>和<code>W</code>的颜色，节点<code>W</code>重新指向<code>X</code>当前的兄弟<code>WL</code>。此时所有路径的黑色节点数并未受到影响，即经过<code>X</code>的路径（路径1、2）上的黑色节点依然比其他路径少一个，和删除<code>Z</code>之后一样。但已经将该情况转变为<code>case 3</code>，再根据当前黑色<code>W</code>的两个孩子的颜色继续调整。
 <div align=center><img src="/image/post/C&amp;C++/STL01/03.png" alt="" /></div></p></li>
 
-<li><p><code>case 3</code>：<code>W</code>为黑色（<code>X</code>为黑色）。</p>
+<li><p><code>case 3</code>：<code>W</code>为黑色，<code>X</code>为黑色。</p>
 
 <ul>
 <li><p><code>case 3.1</code>：<code>W</code>的孩子节点<code>WL</code>、<code>WR</code>均为黑色。</p>
 
 <ul>
 <li><p><code>case 3.1.1</code>：<code>P</code>为黑色。<br />
-&ensp;&ensp;只需把<code>W</code>变为红色，这样所有经过<code>W</code>的路径（路径3、4、5、6）比之前少一个黑色节点，就与经过<code>X</code>的路径（路径1、2）上的黑色节点数一致了。但经过<code>P</code>的路径比不经过<code>P</code>的路径少一个黑色节点，再把<code>X</code>节点指向<code>P</code>，从<code>case 1</code>开始重新进行平衡处理。
+&ensp;&ensp;只需把<code>W</code>变为红色，这样所有经过<code>W</code>的路径（路径3~6）比之前少一个黑色节点，就与经过<code>X</code>的路径（路径1、2）上的黑色节点数一致了。但经过<code>P</code>的路径（1~6）比不经过<code>P</code>的路径少一个黑色节点，再把<code>X</code>节点指向<code>P</code>，<font color=#ff0000>从<code>case 2</code>开始重新进行平衡处理</font>。
 <div align=center><img src="/image/post/C&amp;C++/STL01/04.png" alt="" /></div></p></li>
 
-<li><p><code>case 3.1.2</code>：<code>P</code>为红色。<br />
-&ensp;&ensp;只需互换<code>W</code>和<code>P</code>的颜色即可，此时所有路径的黑色节点数并未受到影响，但将该情况转化为<code>case 2</code>。
+<li><p><code>case 3.1.2</code>：<code>P</code>为红色。<font color=#ff0000>（终止情况）</font><br />
+&ensp;&ensp;只需互换<code>W</code>和<code>P</code>的颜色即可。因为<code>P</code>变为黑色，经过<code>X</code>的路径（路径1、2）多了一个黑色节点，与删除<code>Z</code>节点前的数量一致。而其他路径（路径3~6）上的黑色节点数并未受到影响，因此红黑树恢复性质<code>4</code>，重平衡完毕。
 <div align=center><img src="/image/post/C&amp;C++/STL01/05.png" alt="" /></div></p></li>
 </ul></li>
 
@@ -412,7 +415,7 @@
 &ensp;&ensp;对<code>W</code>进行右旋操作，并互换<code>W</code>和<code>WL</code>的颜色，此时所有路径的黑色节点数并未受到影响，但将该情况转化为<code>case 3.2.2</code>。
 <div align=center><img src="/image/post/C&amp;C++/STL01/06.png" alt="" /></div></li>
 <li><code>case 3.2.2</code>：<code>WR</code>为红色，<code>WL</code>可红可黑。<font color=#ff0000>（终止情况）</font><br />
-&ensp;&ensp;对<code>P</code>进行左旋操作，并互换<code>P</code>和<code>W</code>的颜色，并将<code>WR</code>变为黑色。因为<code>P</code>变为黑色，经过<code>X</code>的路径（路径1、2）多了一个黑色节点，与删除<code>Z</code>节点前的数量一致。而其他路径（路径3、4、5、6）上的黑色节点数并未受到影响，因此红黑树恢复性质<code>4</code>，重平衡完毕。
+&ensp;&ensp;对<code>P</code>进行左旋操作，并互换<code>P</code>和<code>W</code>的颜色，并将<code>WR</code>变为黑色。因为<code>P</code>变为黑色，经过<code>X</code>的路径（路径1、2）多了一个黑色节点，与删除<code>Z</code>节点前的数量一致。而其他路径（路径3~6）上的黑色节点数并未受到影响，因此红黑树恢复性质<code>4</code>，重平衡完毕。
 <div align=center><img src="/image/post/C&amp;C++/STL01/07.png" alt="" /></div></li>
 </ul></li>
 </ul></li>
@@ -420,7 +423,7 @@
 
 <h2 id="总结">总结</h2>
 
-<p>&ensp;&ensp;学习红黑树时，发现许多数据结构相关书籍，包括《STL源码剖析》都没有详细分析红黑树的删除操作。网上博客的许多资料总觉得不够清晰，关于删除节点后重新平衡这一关键步骤讲得不够有条理。总之，<code>case 1</code>、<code>case 2</code>、<code>case 3</code>通过相互转化，不断调整红黑树，最终转化成<code>case 3.2.2</code>结束调整。具体代码可以参见我 github 中实现的 <a href="https://github.com/ysw1912/TinySTL">TinySTL</a> 中的<code>tree.h</code>头文件。</p>
+<p>&ensp;&ensp;学习红黑树时，发现许多数据结构相关书籍，包括《STL源码剖析》都没有详细分析红黑树的删除操作。网上博客的许多资料总觉得不够清晰，关于删除节点后重新平衡这一关键步骤讲得不够有条理。总之，<code>case 1</code>、<code>case 2</code>、<code>case 3</code>通过相互转化，不断调整红黑树，最终转化成终止情况<code>case 1</code>、<code>case 3.1.2</code>、<code>case 3.2.2</code>结束调整。具体代码可以参见我 github 中实现的 <a href="https://github.com/ysw1912/TinySTL">TinySTL</a> 中的<code>tree.h</code>头文件。</p>
 
     </div>
 
