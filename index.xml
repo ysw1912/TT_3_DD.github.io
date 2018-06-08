@@ -260,7 +260,20 @@
 &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;
+&lt;h3 id=&#34;条款5-了解-c-默默编写并调用哪些函数&#34;&gt;条款5：了解 C++ 默默编写并调用哪些函数&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果没有声明，编译器可以暗自为 class 创建 default 构造函数、copy 构造函数、copy 赋值操作符、析构函数。&lt;/li&gt;
+&lt;li&gt;编译器拒绝为 class 产生 copy 赋值操作符&lt;code&gt;operator=&lt;/code&gt;的三种情况：
+
+&lt;ol&gt;
+&lt;li&gt;class 内含 reference 成员，因为 C++ 不允许引用改指向不同对象。&lt;/li&gt;
+&lt;li&gt;class 内含 const 成员。&lt;/li&gt;
+&lt;li&gt;基类将 copy 赋值操作符声明为&lt;code&gt;private&lt;/code&gt;，因为继承类无权调用该成员函数。&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
       
     </item>
     
