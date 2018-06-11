@@ -150,15 +150,15 @@
 &lt;h3 id=&#34;条款2-尽量以-const-enum-inline-替换-define&#34;&gt;条款2：尽量以 const，enum，inline 替换 #define&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;对于单纯常量，尽量以const对象或enums替换#define。
+&lt;li&gt;对于单纯常量，尽量以&lt;code&gt;const&lt;/code&gt;对象或&lt;code&gt;enum&lt;/code&gt;替换&lt;code&gt;#define&lt;/code&gt;。
 
 &lt;ul&gt;
-&lt;li&gt;enum是一个右值，无法被取地址，可以充当 int 常量。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enum&lt;/code&gt;是一个右值，无法被取地址，可以充当&lt;code&gt;int&lt;/code&gt;常量。&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;对于类似函数的宏macros，最好改用inline函数替换#define。
+&lt;li&gt;对于类似函数的宏，最好改用&lt;code&gt;inline&lt;/code&gt;函数替换&lt;code&gt;#define&lt;/code&gt;。
 
 &lt;ul&gt;
-&lt;li&gt;#define函数宏的缺点：&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;#define&lt;/code&gt;函数宏的缺点：&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -261,7 +261,7 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;条款5-了解-c-默默编写并调用哪些函数&#34;&gt;条款5：了解 C++ 默默编写并调用哪些函数&lt;/h3&gt;
+&lt;h3 id=&#34;条款5-编译期自动为-class-生成哪些函数&#34;&gt;条款5：编译期自动为 class 生成哪些函数&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;如果没有声明，编译器可以暗自为 class 创建 default 构造函数、copy 构造函数、copy 赋值操作符、析构函数。&lt;/li&gt;
@@ -273,7 +273,46 @@
 &lt;li&gt;基类将 copy 赋值操作符声明为&lt;code&gt;private&lt;/code&gt;，因为继承类无权调用该成员函数。&lt;/li&gt;
 &lt;/ol&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+
+&lt;h3 id=&#34;条款6-阻止编译器自动生成拷贝构造和拷贝赋值&#34;&gt;条款6：阻止编译器自动生成拷贝构造和拷贝赋值&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;将 copy constructor 或者 copy assignment operator 声明为&lt;code&gt;private&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;为防止成员函数和友元函数调用&lt;code&gt;private&lt;/code&gt;函数，可以只声明而不去定义它们，这将会产生一个&lt;font color=#ff0000&gt;链接错误&lt;/font&gt;。&lt;/li&gt;
+&lt;li&gt;为将链接期错误移至编译期，可将 copy 动作设计在基类中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Uncopyable&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+ &lt;span class=&#34;k&#34;&gt;protected&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;~&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+ &lt;span class=&#34;k&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;private&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Uncopyable&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
       
     </item>
     

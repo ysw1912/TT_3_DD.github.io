@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，" />
+  <meta name="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="Effective C&#43;&#43; 笔记" />
-<meta property="og:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，" />
+<meta property="og:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/" />
 
@@ -66,7 +66,7 @@
 
 <meta property="article:published_time" content="2018-06-05T10:00:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-06-08T11:37:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-11T12:06:00&#43;08:00"/>
 
 
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="Effective C&#43;&#43; 笔记">
-<meta itemprop="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，">
+<meta itemprop="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无">
 
 
 <meta itemprop="datePublished" content="2018-06-05T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-05T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="601">
+<meta itemprop="wordCount" content="746">
 
 
 
 <meta itemprop="keywords" content="C/C&#43;&#43;," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Effective C&#43;&#43; 笔记"/>
-<meta name="twitter:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，"/>
+<meta name="twitter:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,7 +294,7 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 601 字 </span>
+        <span class="more-meta"> 约 746 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
@@ -312,7 +312,8 @@
 <ul>
 <li><a href="#条款2-尽量以-const-enum-inline-替换-define">条款2：尽量以 const，enum，inline 替换 #define</a></li>
 <li><a href="#条款3-尽可能使用-const">条款3：尽可能使用 const</a></li>
-<li><a href="#条款5-了解-c-默默编写并调用哪些函数">条款5：了解 C++ 默默编写并调用哪些函数</a></li>
+<li><a href="#条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</a></li>
+<li><a href="#条款6-阻止编译器自动生成拷贝构造和拷贝赋值">条款6：阻止编译器自动生成拷贝构造和拷贝赋值</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -327,15 +328,15 @@
 <h3 id="条款2-尽量以-const-enum-inline-替换-define">条款2：尽量以 const，enum，inline 替换 #define</h3>
 
 <ul>
-<li>对于单纯常量，尽量以const对象或enums替换#define。
+<li>对于单纯常量，尽量以<code>const</code>对象或<code>enum</code>替换<code>#define</code>。
 
 <ul>
-<li>enum是一个右值，无法被取地址，可以充当 int 常量。</li>
+<li><code>enum</code>是一个右值，无法被取地址，可以充当<code>int</code>常量。</li>
 </ul></li>
-<li>对于类似函数的宏macros，最好改用inline函数替换#define。
+<li>对于类似函数的宏，最好改用<code>inline</code>函数替换<code>#define</code>。
 
 <ul>
-<li>#define函数宏的缺点：</li>
+<li><code>#define</code>函数宏的缺点：</li>
 </ul></li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -438,7 +439,7 @@
 </code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="条款5-了解-c-默默编写并调用哪些函数">条款5：了解 C++ 默默编写并调用哪些函数</h3>
+<h3 id="条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</h3>
 
 <ul>
 <li>如果没有声明，编译器可以暗自为 class 创建 default 构造函数、copy 构造函数、copy 赋值操作符、析构函数。</li>
@@ -451,6 +452,45 @@
 </ol></li>
 </ul>
 
+<h3 id="条款6-阻止编译器自动生成拷贝构造和拷贝赋值">条款6：阻止编译器自动生成拷贝构造和拷贝赋值</h3>
+
+<ul>
+<li>将 copy constructor 或者 copy assignment operator 声明为<code>private</code>。</li>
+<li>为防止成员函数和友元函数调用<code>private</code>函数，可以只声明而不去定义它们，这将会产生一个<font color=#ff0000>链接错误</font>。</li>
+<li>为将链接期错误移至编译期，可将 copy 动作设计在基类中。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Uncopyable</span> <span class="p">{</span>
+ <span class="k">protected</span><span class="o">:</span>
+  <span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="o">~</span><span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span>
+ <span class="k">private</span><span class="o">:</span>
+  <span class="n">Uncopyable</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="n">Uncopyable</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Uncopyable</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     
@@ -462,7 +502,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-06-08</span>
+    <span class="item-content">2018-06-11</span>
   </p>
   
   <p class="copyright-item">
@@ -528,7 +568,7 @@
     id: 'cpp02.md',
     title: 'Effective C\x2b\x2b 笔记',
     link: decodeURI(location.href),
-    desc: '条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，',
+    desc: '条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {

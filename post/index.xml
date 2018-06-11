@@ -27,7 +27,7 @@
       <pubDate>Tue, 05 Jun 2018 10:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/</guid>
-      <description>条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enums替换#define。 enum是一个右值，</description>
+      <description>条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无</description>
     </item>
     
     <item>
