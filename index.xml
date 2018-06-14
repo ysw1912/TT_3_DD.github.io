@@ -29,9 +29,23 @@
     </item>
     
     <item>
+      <title>内存问题</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cpp03/</link>
+      <pubDate>Thu, 14 Jun 2018 19:45:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp03/</guid>
+      
+        <description>&lt;ol&gt;
+&lt;li&gt;【转】&lt;a href=&#34;https://www.ibm.com/developerworks/cn/linux/l-cn-valgrind/&#34;&gt;应用 Valgrind 发现 Linux 程序的内存问题&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>链表排序</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/stl02/</link>
-      <pubDate>Thu, 14 Jun 2018 10:00:00 +0800</pubDate>
+      <pubDate>Thu, 14 Jun 2018 18:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/stl02/</guid>
       
@@ -142,6 +156,12 @@
 
 &lt;p&gt;&amp;emsp;&amp;emsp;例如对链表&lt;code&gt;3 → 7 → 4 → 1 → 9 → 8 → 5 → 2 → 6&lt;/code&gt;进行排序。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/STL02/01.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;总结&#34;&gt;总结&lt;/h3&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;从图中可以形象地看出，这是利用了&lt;strong&gt;&lt;font color=#ff0000&gt;二进制的进位思想&lt;/font&gt;&lt;/strong&gt;，实现了&lt;strong&gt;&lt;font color=#ff0000&gt;非递归的归并排序&lt;/font&gt;&lt;/strong&gt;。《STL源码剖析》中并未分析该算法，说它是 quick sort，想必是写错了。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;时间复杂度&lt;code&gt;O(nlogn)&lt;/code&gt;，空间复杂度&lt;code&gt;O(1)&lt;/code&gt;（由于是链表，连续存储容器则需要额外空间）。&lt;/p&gt;
 </description>
       
     </item>
