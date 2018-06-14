@@ -58,15 +58,6 @@
     </item>
     
     <item>
-      <title>Hello World</title>
-      <link>https://ysw1912.github.io/post/jottings/hello-world/</link>
-      <pubDate>Mon, 04 Jun 2018 10:00:00 +0800</pubDate>
-      
-      <guid>https://ysw1912.github.io/post/jottings/hello-world/</guid>
-      <description>引言 &amp;emsp;&amp;emsp;欢度六一儿童节的同时，一名程序员渣渣开始使用github blog，发篇博文纪念一波。 &amp;emsp;&amp;emsp;曾使</description>
-    </item>
-    
-    <item>
       <title>Win10&#43;VS2017配置CUDA项目</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
@@ -82,6 +73,15 @@
       
       <guid>https://ysw1912.github.io/post/ide/vs01/</guid>
       <description>&amp;ensp;&amp;ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C++ Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://ysw1912.github.io/post/jottings/hello-world/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/jottings/hello-world/</guid>
+      <description>引言 欢度六一儿童节的同时，一名程序员渣渣开始使用GitHub Blog，发篇博文纪念一波。 曾使用博客园，移植工作进行ing。 希望自己越来越强壮</description>
     </item>
     
   </channel>

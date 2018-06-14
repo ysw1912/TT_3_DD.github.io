@@ -45,13 +45,6 @@
   </url>
   
   <url>
-    <loc>https://ysw1912.github.io/post/jottings/hello-world/</loc>
-    <lastmod>2018-06-04T10:00:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</loc>
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -61,6 +54,13 @@
   <url>
     <loc>https://ysw1912.github.io/post/ide/vs01/</loc>
     <lastmod>2018-06-04T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://ysw1912.github.io/post/jottings/hello-world/</loc>
+    <lastmod>2018-06-01T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -116,14 +116,14 @@
   
   <url>
     <loc>https://ysw1912.github.io/tags/jotting/</loc>
-    <lastmod>2018-06-04T10:00:00+08:00</lastmod>
+    <lastmod>2018-06-01T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/jotting/</loc>
-    <lastmod>2018-06-04T10:00:00+08:00</lastmod>
+    <lastmod>2018-06-01T00:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

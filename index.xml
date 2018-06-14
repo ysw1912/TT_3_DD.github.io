@@ -560,62 +560,6 @@
     </item>
     
     <item>
-      <title>Hello World</title>
-      <link>https://ysw1912.github.io/post/jottings/hello-world/</link>
-      <pubDate>Mon, 04 Jun 2018 10:00:00 +0800</pubDate>
-      
-      <guid>https://ysw1912.github.io/post/jottings/hello-world/</guid>
-      
-        <description>
-
-&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
-
-  &lt;iframe style=&#34;max-width: 100%&#34;
-      class=&#34;music163&#34;
-      frameborder=&#34;no&#34;
-      border=&#34;0&#34;
-      marginwidth=&#34;0&#34;
-      marginheight=&#34;0&#34;
-      width=&#34;330&#34;
-      height=&#34;86&#34;
-      src=&#34;//music.163.com/outchain/player?type=2&amp;id=4879054&amp;auto=0&amp;height=66&#34;&gt;
-    &lt;/iframe&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;欢度六一儿童节的同时，一名程序员渣渣开始使用github blog，发篇博文纪念一波。&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;曾使用&lt;a href=&#34;http://www.cnblogs.com/wayne793377164/&#34;&gt;博客园&lt;/a&gt;，移植工作进行ing。&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;希望自己越来越强壮！Good Good Study, Day Day Up！成为一名优秀的 C++ 工程师！&lt;/p&gt;
-
-&lt;h2 id=&#34;hello-world&#34;&gt;Hello World&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// &amp;#34;Hello World!&amp;#34; program
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Hello World!&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
-      
-    </item>
-    
-    <item>
       <title>Win10&#43;VS2017配置CUDA项目</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
@@ -856,6 +800,62 @@
 
 &lt;p&gt;这样可以实现类似于 PyCharm 默认的 Ctrl + / 注释，取消注释则是按两下 Ctrl + \。&lt;/p&gt;
 </description>
+      
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://ysw1912.github.io/post/jottings/hello-world/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/jottings/hello-world/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+
+  &lt;iframe style=&#34;max-width: 100%&#34;
+      class=&#34;music163&#34;
+      frameborder=&#34;no&#34;
+      border=&#34;0&#34;
+      marginwidth=&#34;0&#34;
+      marginheight=&#34;0&#34;
+      width=&#34;330&#34;
+      height=&#34;86&#34;
+      src=&#34;//music.163.com/outchain/player?type=2&amp;id=4879054&amp;auto=0&amp;height=66&#34;&gt;
+    &lt;/iframe&gt;
+
+&lt;p&gt;欢度六一儿童节的同时，一名程序员渣渣开始使用&lt;a href=&#34;https://ysw1912.github.io/&#34;&gt;GitHub Blog&lt;/a&gt;，发篇博文纪念一波。&lt;/p&gt;
+
+&lt;p&gt;曾使用&lt;a href=&#34;http://www.cnblogs.com/wayne793377164/&#34;&gt;博客园&lt;/a&gt;，移植工作进行ing。&lt;/p&gt;
+
+&lt;p&gt;希望自己越来越强壮！Good Good Study，Day Day Up！成为一名优秀的 C++ 工程师！&lt;/p&gt;
+
+&lt;h2 id=&#34;hello-world&#34;&gt;Hello World&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// &amp;#34;Hello World!&amp;#34; program
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Hello World!&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
       
     </item>
     
