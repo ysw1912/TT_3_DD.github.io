@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Thu, 14 Jun 2018 19:45:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jun 2018 10:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/tags/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>stringstream 类型转换</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cpp04/</link>
+      <pubDate>Fri, 15 Jun 2018 10:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp04/</guid>
+      <description>sprintf() &amp;emsp;&amp;emsp;使用stdio.h的sprintf()可以实现数据的类型转换。 1 2 3 4 5 6 char s[5]; memset(s, 0, sizeof(s)); double d = 3.14; sprintf(s, &amp;#34;%f&amp;#34;, d); cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; // print &amp;#34;3.140000&amp;#34;</description>
+    </item>
     
     <item>
       <title>内存问题</title>
