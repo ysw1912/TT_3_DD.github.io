@@ -66,7 +66,7 @@
 
 <meta property="article:published_time" content="2018-06-05T10:00:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-06-13T12:28:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-04T21:03:00&#43;08:00"/>
 
 
 
@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-06-05T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-05T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1041">
+<meta itemprop="wordCount" content="1511">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 1041 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta"> 约 1511 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
       </div>
     </header>
 
@@ -312,10 +312,20 @@
 <ul>
 <li><a href="#条款2-尽量以-const-enum-inline-替换-define">条款2：尽量以 const，enum，inline 替换 #define</a></li>
 <li><a href="#条款3-尽可能使用-const">条款3：尽可能使用 const</a></li>
+</ul></li>
+<li><a href="#构造-析构-赋值运算">构造/析构/赋值运算</a>
+<ul>
 <li><a href="#条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</a></li>
 <li><a href="#条款6-阻止编译器自动生成拷贝构造和拷贝赋值">条款6：阻止编译器自动生成拷贝构造和拷贝赋值</a></li>
 <li><a href="#条款7-为多态基类声明-virtual-析构函数">条款7：为多态基类声明 virtual 析构函数</a></li>
 <li><a href="#条款8-不鼓励在析构函数中抛异常">条款8：不鼓励在析构函数中抛异常</a></li>
+<li><a href="#条款9-绝不在构造和析构函数中调用虚函数">条款9：绝不在构造和析构函数中调用虚函数</a></li>
+</ul></li>
+<li><a href="#资源管理">资源管理</a></li>
+<li><a href="#设计与声明">设计与声明</a>
+<ul>
+<li><a href="#条款21-返回对象时不要试图返回-reference">条款21：返回对象时不要试图返回 reference</a></li>
+<li><a href="#条款24-若所有参数皆需类型转换-采用-non-member-函数">条款24：若所有参数皆需类型转换，采用 non-member 函数</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -441,6 +451,10 @@
 </code></pre></td></tr></table>
 </div>
 </div>
+<hr />
+
+<h2 id="构造-析构-赋值运算">构造/析构/赋值运算</h2>
+
 <h3 id="条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</h3>
 
 <ul>
@@ -506,9 +520,75 @@
 <ul>
 <li>若析构函数可能抛出异常，应当<code>try</code>+<code>catch</code>捕捉异常，但吞下它（并不<code>throw</code>）或强制结束（调用<code>std::abort()</code>）。</li>
 <li>若某操作抛出的异常必须被处理，则 class 应当提供普通函数（而非析构函数）处理。</li>
-<li></li>
 </ul>
 
+<h3 id="条款9-绝不在构造和析构函数中调用虚函数">条款9：绝不在构造和析构函数中调用虚函数</h3>
+
+<ul>
+<li>构造 derived class 对象时，base class 对象会率先构造，而在基类对象构造期间，virtual 函数不具备多态性。使派生类对象构造时，调用虚函数的基类版本。</li>
+<li>若该虚函数是 pure virtual，代码甚至无法链接。</li>
+</ul>
+
+<hr />
+
+<h2 id="资源管理">资源管理</h2>
+
+<p>智能指针与 RAII 不在此记录。</p>
+
+<p>&emsp;</p>
+
+<hr />
+
+<h2 id="设计与声明">设计与声明</h2>
+
+<h3 id="条款21-返回对象时不要试图返回-reference">条款21：返回对象时不要试图返回 reference</h3>
+
+<h3 id="条款24-若所有参数皆需类型转换-采用-non-member-函数">条款24：若所有参数皆需类型转换，采用 non-member 函数</h3>
+
+<p>&emsp;&emsp;例如对于有理数类 Rational，一个计算乘积的函数<code>operator*()</code>，合理的声明应为<code>const Rational operator*(const Rational&amp;, const Rational&amp;)</code>。</p>
+
+<ul>
+<li>条款21：直接返回对象的拷贝，其构造成本和析构成本是值得的。
+
+<ul>
+<li>若返回 local stack 对象的指针或引用，该对象在函数退出时就已被销毁了。</li>
+<li>若返回 local static 对象，在需要多个这样的返回对象时，就有问题。</li>
+<li>若返回 heap-allocated 对象的指针或引用，很多时候无法进行 delete，导致内存泄漏，如下面的情况。</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Rational</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">;</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>	<span class="c1">// operator*(operator*(x, y), z)
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>条款24：
+
+<ul>
+<li>若声明为 member 函数<code>const Rational operator*(const Rational&amp;) const</code>，会出现如下错误。</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Rational</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">;</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>    <span class="c1">// 正确
+</span><span class="c1"></span><span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>    <span class="c1">// 错误
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     
@@ -520,7 +600,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-06-13</span>
+    <span class="item-content">2018-07-04</span>
   </p>
   
   <p class="copyright-item">
