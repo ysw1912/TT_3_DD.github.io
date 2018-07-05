@@ -66,7 +66,7 @@
 
 <meta property="article:published_time" content="2018-06-05T10:00:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-07-04T21:03:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-05T12:50:00&#43;08:00"/>
 
 
 
@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-06-05T10:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-06-05T10:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1511">
+<meta itemprop="wordCount" content="1717">
 
 
 
@@ -294,7 +294,7 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 1511 字 </span>
+        <span class="more-meta"> 约 1717 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
       </div>
     </header>
@@ -326,7 +326,9 @@
 <ul>
 <li><a href="#条款21-返回对象时不要试图返回-reference">条款21：返回对象时不要试图返回 reference</a></li>
 <li><a href="#条款24-若所有参数皆需类型转换-采用-non-member-函数">条款24：若所有参数皆需类型转换，采用 non-member 函数</a></li>
+<li><a href="#条款25-swap-函数">条款25：swap 函数</a></li>
 </ul></li>
+<li><a href="#实现">实现</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -589,6 +591,42 @@
 </span><span class="c1"></span></code></pre></td></tr></table>
 </div>
 </div>
+<h3 id="条款25-swap-函数">条款25：swap 函数</h3>
+
+<ul>
+<li>当<code>std::swap</code>对自定义 class 效率不高时，需自己写一个 swap 的成员函数，并确保其不抛出异常。</li>
+<li>如果有了 member swap，也应当在该 class 所属的 namespace 里提供一个 non-member swap 来调用前者。</li>
+<li>对于 class（而非 class template），需全特化一个 std::swap 版本。</li>
+<li>调用 swap 时，你的 T 类型对象调用 T 专属版本，若不存在则调用 std 版本。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_something</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">obj1</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>    <span class="c1">// 令std::swap在此函数内可用
+</span><span class="c1"></span>  <span class="p">...</span>
+  <span class="n">swap</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">);</span>    <span class="c1">// 调用最佳swap版本
+</span><span class="c1"></span>  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h2 id="实现">实现</h2>
+
     </div>
 
     
@@ -600,7 +638,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-07-04</span>
+    <span class="item-content">2018-07-05</span>
   </p>
   
   <p class="copyright-item">
