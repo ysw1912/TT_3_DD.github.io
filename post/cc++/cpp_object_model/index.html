@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C&#43;&#43; 对象模型 - Hide on bush</title>
+  <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="ysw1912" />
+  <meta name="description" content="&amp;emsp;&amp;emsp;看《深度探索 C&#43;&#43; 对象模型》这本书后的一些总结，C&#43;&#43; 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器" />
+
+  <meta name="keywords" content="Hugo, Blog, ysw1912" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="C&#43;&#43; 对象模型" />
+<meta property="og:description" content="&emsp;&emsp;看《深度探索 C&#43;&#43; 对象模型》这本书后的一些总结，C&#43;&#43; 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/" />
+
+
+
+<meta property="article:published_time" content="2018-07-12T16:00:00&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-07-12T16:00:00&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="C&#43;&#43; 对象模型">
+<meta itemprop="description" content="&emsp;&emsp;看《深度探索 C&#43;&#43; 对象模型》这本书后的一些总结，C&#43;&#43; 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器">
+
+
+<meta itemprop="datePublished" content="2018-07-12T16:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-07-12T16:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="1438">
+
+
+
+<meta itemprop="keywords" content="C/C&#43;&#43;," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C&#43;&#43; 对象模型"/>
+<meta name="twitter:description" content="&emsp;&emsp;看《深度探索 C&#43;&#43; 对象模型》这本书后的一些总结，C&#43;&#43; 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Hide on bush</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/">
+          首页
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/post/">
+          归档
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/tags/">
+          标签
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/categories/">
+          分类
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/about/">
+          关于
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Hide on bush
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/">首页</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">C&#43;&#43; 对象模型</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-12 </span>
+        <div class="post-category">
+            
+              <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
+            
+          </div>
+        <span class="more-meta"> 约 1438 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#无多态情况">无多态情况</a></li>
+<li><a href="#多态情况">多态情况</a>
+<ul>
+<li><a href="#virtual-class">virtual class</a></li>
+<li><a href="#单一继承">单一继承</a></li>
+<li><a href="#多重继承">多重继承</a></li>
+<li><a href="#多继承">多继承</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<p>&emsp;&emsp;看《深度探索 C++ 对象模型》这本书后的一些总结，C++ 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器进行测试。</p>
+
+<h2 id="无多态情况">无多态情况</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">a0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">A</span><span class="o">::</span><span class="n">a0</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">b1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">a0</span><span class="p">);</span>	<span class="c1">// print &#34;0x601058&#34;
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">a1</span><span class="p">);</span>	<span class="c1">// print &#34;(nil)&#34;
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">a2</span><span class="p">);</span>	<span class="c1">// print &#34;0x4&#34;
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">B</span><span class="o">::</span><span class="n">b1</span><span class="p">);</span>	<span class="c1">// print &#34;0x8&#34;
+</span><span class="c1"></span>
+    <span class="n">B</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span> <span class="o">+</span> <span class="mi">0</span><span class="p">));</span>	<span class="c1">// print &#34;1&#34;
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span> <span class="o">+</span> <span class="mi">4</span><span class="p">));</span>	<span class="c1">// print &#34;2&#34;
+</span><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span> <span class="o">+</span> <span class="mi">8</span><span class="p">));</span>	<span class="c1">// print &#34;3&#34;
+</span><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;由 19 行知道，static 数据成员并不内含于对象之中，而是被视为一个全局变量，之后不作考虑。</p>
+
+<p>&emsp;&emsp;而第 20 — 22 行会有编译警告<code>warning: format '%p' expects argument of type 'void*', but argument 2 has type 'int A::*'</code>，但并不影响结果。这里使用的是“指向数据成员的指针”，类型为<code>int A::*</code>，且无法转换为<code>void*</code>，获取到的是数据成员在类对象中的偏移。《深度探索 C++ 对象模型》中说这个偏移要 +1，但显然如今的编译器不需要。</p>
+
+<p>PS：指向成员函数的指针的声明为<code>函数返回类型 (类名::*指针名)(参数列表);</code>，这里不作介绍。</p>
+
+<p>&emsp;&emsp;因此一个无多态的继承类的内存布局是父类 A 的成员，再加上子类 B 的成员。</p>
+
+<p>PS：这里只用<code>int</code>测试，不考虑<a href="https://www.baidu.com">内存对齐</a>。</p>
+
+<h2 id="多态情况">多态情况</h2>
+
+<h3 id="virtual-class">virtual class</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">a1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a2</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;A::A1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A2</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;A::A2()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">a1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">A</span><span class="o">::</span><span class="n">a2</span><span class="p">);</span>
+
+    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">PF</span><span class="p">)();</span>   <span class="c1">// 函数指针
+</span><span class="c1"></span>    <span class="n">PF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="p">(</span><span class="n">PF</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">pf</span><span class="p">();</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;输出结果是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">0x8
+0xc    // 12
+A::A1()
+A::A2()</pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;一个虚类对象的内存布局如图所示，首位置需要增加一个“指向虚函数表的指针”。《深度探索 C++ 对象模型》中说虚表指针可放在对象任何位置，实际中不是在头就是在尾，如今主流的编译器似乎都放在对象开头位置。
+<div align=center><img src="/image/post/C&amp;C++/cpp_object_model/01.png" alt="" /></div></p>
+
+<p>&emsp;&emsp;使用命令<code>gcc -fdump-class-hierarchy classA.cpp</code>，可在当前目录下生成一个 classA.cpp.002t.class 文件，内容如下，可以查看该类的虚表结构。由 vptr=((&amp; A::_ZTV1A) + 16u) 可以看出，我们所说的虚表指针指向的是虚表最后的 virtual function pointers 部分，至于之前的部分，之后再详细说明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Vtable for A
+A::_ZTV1A: 4u entries
+0     (int (*)(...))0
+8     (int (*)(...))(&amp; _ZTI1A)
+16    (int (*)(...))A::A1
+24    (int (*)(...))A::A2
+
+Class A
+   size=16 align=8
+   base size=16 base align=8
+A (0x0x7ff96382f5a0) 0
+    vptr=((&amp; A::_ZTV1A) + 16u)</pre></td></tr></table>
+</div>
+</div>
+<h3 id="单一继承">单一继承</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">B</span><span class="o">:</span> <span class="k">public</span> <span class="n">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">b1</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">B1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B::B1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">B2</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B::B2()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B::A1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">B</span><span class="o">::</span><span class="n">a1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">B</span><span class="o">::</span><span class="n">a2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">B</span><span class="o">::</span><span class="n">b1</span><span class="p">);</span>
+
+    <span class="n">B</span> <span class="n">b</span><span class="p">;</span>
+    <span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">PF</span><span class="p">)();</span>
+    <span class="n">PF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="p">(</span><span class="n">PF</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">b</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">pf</span><span class="p">();</span>
+    <span class="p">};</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;输出结果是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">0x8
+0xc     // 12
+0x10    // 16
+B::A1()
+A::A2()
+B::B1()
+B::B2()</pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;B 类的虚表结构如下，比较简单，不另外附图说明。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Vtable for B
+B::_ZTV1B: 6u entries
+0     (int (*)(...))0
+8     (int (*)(...))(&amp; _ZTI1B)
+16    (int (*)(...))B::A1
+24    (int (*)(...))A::A2
+32    (int (*)(...))B::B1
+40    (int (*)(...))B::B2
+
+Class B
+   size=24 align=8
+   base size=20 base align=8
+B (0x0x7feceec1b1a0) 0
+    vptr=((&amp; B::_ZTV1B) + 16u)
+  A (0x0x7feceed84600) 0
+      primary-for B (0x0x7feceec1b1a0)</pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;虚表中将父类 A 的 A::A1 重写（override）成了 B::A1，也存放着继承自 A 的虚函数 A::A2，最后还有新增的 B::B1 和 B::B2。</p>
+
+<p>&emsp;&emsp;当一个<code>A* pa</code>调用<code>pa-&gt;A1()</code>时，编译器并不知道 pa 具体指向了哪个对象类型，可能指向 A，也可能指向 B。但能够确定的是，A::A1 和 B::A1 在各自虚表中的偏移位置（这里都是 0）是相等的。在运行时，pa 能够确定指向的类型到底是 A 还是 B，并能找到相应的 vptr，再通过这个偏移位置，最终能调用相应的函数，这就是所谓的“运行时多态”。</p>
+
+<h3 id="多重继承">多重继承</h3>
+
+<p>&emsp;&emsp;多重继承与单继承很相似，子类在父类的基础上添加成员和更新虚表，孙子类在子类基础上添加成员和更新虚表，不多解释。</p>
+
+<h3 id="多继承">多继承</h3>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ysw1912</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-07-12</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/cc&#43;&#43;/cpp04/">
+            <span class="next-text nav-default">stringstream 类型转换</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'cpp_object_model.md',
+    title: 'C\x2b\x2b 对象模型',
+    link: decodeURI(location.href),
+    desc: '\x26emsp;\x26emsp;看《深度探索 C\x2b\x2b 对象模型》这本书后的一些总结，C\x2b\x2b 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器',
+    owner: 'ysw1912',
+    repo: 'blog_comments',
+    oauth: {
+      client_id: '85cc0c5a3f49196bdeb0',
+      client_secret: 'd35ce92810461ae478b60b96a11ed65df8f978bd'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:793377164@qq.com" rel="me noopener" class="iconfont icon-email"
+        title="email" target="_blank">
+      </a>
+      <a href="https://twitter.com/YangStewie/" rel="me noopener" class="iconfont icon-twitter"
+        title="twitter" target="_blank">
+      </a>
+      <a href="https://github.com/ysw1912/" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://ysw1912.github.io/index.xml" rel="noopener" type="application/rss+xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">ysw1912</span></span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+</body>
+</html>

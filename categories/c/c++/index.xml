@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Fri, 15 Jun 2018 10:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Jul 2018 16:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/categories/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C&#43;&#43; 对象模型</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/</link>
+      <pubDate>Thu, 12 Jul 2018 16:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/</guid>
+      <description>&amp;emsp;&amp;emsp;看《深度探索 C++ 对象模型》这本书后的一些总结，C++ 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器</description>
+    </item>
     
     <item>
       <title>stringstream 类型转换</title>
@@ -32,10 +41,10 @@
     
     <item>
       <title>Effective C&#43;&#43; 笔记</title>
-      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/</link>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/effective_cpp_note/</link>
       <pubDate>Tue, 05 Jun 2018 10:00:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp02/</guid>
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/effective_cpp_note/</guid>
       <description>条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无</description>
     </item>
     

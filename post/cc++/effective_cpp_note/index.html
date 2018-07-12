@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Effective C&#43;&#43; 笔记 - Hide on bush</title>
+  <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="ysw1912" />
+  <meta name="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无" />
+
+  <meta name="keywords" content="Hugo, Blog, ysw1912" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/effective_cpp_note/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Effective C&#43;&#43; 笔记" />
+<meta property="og:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/effective_cpp_note/" />
+
+
+
+<meta property="article:published_time" content="2018-06-05T10:00:00&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-07-05T12:50:00&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Effective C&#43;&#43; 笔记">
+<meta itemprop="description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无">
+
+
+<meta itemprop="datePublished" content="2018-06-05T10:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-05T10:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="1717">
+
+
+
+<meta itemprop="keywords" content="C/C&#43;&#43;," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Effective C&#43;&#43; 笔记"/>
+<meta name="twitter:description" content="条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Hide on bush</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/">
+          首页
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/post/">
+          归档
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/tags/">
+          标签
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/categories/">
+          分类
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/about/">
+          关于
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Hide on bush
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/">首页</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">Effective C&#43;&#43; 笔记</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-05 </span>
+        <div class="post-category">
+            
+              <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
+            
+          </div>
+        <span class="more-meta"> 约 1717 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#条款2-尽量以-const-enum-inline-替换-define">条款2：尽量以 const，enum，inline 替换 #define</a></li>
+<li><a href="#条款3-尽可能使用-const">条款3：尽可能使用 const</a></li>
+</ul></li>
+<li><a href="#构造-析构-赋值运算">构造/析构/赋值运算</a>
+<ul>
+<li><a href="#条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</a></li>
+<li><a href="#条款6-阻止编译器自动生成拷贝构造和拷贝赋值">条款6：阻止编译器自动生成拷贝构造和拷贝赋值</a></li>
+<li><a href="#条款7-为多态基类声明-virtual-析构函数">条款7：为多态基类声明 virtual 析构函数</a></li>
+<li><a href="#条款8-不鼓励在析构函数中抛异常">条款8：不鼓励在析构函数中抛异常</a></li>
+<li><a href="#条款9-绝不在构造和析构函数中调用虚函数">条款9：绝不在构造和析构函数中调用虚函数</a></li>
+</ul></li>
+<li><a href="#资源管理">资源管理</a></li>
+<li><a href="#设计与声明">设计与声明</a>
+<ul>
+<li><a href="#条款21-返回对象时不要试图返回-reference">条款21：返回对象时不要试图返回 reference</a></li>
+<li><a href="#条款24-若所有参数皆需类型转换-采用-non-member-函数">条款24：若所有参数皆需类型转换，采用 non-member 函数</a></li>
+<li><a href="#条款25-swap-函数">条款25：swap 函数</a></li>
+</ul></li>
+<li><a href="#实现">实现</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h3 id="条款2-尽量以-const-enum-inline-替换-define">条款2：尽量以 const，enum，inline 替换 #define</h3>
+
+<ul>
+<li>对于单纯常量，尽量以<code>const</code>对象或<code>enum</code>替换<code>#define</code>。
+
+<ul>
+<li><code>enum</code>是一个右值，无法被取地址，可以充当<code>int</code>常量。</li>
+</ul></li>
+<li>对于类似函数的宏，最好改用<code>inline</code>函数替换<code>#define</code>。
+
+<ul>
+<li><code>#define</code>函数宏的缺点：</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))
+</span><span class="cp"></span><span class="p">...</span>
+<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>  <span class="c1">// 7，a累加2次
+</span><span class="c1"></span><span class="n">MAX</span><span class="p">(</span><span class="o">++</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>  <span class="c1">// 8，a累加1次
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="条款3-尽可能使用-const">条款3：尽可能使用 const</h3>
+
+<ul>
+<li>令函数返回常量值，可预防因客户错误而造成的意外。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// 有理数类
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">Rational</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+<span class="k">const</span> <span class="n">Rational</span> <span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span> <span class="n">Rational</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Rational</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">);</span>
+
+<span class="n">Rational</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">=</span> <span class="n">c</span><span class="p">)</span> <span class="p">...</span>	<span class="c1">// 其实想做比较动作，结果进行赋值
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>当 const 和 non-const 成员函数有等价的实现时，令 non-const 版本调用 const 版本可避免代码重复。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">TextBlock</span> <span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+  <span class="p">...</span>
+  <span class="k">const</span> <span class="kt">char</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span>	<span class="c1">// const成员函数
+</span><span class="c1"></span>    <span class="p">...</span>		<span class="c1">// 边界检验
+</span><span class="c1"></span>    <span class="p">...</span>		<span class="c1">// log数据访问
+</span><span class="c1"></span>    <span class="p">...</span>		<span class="c1">// 检验数据完整性
+</span><span class="c1"></span>    <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="n">pos</span><span class="p">];</span>
+  <span class="p">}</span>
+
+  <span class="kt">char</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="n">size_t</span> <span class="n">pos</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&amp;&gt;</span><span class="p">(</span>			<span class="c1">// 将op[]返回值的const移除
+</span><span class="c1"></span>      <span class="k">static_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">TextBlock</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">)</span>	<span class="c1">// 为*this加上const
+</span><span class="c1"></span>        <span class="p">[</span><span class="n">pos</span><span class="p">]</span>					<span class="c1">// 调用const operator[]
+</span><span class="c1"></span>    <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="p">...</span>
+ <span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">text</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h2 id="构造-析构-赋值运算">构造/析构/赋值运算</h2>
+
+<h3 id="条款5-编译期自动为-class-生成哪些函数">条款5：编译期自动为 class 生成哪些函数</h3>
+
+<ul>
+<li>如果没有声明，编译器可以暗自为 class 创建 default 构造函数、copy 构造函数、copy 赋值操作符、析构函数。</li>
+<li>编译器拒绝为 class 产生 copy 赋值操作符<code>operator=</code>的三种情况：
+
+<ol>
+<li>class 内含 reference 成员，因为 C++ 不允许引用改指向不同对象。</li>
+<li>class 内含 const 成员。</li>
+<li>基类将 copy 赋值操作符声明为<code>private</code>，因为继承类无权调用该成员函数。</li>
+</ol></li>
+</ul>
+
+<h3 id="条款6-阻止编译器自动生成拷贝构造和拷贝赋值">条款6：阻止编译器自动生成拷贝构造和拷贝赋值</h3>
+
+<ul>
+<li>将 copy constructor 或者 copy assignment operator 声明为<code>private</code>。</li>
+<li>为防止成员函数和友元函数调用<code>private</code>函数，可以只声明而不去定义它们，这将会产生一个<font color=#ff0000>链接错误</font>。</li>
+<li>为将链接期错误移至编译期，可将 copy 动作设计在基类中。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Uncopyable</span> <span class="p">{</span>
+ <span class="k">protected</span><span class="o">:</span>
+  <span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span>
+  <span class="o">~</span><span class="n">Uncopyable</span><span class="p">()</span> <span class="p">{}</span>
+ <span class="k">private</span><span class="o">:</span>
+  <span class="n">Uncopyable</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span>
+  <span class="n">Uncopyable</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">Uncopyable</span><span class="o">&amp;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">A</span> <span class="o">:</span> <span class="k">private</span> <span class="n">Uncopyable</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="条款7-为多态基类声明-virtual-析构函数">条款7：为多态基类声明 virtual 析构函数</h3>
+
+<ul>
+<li>当派生类对象通过基类指针被<code>delete</code>，而基类的析构函数并未声明为<code>virtual</code>，通常导致该对象的<font color=#ff0000>派生成分没被销毁</font>。</li>
+<li>“任何带有<code>virtual</code>函数的类”以及“具有多态性质的基类”几乎<font color=#ff0000>必须</font>有<code>virtual</code>析构函数。</li>
+<li>若类不含<code>virtual</code>函数，通常表示它并不适合做一个基类。当类不企图被当做基类，也不适合令其析构函数为<code>virtual</code>。</li>
+</ul>
+
+<h3 id="条款8-不鼓励在析构函数中抛异常">条款8：不鼓励在析构函数中抛异常</h3>
+
+<ul>
+<li>若析构函数可能抛出异常，应当<code>try</code>+<code>catch</code>捕捉异常，但吞下它（并不<code>throw</code>）或强制结束（调用<code>std::abort()</code>）。</li>
+<li>若某操作抛出的异常必须被处理，则 class 应当提供普通函数（而非析构函数）处理。</li>
+</ul>
+
+<h3 id="条款9-绝不在构造和析构函数中调用虚函数">条款9：绝不在构造和析构函数中调用虚函数</h3>
+
+<ul>
+<li>构造 derived class 对象时，base class 对象会率先构造，而在基类对象构造期间，virtual 函数不具备多态性。使派生类对象构造时，调用虚函数的基类版本。</li>
+<li>若该虚函数是 pure virtual，代码甚至无法链接。</li>
+</ul>
+
+<hr />
+
+<h2 id="资源管理">资源管理</h2>
+
+<p>智能指针与 RAII 不在此记录。</p>
+
+<p>&emsp;</p>
+
+<hr />
+
+<h2 id="设计与声明">设计与声明</h2>
+
+<h3 id="条款21-返回对象时不要试图返回-reference">条款21：返回对象时不要试图返回 reference</h3>
+
+<h3 id="条款24-若所有参数皆需类型转换-采用-non-member-函数">条款24：若所有参数皆需类型转换，采用 non-member 函数</h3>
+
+<p>&emsp;&emsp;例如对于有理数类 Rational，一个计算乘积的函数<code>operator*()</code>，合理的声明应为<code>const Rational operator*(const Rational&amp;, const Rational&amp;)</code>。</p>
+
+<ul>
+<li>条款21：直接返回对象的拷贝，其构造成本和析构成本是值得的。
+
+<ul>
+<li>若返回 local stack 对象的指针或引用，该对象在函数退出时就已被销毁了。</li>
+<li>若返回 local static 对象，在需要多个这样的返回对象时，就有问题。</li>
+<li>若返回 heap-allocated 对象的指针或引用，很多时候无法进行 delete，导致内存泄漏，如下面的情况。</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Rational</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">;</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">*</span> <span class="n">z</span><span class="p">;</span>	<span class="c1">// operator*(operator*(x, y), z)
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>条款24：
+
+<ul>
+<li>若声明为 member 函数<code>const Rational operator*(const Rational&amp;) const</code>，会出现如下错误。</li>
+</ul></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="n">Rational</span> <span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">;</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>    <span class="c1">// 正确
+</span><span class="c1"></span><span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>    <span class="c1">// 错误
+</span><span class="c1"></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="条款25-swap-函数">条款25：swap 函数</h3>
+
+<ul>
+<li>当<code>std::swap</code>对自定义 class 效率不高时，需自己写一个 swap 的成员函数，并确保其不抛出异常。</li>
+<li>如果有了 member swap，也应当在该 class 所属的 namespace 里提供一个 non-member swap 来调用前者。</li>
+<li>对于 class（而非 class template），需全特化一个 std::swap 版本。</li>
+<li>调用 swap 时，你的 T 类型对象调用 T 专属版本，若不存在则调用 std 版本。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_something</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;</span> <span class="n">obj1</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">obj2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">;</span>    <span class="c1">// 令std::swap在此函数内可用
+</span><span class="c1"></span>  <span class="p">...</span>
+  <span class="n">swap</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">);</span>    <span class="c1">// 调用最佳swap版本
+</span><span class="c1"></span>  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<hr />
+
+<h2 id="实现">实现</h2>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ysw1912</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-07-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/cc&#43;&#43;/stl01/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">红黑树删除节点</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/cc&#43;&#43;/cpp01/">
+            <span class="next-text nav-default">const和static</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'effective_cpp_note.md',
+    title: 'Effective C\x2b\x2b 笔记',
+    link: decodeURI(location.href),
+    desc: '条款2：尽量以 const，enum，inline 替换 #define 对于单纯常量，尽量以const对象或enum替换#define。 enum是一个右值，无',
+    owner: 'ysw1912',
+    repo: 'blog_comments',
+    oauth: {
+      client_id: '85cc0c5a3f49196bdeb0',
+      client_secret: 'd35ce92810461ae478b60b96a11ed65df8f978bd'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:793377164@qq.com" rel="me noopener" class="iconfont icon-email"
+        title="email" target="_blank">
+      </a>
+      <a href="https://twitter.com/YangStewie/" rel="me noopener" class="iconfont icon-twitter"
+        title="twitter" target="_blank">
+      </a>
+      <a href="https://github.com/ysw1912/" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://ysw1912.github.io/index.xml" rel="noopener" type="application/rss+xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">ysw1912</span></span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+</body>
+</html>
