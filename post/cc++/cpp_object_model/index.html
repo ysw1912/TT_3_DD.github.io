@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-07-12T16:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-12T16:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="2833">
+<meta itemprop="wordCount" content="2909">
 
 
 
@@ -294,7 +294,7 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 2833 字 </span>
+        <span class="more-meta"> 约 2909 字 </span>
         <span class="more-meta"> 预计阅读 6 分钟 </span>
       </div>
     </header>
@@ -316,7 +316,10 @@
 <li><a href="#多重继承">多重继承</a></li>
 <li><a href="#多继承">多继承</a></li>
 </ul></li>
-<li><a href="#虚继承">虚继承</a></li>
+<li><a href="#虚继承">虚继承</a>
+<ul>
+<li><a href="#菱形继承">菱形继承</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -953,9 +956,9 @@ C (0x0x7fcec84ac2a0) 0
 </span><span class="lnt">9
 </span></pre></td>
 <td class="lntd">
-<pre class="chroma">0x8
-0xc     // 12
-0x8     // 
+<pre class="chroma">0x8     // 8  = 24 - 16
+0xc     // 12 = 28 - 16
+0x8
 B&#39;s vptr:
 B::B1()
 B::B2()
@@ -1025,6 +1028,10 @@ B (0x0x7fc1865ab1a0) 0
 </div>
 <p>&emsp;&emsp;B 的对象模型如下。当存在虚基类时，先是子类的成员，最后才是虚基类的成员，而不像普通继承是将基类放在对象起始地址。因此需要用 virtual base offset 找到虚基类。至于为何将虚基类放在最后？是因为虚继承主要用于坑爹的“菱形继承”，让虚基类在派生类中只占用一份内存空间。
 <div align=center><img src="/image/post/C&amp;C++/cpp_object_model/05.png" alt="" /></div></p>
+
+<h3 id="菱形继承">菱形继承</h3>
+
+<p>&emsp;&emsp;经研究，菱形继承的函数调用过于复杂，某些函数重写之后还会报错，实在是不理解。能力有限，实在写不出来了。</p>
 
     </div>
 

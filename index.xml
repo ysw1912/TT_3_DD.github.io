@@ -663,9 +663,9 @@ C (0x0x7fcec84ac2a0) 0
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;0x8
-0xc     // 12
-0x8     // 
+&lt;pre class=&#34;chroma&#34;&gt;0x8     // 8  = 24 - 16
+0xc     // 12 = 28 - 16
+0x8
 B&amp;#39;s vptr:
 B::B1()
 B::B2()
@@ -735,6 +735,10 @@ B (0x0x7fc1865ab1a0) 0
 &lt;/div&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;B 的对象模型如下。当存在虚基类时，先是子类的成员，最后才是虚基类的成员，而不像普通继承是将基类放在对象起始地址。因此需要用 virtual base offset 找到虚基类。至于为何将虚基类放在最后？是因为虚继承主要用于坑爹的“菱形继承”，让虚基类在派生类中只占用一份内存空间。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/C&amp;amp;C++/cpp_object_model/05.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;菱形继承&#34;&gt;菱形继承&lt;/h3&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;经研究，菱形继承的函数调用过于复杂，某些函数重写之后还会报错，实在是不理解。能力有限，实在写不出来了。&lt;/p&gt;
 </description>
       
     </item>
