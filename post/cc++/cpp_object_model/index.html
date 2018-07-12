@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-07-12T16:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-12T16:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1438">
+<meta itemprop="wordCount" content="2293">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 1438 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta"> 约 2293 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
       </div>
     </header>
 
@@ -477,7 +477,7 @@ A::A1()
 A::A2()</pre></td></tr></table>
 </div>
 </div>
-<p>&emsp;&emsp;一个虚类对象的内存布局如图所示，首位置需要增加一个“指向虚函数表的指针”。《深度探索 C++ 对象模型》中说虚表指针可放在对象任何位置，实际中不是在头就是在尾，如今主流的编译器似乎都放在对象开头位置。
+<p>&emsp;&emsp;一个虚类对象 A 的内存布局如图所示，首位置需要增加一个“指向虚函数表的指针”。《深度探索 C++ 对象模型》中说虚表指针可放在对象任何位置，实际中不是在头就是在尾，如今主流的编译器似乎都放在对象开头位置。
 <div align=center><img src="/image/post/C&amp;C++/cpp_object_model/01.png" alt="" /></div></p>
 
 <p>&emsp;&emsp;使用命令<code>gcc -fdump-class-hierarchy classA.cpp</code>，可在当前目录下生成一个 classA.cpp.002t.class 文件，内容如下，可以查看该类的虚表结构。由 vptr=((&amp; A::_ZTV1A) + 16u) 可以看出，我们所说的虚表指针指向的是虚表最后的 virtual function pointers 部分，至于之前的部分，之后再详细说明。</p>
@@ -589,7 +589,7 @@ B::B1()
 B::B2()</pre></td></tr></table>
 </div>
 </div>
-<p>&emsp;&emsp;B 类的虚表结构如下，比较简单，不另外附图说明。</p>
+<p>&emsp;&emsp;B 类的虚表结构如下</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><span class="lnt"> 1
@@ -628,7 +628,8 @@ B (0x0x7feceec1b1a0) 0
       primary-for B (0x0x7feceec1b1a0)</pre></td></tr></table>
 </div>
 </div>
-<p>&emsp;&emsp;虚表中将父类 A 的 A::A1 重写（override）成了 B::A1，也存放着继承自 A 的虚函数 A::A2，最后还有新增的 B::B1 和 B::B2。</p>
+<p>&emsp;&emsp;虚表中将父类 A 的 A::A1 重写（override）成了 B::A1，也存放着继承自 A 的虚函数 A::A2，最后还有新增的 B::B1 和 B::B2，内存布局如图所示。
+<div align=center><img src="/image/post/C&amp;C++/cpp_object_model/02.png" alt="" /></div></p>
 
 <p>&emsp;&emsp;当一个<code>A* pa</code>调用<code>pa-&gt;A1()</code>时，编译器并不知道 pa 具体指向了哪个对象类型，可能指向 A，也可能指向 B。但能够确定的是，A::A1 和 B::A1 在各自虚表中的偏移位置（这里都是 0）是相等的。在运行时，pa 能够确定指向的类型到底是 A 还是 B，并能找到相应的 vptr，再通过这个偏移位置，最终能调用相应的函数，这就是所谓的“运行时多态”。</p>
 
@@ -637,6 +638,214 @@ B (0x0x7feceec1b1a0) 0
 <p>&emsp;&emsp;多重继承与单继承很相似，子类在父类的基础上添加成员和更新虚表，孙子类在子类基础上添加成员和更新虚表，不多解释。</p>
 
 <h3 id="多继承">多继承</h3>
+
+<p>&emsp;&emsp;C++支持多继承，即一个子类可同时继承多个父类。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">a1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">a2</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;A::A1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A2</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;A::A2()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">B</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">b1</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">B1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B::B1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">B2</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B::B2()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">C</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span><span class="p">,</span> <span class="k">public</span> <span class="n">B</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">c1</span><span class="p">;</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">A1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;C::A1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">B2</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;C::B2()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">C1</span><span class="p">()</span> <span class="p">{</span> <span class="n">printf</span><span class="p">(</span><span class="s">&#34;C::C1()</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">C</span><span class="o">::</span><span class="n">a1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">C</span><span class="o">::</span><span class="n">a2</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">C</span><span class="o">::</span><span class="n">b1</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">C</span><span class="o">::</span><span class="n">c1</span><span class="p">);</span>
+
+    <span class="n">C</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">PF</span><span class="p">)();</span>
+    <span class="n">PF</span> <span class="n">pf</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;A&#39;s vptr:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="p">(</span><span class="n">PF</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">pf</span><span class="p">();</span>
+    <span class="p">};</span>
+
+    <span class="kt">long</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">c</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;B&#39;s vptr:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">pf</span> <span class="o">=</span> <span class="p">(</span><span class="n">PF</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="n">p</span> <span class="o">+</span> <span class="n">i</span><span class="p">);</span>
+        <span class="n">pf</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;输出结果如下。这里值得注意的是，我本以为 &amp;C::b1 输出结果为 24，因为 b1 相对于对象起始地址的偏移是 24（见下面的内存布局图），结果这里很智能地输出了 8，应该是减去了 C 中 B subobject 的偏移量 16，而这个 -16 也体现在了 C 的虚表里。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">0x8
+0xc     // 12
+0x8     // 竟然不是0x18（24）
+0x1c    // 28
+A&#39;s vptr:
+C::A1()
+A::A2()
+C::B2()
+C::C1()
+B&#39;s vptr:
+B::B1()
+C::B2()</pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;C 类的虚表结构如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">Vtable for C
+C::_ZTV1C: 10u entries
+0     (int (*)(...))0
+8     (int (*)(...))(&amp; _ZTI1C)
+16    (int (*)(...))C::A1
+24    (int (*)(...))A::A2
+32    (int (*)(...))C::B2
+40    (int (*)(...))C::C1
+48    (int (*)(...))-16
+56    (int (*)(...))(&amp; _ZTI1C)
+64    (int (*)(...))B::B1
+72    (int (*)(...))C::_ZThn16_N1C2B2Ev
+
+Class C
+   size=32 align=8
+   base size=32 base align=8
+C (0x0x7fcec84ac2a0) 0
+    vptr=((&amp; C::_ZTV1C) + 16u)
+  A (0x0x7fcec8603660) 0
+      primary-for C (0x0x7fcec84ac2a0)
+  B (0x0x7fcec86036c0) 16
+      vptr=((&amp; C::_ZTV1C) + 64u)</pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;据此可以知道，当子类继承多个父类，且多个父类都是 virtual class 时，子类对象中将包含多个虚表指针。其中 C 自身与基类 A 共用了同一个虚函数表，因此也称 A 为 C 的主基类 primary base class。
+<div align=center><img src="/image/post/C&amp;C++/cpp_object_model/03.png" alt="" /></div></p>
+
+<p>&emsp;&emsp;由于 C 有 2 个虚表，从上面 .class 文件也可以看出，3 — 8 行是主虚表 primary virtual table，9 — 12 行是次虚表 secondary virtual table。由此可知，虚表除了指向虚函数的地址的指针外，还包含了其他信息。
+<div align=center><img src="/image/post/C&amp;C++/cpp_object_model/04.png" alt="" /></div></p>
+
+<p>&emsp;&emsp;如图所示，一个虚表包含以下几个部分。</p>
+
+<ol>
+<li>虚继承</li>
+<li>“offset to top”是指到对象起始地址的偏移，单继承或多重继承时为 0，而多继承中，除了第一个基类，其它的基类子对象都相对于起始位置有偏移，均不为 0。</li>
+<li>“RTTI information”是一个对象指针，用于唯一标识对象的类型。</li>
+<li>“virtual function pointers”是我们理解的狭义的虚表，即存放虚函数指针的列表。</li>
+</ol>
 
     </div>
 
