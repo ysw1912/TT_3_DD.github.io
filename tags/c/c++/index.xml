@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Thu, 12 Jul 2018 16:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Jul 2018 08:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/tags/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>POSIX thread</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/pthread/</link>
+      <pubDate>Sun, 15 Jul 2018 08:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/pthread/</guid>
+      <description>&amp;emsp;&amp;emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &amp;ems</description>
+    </item>
     
     <item>
       <title>C&#43;&#43; 对象模型</title>
@@ -18,7 +27,7 @@
       <pubDate>Thu, 12 Jul 2018 16:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/</guid>
-      <description>&amp;emsp;&amp;emsp;看《深度探索 C++ 对象模型》这本书后的一些总结，C++ 标准对于对象内存布局貌似比较放任，因此这里指定使用 64 位的 gcc 5.4 编译器</description>
+      <description>&amp;emsp;&amp;emsp;本文是看《深度探索 C++ 对象模型》这本书后的一些总结，并非单纯的摘录，有一定参考价值，看完后对 C++ 中多态机制应该会有一定理</description>
     </item>
     
     <item>

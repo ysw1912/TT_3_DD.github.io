@@ -10,8 +10,15 @@
   </url>
   
   <url>
+    <loc>https://ysw1912.github.io/post/cc&#43;&#43;/pthread/</loc>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T09:01:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -81,21 +88,21 @@
   
   <url>
     <loc>https://ysw1912.github.io/tags/c/c&#43;&#43;/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/c/c&#43;&#43;/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -144,14 +151,14 @@
   
   <url>
     <loc>https://ysw1912.github.io/post/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/tags/</loc>
-    <lastmod>2018-07-12T23:43:00+08:00</lastmod>
+    <lastmod>2018-07-15T08:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
