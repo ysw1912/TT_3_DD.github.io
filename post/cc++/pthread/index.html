@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-07-15T08:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-15T08:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="2322">
+<meta itemprop="wordCount" content="3086">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 2322 字 </span>
-        <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span class="more-meta"> 约 3086 字 </span>
+        <span class="more-meta"> 预计阅读 7 分钟 </span>
       </div>
     </header>
 
@@ -304,13 +304,28 @@
 <div class="post-toc" id="post-toc">
   <h2 class="post-toc-title">文章目录</h2>
   <div class="post-toc-content">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#线程属性">线程属性</a></li>
+<li><a href="#线程与信号">线程与信号</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
   </div>
 </div>
 
     
     <div class="post-content">
-      <p>&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术含量不高。</p>
+      
+
+<p>&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术含量不高。</p>
+
+<h3 id="线程属性">线程属性</h3>
 
 <p>&emsp;&emsp;首先给出一个以分离状态创建线程的函数。</p>
 <div class="highlight"><div class="chroma">
@@ -616,6 +631,152 @@
 </ol>
 
 <p>&emsp;&emsp;可见，如果不将 mutex 设置为允许递归加锁，则在第 3 步时会发生死锁。</p>
+
+<h3 id="线程与信号">线程与信号</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">int</span>         <span class="n">quit_flag</span><span class="p">;</span>
+<span class="n">sigset_t</span>    <span class="n">mask</span><span class="p">;</span>
+
+<span class="n">pthread_mutex_t</span> <span class="n">lock</span> <span class="o">=</span> <span class="n">PTHREAD_MUTEX_INITIALIZER</span><span class="p">;</span>
+<span class="n">pthread_cond_t</span>  <span class="n">wait_loc</span> <span class="o">=</span> <span class="n">PTHREAD_COND_INITIALIZER</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="nf">thr_fn</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">err</span><span class="p">,</span> <span class="n">signo</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;;)</span> <span class="p">{</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">sigwait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">signo</span><span class="p">);</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">signo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="nl">SIGINT</span><span class="p">:</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Interrupt</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="nl">SIGQUIT</span><span class="p">:</span>
+            <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+            <span class="n">quit_flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+            <span class="n">pthread_cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wait_loc</span><span class="p">);</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Unexpected signal %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">signo</span><span class="p">);</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span>         <span class="n">err</span><span class="p">;</span>
+    <span class="n">sigset_t</span>    <span class="n">old_mask</span><span class="p">;</span>
+    <span class="n">pthread_t</span>   <span class="n">tid</span><span class="p">;</span>
+
+    <span class="n">sigemptyset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">);</span>		<span class="c1">// 初始化，清除信号集中中所有信号
+</span><span class="c1"></span>    <span class="n">sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span> <span class="n">SIGINT</span><span class="p">);</span>	<span class="c1">// 在信号集中添加特定信号
+</span><span class="c1"></span>    <span class="n">sigaddset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span> <span class="n">SIGQUIT</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">err</span> <span class="o">=</span> <span class="n">pthread_sigmask</span><span class="p">(</span><span class="n">SIG_BLOCK</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mask</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old_mask</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">thr_fn</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">pthread_mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">quit_flag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">wait_loc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+    <span class="n">pthread_mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lock</span><span class="p">);</span>
+    
+    <span class="cm">/* 信号处理线程捕捉到 SIGQUIT，唤醒 main 线程，但 main 线程此时阻塞 SIGQUIT */</span>
+    <span class="n">quit_flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="cm">/* 重置信号屏蔽字，不再屏蔽 SIGQUIT，main 进程退出 */</span>
+    <span class="n">sigprocmask</span><span class="p">(</span><span class="n">SIG_SETMASK</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">old_mask</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;信号是软件中断，提供一种处理异步事件的方法。</p>
+
+<p>&emsp;&emsp;产生信号的条件有：</p>
+
+<ol>
+<li>用户按某些终端键时。</li>
+<li>硬件异常，如除数为0、无效内存引用等。</li>
+<li>进程调用 kill 函数或用户使用 kill 命令发送信号。</li>
+<li>检测到软件条件，如进程所设定时器超时。</li>
+</ol>
+
+<p>&emsp;&emsp;处理信号的方式有：</p>
+
+<ol>
+<li>忽略信号。SIGKILL 和 SIGSTOP 这两个信号无法被忽略。</li>
+<li>捕捉信号。调用一个用户函数对事件进行处理。</li>
+<li>执行默认动作，大多数信号的默认动作是终止该进程。</li>
+</ol>
+
+<p>&emsp;&emsp;信号名是正整数常量。本例中<code>SIGINT</code>为用户按中断键（Delete 或 Ctrl + C）时终端驱动程序所产生的信号，<code>SIGQUIT</code>为用户按退出键（Ctrl + \）时产生的信号。</p>
+
+<p>&emsp;&emsp;进程和线程都有其信号屏蔽字，规定了当前阻塞而不能递送给该进程 / 线程的的信号集，调用<code>int sigprocmask / pthread_sigmask(int how, const sigset_t *restrict set, sigset_t *restrict oset)</code>可以检测或更改进程 / 线程的信号屏蔽字。</p>
+
+<p>&emsp;&emsp;这段代码的作用是，在 main 线程中屏蔽 SIGINT 和 SIGQUIT 信号，再创建一个新的用于信号处理的线程，该线程继承了 main 线程中的信号屏蔽字，但 sigwait 函数会原子地取消信号集的阻塞状态，在返回之前恢复线程的信号屏蔽字。</p>
 
     </div>
 
