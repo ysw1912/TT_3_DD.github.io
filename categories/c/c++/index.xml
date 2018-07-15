@@ -18,7 +18,7 @@
       <pubDate>Sun, 15 Jul 2018 08:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/pthread/</guid>
-      <description>&amp;emsp;&amp;emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &amp;ems</description>
+      <description>&amp;emsp;&amp;emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术</description>
     </item>
     
     <item>
@@ -27,7 +27,7 @@
       <pubDate>Thu, 12 Jul 2018 16:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cpp_object_model/</guid>
-      <description>&amp;emsp;&amp;emsp;本文是看《深度探索 C++ 对象模型》这本书后的一些总结，并非单纯的摘录，有一定参考价值，看完后对 C++ 中多态机制应该会有一定理</description>
+      <description>&amp;emsp;&amp;emsp;本文是看《深度探索 C++ 对象模型》这本书后的一些总结，并非单纯的摘录，而是结合相关博客和自己的理解所写的心得，有一定参考</description>
     </item>
     
     <item>

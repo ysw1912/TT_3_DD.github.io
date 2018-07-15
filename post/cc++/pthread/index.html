@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="&amp;emsp;&amp;emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &amp;ems" />
+  <meta name="description" content="&amp;emsp;&amp;emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="POSIX thread" />
-<meta property="og:description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &ems" />
+<meta property="og:description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/pthread/" />
 
@@ -66,7 +66,7 @@
 
 <meta property="article:published_time" content="2018-07-15T08:00:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-07-15T08:00:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-07-15T10:50:00&#43;08:00"/>
 
 
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="POSIX thread">
-<meta itemprop="description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &ems">
+<meta itemprop="description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术">
 
 
 <meta itemprop="datePublished" content="2018-07-15T08:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-07-15T08:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="2313">
+<meta itemprop="wordCount" content="2322">
 
 
 
 <meta itemprop="keywords" content="C/C&#43;&#43;," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="POSIX thread"/>
-<meta name="twitter:description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 &ems"/>
+<meta name="twitter:description" content="&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,7 +294,7 @@
               <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
             
           </div>
-        <span class="more-meta"> 约 2313 字 </span>
+        <span class="more-meta"> 约 2322 字 </span>
         <span class="more-meta"> 预计阅读 5 分钟 </span>
       </div>
     </header>
@@ -310,7 +310,7 @@
 
     
     <div class="post-content">
-      <p>&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。</p>
+      <p>&emsp;&emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术含量不高。</p>
 
 <p>&emsp;&emsp;首先给出一个以分离状态创建线程的函数。</p>
 <div class="highlight"><div class="chroma">
@@ -689,7 +689,7 @@
     id: 'pthread.md',
     title: 'POSIX thread',
     link: decodeURI(location.href),
-    desc: '\x26emsp;\x26emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，大多是原书的要点摘录，用于记录知识点，技术含量不高。 \x26ems',
+    desc: '\x26emsp;\x26emsp;《APUE》这本书算是个字典了，本文算是对 pthread 的一些总结，主要是对原书中几段代码的解释说明，在读代码中记录知识点，技术',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {
