@@ -233,14 +233,28 @@
 
 &lt;p&gt;&amp;emsp;&amp;emsp;详细地源码分析可参见&lt;a href=&#34;https://idndx.com/2014/09/01/the-implementation-of-epoll-1/&#34;&gt;The Implementation of epoll&lt;/a&gt;。这里仅做大致梳理。&lt;/p&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;调用 epoll_create() 时，内核会通过 slab 分配器开辟一块高速 cache，并在其中创建一个事件表，用来存储所要监听的所有 fd 上的事件。存储所用的数据结构就是&lt;a href=&#34;https://ysw1912.github.io/post/cc++/rbtree_delete/&#34;&gt;红黑树&lt;/a&gt;，红黑树的插入、删除、查找的复杂度都是&lt;code&gt;O(nlogn)&lt;/code&gt;，效率很高。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;epoll_create()&lt;/code&gt;主要工作&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&amp;emsp;&amp;emsp;内核创建红黑树后，同时会建立一个双向链表 readylist，该&lt;code&gt;就绪链表&lt;/code&gt;用于存储所有就绪事件。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;内核会通过 slab 分配器开辟一块高速 cache。&lt;/li&gt;
+&lt;li&gt;在高速 cache 中创建一个事件表，用来存储所有监听 fd 集合上的事件。存储所用的数据结构是&lt;a href=&#34;https://ysw1912.github.io/post/cc++/rbtree_delete/&#34;&gt;红黑树&lt;/a&gt;，红黑树的插入、删除、查找的复杂度都是&lt;code&gt;O(nlogn)&lt;/code&gt;，效率很高。&lt;/li&gt;
+&lt;li&gt;同时会建立一个双向链表&lt;code&gt;readylist&lt;/code&gt;（就绪链表），该就绪链表用于存储所有就绪事件。&lt;/li&gt;
+&lt;/ol&gt;
 
-&lt;ul&gt;
-&lt;li&gt;当执行 epoll_ctl() 时，除了操作事件表（红黑树）外，还会&lt;font color=#ff0000&gt;为该事件在 fd 相应的设备驱动程序上注册一个回调函数&lt;code&gt;ep_poll_callback&lt;/code&gt;，当该 fd 上有事件到达时就调用这个回调函数，回调函数会将该 fd 上发生的事件放入到 readylist 中&lt;/font&gt;。&lt;/li&gt;
-&lt;li&gt;当 epoll_wait() 返回时，通过 readylist 中的每项 fd 对应的设备驱动的&lt;code&gt;poll&lt;/code&gt;方法，获取 events 数组并拷贝到用户空间中，并清空 readylist。如果该 fd 处于 LT 模式，且该 fd 上有未处理事件时，会将该事件放回至 readylist。&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;epoll_ctl()&lt;/code&gt;主要工作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;对事件表进行相应的插入、删除、修改操作。&lt;/li&gt;
+&lt;li&gt;&lt;font color=#ff0000&gt;为该事件在 fd 相应的设备驱动程序上注册一个回调函数&lt;code&gt;ep_poll_callback&lt;/code&gt;，当该 fd 上有事件到达时就调用这个回调函数，回调函数会将该 fd 上发生的事件放入到 readylist 中&lt;/font&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;epoll_wait()&lt;/code&gt;主要工作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;在超时时间内，判断 readylist 中是否有就绪事件。&lt;/li&gt;
+&lt;li&gt;通过 readylist 中的每项 fd 对应的设备驱动的&lt;code&gt;poll&lt;/code&gt;方法，获取 events 数组并拷贝到用户空间中，并清空 readylist。&lt;/li&gt;
+&lt;li&gt;如果该 fd 处于 LT 模式，且该 fd 上有未处理事件时，会将该事件放回至 readylist。&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;h4 id=&#34;使用场景-1&#34;&gt;使用场景&lt;/h4&gt;
 
