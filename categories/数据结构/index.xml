@@ -23,10 +23,10 @@
     
     <item>
       <title>红黑树删除节点</title>
-      <link>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</link>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/</link>
       <pubDate>Thu, 07 Jun 2018 10:00:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</guid>
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/</guid>
       <description>红黑树 &amp;ensp;&amp;ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 &amp;ensp;&amp;e</description>
     </item>
     

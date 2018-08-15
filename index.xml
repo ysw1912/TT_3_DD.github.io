@@ -29,6 +29,208 @@
     </item>
     
     <item>
+      <title>三种I/O多路复用模型</title>
+      <link>https://ysw1912.github.io/post/network/multiplex/</link>
+      <pubDate>Wed, 15 Aug 2018 14:30:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/network/multiplex/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;i-o多路复用&#34;&gt;I/O多路复用&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;常见的 I/O 模型有 5 种：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;阻塞 I/O&lt;/li&gt;
+&lt;li&gt;非阻塞 I/O&lt;/li&gt;
+&lt;li&gt;I/O复用&lt;/li&gt;
+&lt;li&gt;信号驱动 I/O&lt;/li&gt;
+&lt;li&gt;异步 I/O&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;其中，I/O 复用是通过一种机制，一个进程可以&lt;font color=#ff0000&gt;监听多个&lt;/font&gt;文件描述符，一旦某个 fd 就绪（一般是读就绪或写就绪），就&lt;font color=#ff0000&gt;通知&lt;/font&gt;程序进行相应的操作。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;目前 Linux 上主要的 I/O 多路复用模型有三种，select、poll、epoll，它们本质上都是同步 I/O，即要求读写事件就绪后自己负责进行读写，这会导致请求进程阻塞，直到 I/O 操作完成。&lt;/p&gt;
+
+&lt;h2 id=&#34;select&#34;&gt;select&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/select.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;select&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;maxfdp1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fd_set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;readset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fd_set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;writeset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fd_set&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exceptset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; 
+           &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timeval&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timeout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;maxfdp1&lt;/code&gt;参数指定内核监控的文件描述符个数，描述符 0, 1, 2, &amp;hellip;, maxfdp1 - 1 将被测试。该值受限于&lt;code&gt;&amp;lt;sys/select.h&amp;gt;&lt;/code&gt;中定义的&lt;code&gt;FD_SETSIZE&lt;/code&gt;常值，x86 系统下一般为 1024。&lt;/li&gt;
+&lt;li&gt;中间三个相同类型的参数指向&lt;code&gt;fd_set&lt;/code&gt;（描述符集）的数据类型，分别表示监控的文件描述符集的&lt;font color=#ff0000&gt;读、写、异常&lt;/font&gt;三种属性。fd_set 类型变量每一位代表了一个描述符，是一个由 1024 个二进制位构成的&lt;code&gt;bitmap&lt;/code&gt;。select 返回时，它们作为传出参数，表示相应事件就绪的文件描述符集。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt; 设置 select 的超时时间。
+
+&lt;ul&gt;
+&lt;li&gt;若设为 NULL，则将 select 置于阻塞状态，直到有 fds 准备好 I/O 时才返回；&lt;/li&gt;
+&lt;li&gt;若设为 “0 秒 0 毫秒”，则将 select 设为非阻塞，检查 fds 后立即返回，成为轮询（polling）；&lt;/li&gt;
+&lt;li&gt;若设置 timeout 值大于 0，则在超时时间内有事件到来才返回，超时后不管怎样一定返回。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;原理&#34;&gt;原理&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;具体的源码分析参见该博客：&lt;a href=&#34;https://blog.csdn.net/lizhiguo0532/article/details/6568964&#34;&gt;select(poll)系统调用实现解析&lt;/a&gt;。这里仅做大致梳理。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;select()&lt;/code&gt;系统调用&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;调用 copy_from_user() 从用户空间取 timeout 数据到内核空间。&lt;/li&gt;
+&lt;li&gt;调用&lt;code&gt;core_sys_select()&lt;/code&gt;实现 select 核心工作。&lt;/li&gt;
+&lt;li&gt;若有设置超时值，则拷贝离超时时刻的剩余时间到用户空间。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;core_sys_select()&lt;/code&gt;主要工作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;创建一个 fd_set_bits 类型变量，包装 6 个 unsigned long*，用于存储三个描述符集 readset、writeset、exceptset 的入值和返回结果。&lt;/li&gt;
+&lt;li&gt;从用户空间取得三个 fd_set，且先将返回结果初始化为 0，准备工作完毕。&lt;/li&gt;
+&lt;li&gt;调用&lt;code&gt;do_select()&lt;/code&gt;实现核心的轮询工作。&lt;/li&gt;
+&lt;li&gt;将结果拷贝回用户空间。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;do_select()&lt;/code&gt;主要工作&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;取出 32 个文件描述符对应的 bitmap，若其中没有待监听的描述符，则跳入下一轮 32 个描述符的循环。这里每次循环检测 32 个描述符，刚好一个 unsigned long 型数（x86）。&lt;/li&gt;
+&lt;li&gt;如果本次 32 个描述符中有待监听的描述符存在，首先找到那一位的 fd。调用驱动程序中的&lt;code&gt;poll&lt;/code&gt;函数，其中&lt;code&gt;__pollwait()&lt;/code&gt;函数将当前进程添加到对应 fd 的等待队列中。当该 fd 有事件到来时，就会唤醒这个进程。&lt;code&gt;poll&lt;/code&gt;函数返回时返回一个表示事件是否就绪的掩码。&lt;/li&gt;
+&lt;li&gt;根据&lt;code&gt;poll&lt;/code&gt;返回的 mask 给结果 bitmap 赋值，返回给上级函数 core_sys_select()。&lt;/li&gt;
+&lt;li&gt;若轮询一遍未发现就绪事件，则根据所设超时时间进入休眠。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;使用场景&#34;&gt;使用场景&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;从 select 的实现来看，它有如下缺点：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;监听的文件描述符数量有 FD_SETSIZE 的限制。&lt;/li&gt;
+&lt;li&gt;需要将整个描述符集的 bitmap 在用户空间与内核空间来回拷贝，这在 fd 很多时开销巨大。&lt;/li&gt;
+&lt;li&gt;内核需要轮询整个监听 fd 集，以测试其中是否有就绪者。&lt;/li&gt;
+&lt;li&gt;select 返回时，该进程从所有监听的 fd 的等待队列中移除。而下次 select 再次重新传入所有监听的 fd，再重新将进程挂在到监听的 fd 的等待队列中。重复的开销太大。&lt;/li&gt;
+&lt;li&gt;用户获取事件时，需要遍历整个监听 fd 集。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;因此，解决 1024 以下客户端时的小型并发时使用 select 比较合适，但如果客户连接过多，由于 select 采用轮询，会大大降低服务器效率。&lt;/p&gt;
+
+&lt;h2 id=&#34;poll&#34;&gt;poll&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;poll.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;poll&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pollfd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fdarray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nfds&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timeout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pollfd&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;fd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;		&lt;span class=&#34;c1&#34;&gt;// 需要检测的 fd
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;short&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;events&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;// fd 上关心的事件，传入参数
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;kt&#34;&gt;short&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;revents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;// fd 上发生的事件，作为 poll 返回时的传出参数
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;select 使用三个 bitmap 表示的三个 fd_set，它们既作为传入参数，又作为传出参数。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;poll 不同于 select：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;使用指向 pollfd 结构的指针实现，分离了监视事件和发生事件，调用前后不需要重置。若不再监控某 fd，可把 pollfd 中的 fd 设置为 -1。&lt;/li&gt;
+&lt;li&gt;不再把事件分为三组（读/写/异常），而由调用者自己设置，其值为 “POLLIN” 等常值的按位或。&lt;/li&gt;
+&lt;li&gt;内核中不使用 bitmap 组织描述符，使用链表，因此没有最大数量的限制。&lt;/li&gt;
+&lt;li&gt;int 型的 timeout 是毫秒级时间。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;原理-1&#34;&gt;原理&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;除了对于描述符集合的存储方式不同外，poll 与 select 本质上没有区别，poll 只解决了 select 最大描述符数量的限制，但依然在内核中采用轮询遍历 fd，并且需要在用户空间与内核空间来回拷贝数据，随着 fd 的增加会造成服务器性能显著下降。&lt;/p&gt;
+
+&lt;h2 id=&#34;epoll&#34;&gt;epoll&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;epoll 是 Linux 特有的 I/O 复用函数，避免了 select 和 poll 的缺点，实现上 epoll 使用&lt;font color=#ff0000&gt;一组函数&lt;/font&gt;来完成任务。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;对于长期监听的 fd，以及对这些 fd 期待的事件也不会改变时，每次调用 select 或 poll 仍然需要一次从用户空间到内核空间的拷贝。因此我们希望&lt;font color=#ff0000&gt;让内核长期保存所有需要监听的 fd 以及对应事件，并在需要时对部分 fd 以及期待事件进行修改&lt;/font&gt;。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;因此 epoll 把用户关心的 fd 上的事件放在内核里的一个事件表里，并用一个额外的 fd 来唯一标识内核中的这个事件表，该 fd 的创建如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;sys/epoll.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;epoll_create&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;	&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;size提示事件表的大小&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;，建议内核监听的&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fd个数&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;并用如下函数操作 epoll 的内核事件表：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;epoll_ctl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;epfd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;epoll_event&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;event&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;epoll_event&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;__uint32_t&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;events&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;// epoll事件
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;epoll_data_t&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;		&lt;span class=&#34;c1&#34;&gt;// 一般使用data.fd，指定事件从属的目标fd
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;其中 op 参数指定操作类型，有如下 3 种：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;EPOLL_CTL_ADD 往事件表中注册 fd 上的事件&lt;/li&gt;
+&lt;li&gt;EPOLL_CTL_MOD 修改事件表中 fd 上的事件&lt;/li&gt;
+&lt;li&gt;EPOLL_CTL_DEL 删除事件表中 fd 上的事件&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;epoll 除了提供 select/poll 那种 I/O 事件的 LT（Level Trigger，电平触发）&lt;/p&gt;
+
+&lt;h4 id=&#34;原理-2&#34;&gt;原理&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;调用 epoll_create() 时，会在内核的高速 cache 中创建一个事件表，用来存储所要监听的所有 fd。存储所用的数据结构就是&lt;font color=#ff0000&gt;红黑树&lt;/font&gt;，每次往事件表中注册 fd 上的事件&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;epoll 使用了共享内存，利用 mmap 将用户进程和内核中的一段虚拟地址映射到同一块物理地址上，内核对 fd 上的事件进行检查就不用来回拷贝&lt;/p&gt;
+
+&lt;h4 id=&#34;使用场景-1&#34;&gt;使用场景&lt;/h4&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;epoll 作为 Linux 下 select/poll 的增强版本，有如下优势：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;不必每次等待事件前都要重新准备要监听的 fd 集合，通过创建一个事件表复用了这些集合。&lt;/li&gt;
+&lt;li&gt;用户获取事件时，无须遍历整个监听的 fd 集，极大地提高了应用程序索引就绪 fd 的效率。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;因此 epoll 是目前 linux 大规模并发网络程序中的首选模型，适合连接数量巨大，但同一时刻活跃连接数量较少的场景。如果同一时刻活跃读较高，epoll 对于 select/poll 的提升并不明显。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>POSIX thread</title>
       <link>https://ysw1912.github.io/post/cc&#43;&#43;/pthread/</link>
       <pubDate>Sun, 15 Jul 2018 08:00:00 +0800</pubDate>
@@ -1578,10 +1780,10 @@ B (0x0x7fc1865ab1a0) 0
     
     <item>
       <title>红黑树删除节点</title>
-      <link>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</link>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/</link>
       <pubDate>Thu, 07 Jun 2018 10:00:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/stl01/</guid>
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/</guid>
       
         <description>
 

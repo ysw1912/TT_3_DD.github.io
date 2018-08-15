@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>链表排序 - Hide on bush</title>
+  <title>红黑树删除节点 - Hide on bush</title>
   <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="链表排序 &amp;emsp;&amp;emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该" />
+  <meta name="description" content="红黑树 &amp;ensp;&amp;ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 &amp;ensp;&amp;e" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -37,7 +37,7 @@
 <meta name="generator" content="Hugo 0.41" />
 
 
-<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/stl02/" />
+<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/" />
 
 
 
@@ -57,20 +57,16 @@
 
 
 
-<meta property="og:title" content="链表排序" />
-<meta property="og:description" content="链表排序 &emsp;&emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该" />
+<meta property="og:title" content="红黑树删除节点" />
+<meta property="og:description" content="红黑树 &ensp;&ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 &ensp;&e" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/stl02/" />
+<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/rbtree_delete/" />
 
 
 
-<meta property="article:published_time" content="2018-06-14T18:00:00&#43;08:00"/>
+<meta property="article:published_time" content="2018-06-07T10:00:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-06-14T19:46:00&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-06-07T10:00:00&#43;08:00"/>
 
 
 
@@ -78,20 +74,24 @@
 
 
 
-<meta itemprop="name" content="链表排序">
-<meta itemprop="description" content="链表排序 &emsp;&emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该">
 
 
-<meta itemprop="datePublished" content="2018-06-14T18:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2018-06-14T18:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="922">
+
+
+<meta itemprop="name" content="红黑树删除节点">
+<meta itemprop="description" content="红黑树 &ensp;&ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 &ensp;&e">
+
+
+<meta itemprop="datePublished" content="2018-06-07T10:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-06-07T10:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="1886">
 
 
 
 <meta itemprop="keywords" content="数据结构,C/C&#43;&#43;," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="链表排序"/>
-<meta name="twitter:description" content="链表排序 &emsp;&emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该"/>
+<meta name="twitter:title" content="红黑树删除节点"/>
+<meta name="twitter:description" content="红黑树 &ensp;&ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 &ensp;&e"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -285,17 +285,17 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">链表排序</h1>
+      <h1 class="post-title">红黑树删除节点</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2018-06-14 </span>
+        <span class="post-time"> 2018-06-07 </span>
         <div class="post-category">
             
               <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"> 数据结构 </a>
             
           </div>
-        <span class="more-meta"> 约 922 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta"> 约 1886 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
       </div>
     </header>
 
@@ -308,13 +308,15 @@
 <ul>
 <li>
 <ul>
-<li><a href="#链表排序">链表排序</a>
+<li><a href="#红黑树">红黑树</a></li>
+<li><a href="#红黑树性质">红黑树性质</a></li>
+<li><a href="#删除节点">删除节点</a>
 <ul>
-<li><a href="#std-list-sort">std::list::sort()</a></li>
-<li><a href="#算法思想">算法思想</a></li>
-<li><a href="#图解">图解</a></li>
-<li><a href="#总结">总结</a></li>
+<li><a href="#旋转">旋转</a></li>
+<li><a href="#删除">删除</a></li>
+<li><a href="#删除后重平衡">删除后重平衡</a></li>
 </ul></li>
+<li><a href="#总结">总结</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -325,117 +327,103 @@
     <div class="post-content">
       
 
-<h2 id="链表排序">链表排序</h2>
+<h2 id="红黑树">红黑树</h2>
 
-<p>&emsp;&emsp;在学习<code>STL</code>中的双向链表<code>std::list</code>时，被它的<code>sort()</code>函数惊艳到，发现《STL源码剖析》一书中对该函数草草带过，遂分析一波。</p>
+<p>&ensp;&ensp;红黑树是一种自平衡的二叉查找树（BST），可在<code>O(logN)</code>时间内完成查找、插入、删除等操作。</p>
 
-<h3 id="std-list-sort">std::list::sort()</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">sort</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="n">node</span> <span class="o">||</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="n">node</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-  <span class="n">list</span> <span class="n">carry</span><span class="p">;</span>
-  <span class="n">list</span> <span class="n">bucket</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span>
-  <span class="kt">int</span> <span class="n">fill</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">carry</span><span class="p">.</span><span class="n">splice</span><span class="p">(</span><span class="n">carry</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="o">*</span><span class="k">this</span><span class="p">,</span> <span class="n">begin</span><span class="p">());</span>
-    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">fill</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
-      <span class="n">carry</span><span class="p">.</span><span class="n">merge</span><span class="p">(</span><span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-      <span class="o">++</span><span class="n">i</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">swap</span><span class="p">(</span><span class="n">carry</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">fill</span><span class="p">)</span>  <span class="o">++</span><span class="n">fill</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">fill</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">bucket</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">merge</span><span class="p">(</span><span class="n">bucket</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
-  <span class="p">}</span>
-  <span class="n">swap</span><span class="p">(</span><span class="n">bucket</span><span class="p">[</span><span class="n">fill</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div>
-<p>&emsp;&emsp;这段代码用到了 3 个<code>std::list</code>的成员函数：</p>
+<p>&ensp;&ensp;鉴于插入操作比较容易理解，删除操作相对较难，这里只描述删除节点的操作。</p>
 
-<ul>
-<li><p><code>void splice(const_iterator pos, list&amp; other, const_iterator it);</code><br />
-从<code>other</code>转移<code>it</code>所指向的元素到<code>*this</code>，元素被插入到<code>pos</code>所指向的元素之前。<br />
-时间复杂度<code>O(1)</code>。</p></li>
+<h2 id="红黑树性质">红黑树性质</h2>
 
-<li><p><code>void merge(list&amp; other);</code><br />
-归并两个升序排序链表为一个，不复制元素，操作后链表<code>other</code>变为空。<br />
-若链表<code>*this</code>长度为 m，链表<code>other</code>长度为 n，则至多进行<code>m + n - 1</code>次比较。</p></li>
-
-<li><p><code>void swap(list&amp; other);</code><br />
-与链表<code>other</code>交换内容。<br />
-时间复杂度<code>O(1)</code>。</p></li>
-</ul>
-
-<h3 id="算法思想">算法思想</h3>
-
-<ul>
-<li><p>首先判断链表是否为空或只有一个元素，若是，直接返回。</p></li>
-
-<li><p>准备 3 个变量：</p>
-
-<ul>
-<li><code>list carry</code>：每次从原链表中搬运一个头节点出来。</li>
-<li><code>list bucket[64]</code>：64 个桶，桶的容量是<code>2^桶号</code>，元素入桶时均有序。</li>
-<li><code>int fill</code>：当前所用桶的数目。</li>
-</ul></li>
-
-<li><p>while 循环：</p>
+<p>&ensp;&ensp;红黑树通过如下规则，控制任意节点的左右子树高度差，以实现自平衡：</p>
 
 <ol>
-<li>第 8 行：<code>carry</code>取数。<br />
-从原链表取一个元素，若无元素可取，跳转到 for 循环。</li>
-<li>第 9 - 14 行：将所取数入桶<code>bucket</code>。<br />
-<code>i</code>从<code>0</code>到<code>fill - 1</code>循环<br />
-若<code>bucket[i]</code>非空，则将其<strong><font color=#ff0000>归并</font></strong>到<code>carry</code>；<br />
-若<code>bucket[i]</code>为空，将<code>carry</code>中的元素放入<code>bucket[i]</code>，并跳出循环。</li>
-<li>第 15 行：维护<code>fill</code>。
-若步骤 2 中<code>i</code>执行到<code>i == fill</code>才跳出循环，即表示<code>bucket[fill]</code>有元素（满了），则执行<code>++fill</code>，增加一个桶数。</li>
-</ol></li>
+<li>节点是红色或黑色。</li>
+<li>根节点为黑色。</li>
+<li>如果节点为红，其子节点必须为黑（每个叶节点到根节点所有路径上不能有两个连续的红色节点）。</li>
+<li>任一节点至树尾端的所有简单路径，所含黑节点数必须相同。</li>
+</ol>
 
-<li><p>for 循环：<br />
-将<code>bucket[0]</code>到<code>bucket[fill - 2]</code>的每个桶<strong><font color=#ff0000>归并</font></strong>到<code>bucket[fill - 1]</code>。</p></li>
+<h2 id="删除节点">删除节点</h2>
+
+<h3 id="旋转">旋转</h3>
+
+<p>&ensp;&ensp;旋转操作在红黑树的插入和删除中都会使用</p>
+
+<ul>
+<li>左旋：将节点旋转为其右孩子的左孩子</li>
+<li>右旋：将节点旋转为其左孩子的右孩子
+<div align=center><img src="/image/post/C&amp;C++/STL01/01.png" alt="" /></div></li>
 </ul>
 
-<h3 id="图解">图解</h3>
+<h3 id="删除">删除</h3>
 
-<p>&emsp;&emsp;例如对链表<code>3 → 7 → 4 → 1 → 9 → 8 → 5 → 2 → 6</code>进行排序。
-<div align=center><img src="/image/post/C&amp;C++/STL02/01.png" alt="" /></div></p>
+<p>&ensp;&ensp;删除操作首先要确定待删除节点的孩子数。</p>
 
-<h3 id="总结">总结</h3>
+<ul>
+<li><p><code>case 1</code>：待删除节点有两个孩子。<br />
+&ensp;&ensp;找到该节点的前驱或后继，将前驱或后继的复制到待删除节点中，最后将这个前驱或后继删除。由于前驱或后继至多只有一个孩子节点，问题就被简化为<code>case 2</code>。只要节点里的值被删除就行，树结构发生变化并不影响。</p></li>
 
-<p>&emsp;&emsp;从图中可以形象地看出，这是利用了<strong><font color=#ff0000>二进制的进位思想</font></strong>，实现了<strong><font color=#ff0000>非递归的归并排序</font></strong>。《STL源码剖析》中并未分析该算法，说它是 quick sort，想必是写错了。</p>
+<li><p><code>case 2</code>：待删除节点只有一个孩子或没有孩子。<br />
+&ensp;&ensp;直接让它的孩子取代待删节点的位置即可。<br />
+&ensp;&ensp;红黑树删除操作的复杂度在于删除节点的颜色。</p>
 
-<p>&emsp;&emsp;时间复杂度<code>O(nlogn)</code>，空间复杂度<code>O(1)</code>（由于是链表，连续存储容器则需要额外空间）。</p>
+<ul>
+<li><code>case 2.1</code>：删除的节点是红色。<br />
+&ensp;&ensp;直接拿其孩子节点补空位即可。</li>
+<li><code>case 2.2</code>：删除的节点是黑色。<br />
+&ensp;&ensp;所有经过该节点的路径上的黑色节点数量少了一个，破坏了性质<code>4</code>。此时需要重新平衡红黑树，具体见下。</li>
+</ul></li>
+</ul>
+
+<h3 id="删除后重平衡">删除后重平衡</h3>
+
+<p>&ensp;&ensp;说明之前，首先假设最终被删除的节点为<code>Z</code>（至多一个孩子节点），其孩子节点为<code>X</code>。删除黑色节点<code>Z</code>，<code>X</code>取代<code>Z</code>后，假设<code>X</code>的父节点（原来<code>Z</code>的父节点）为<code>P</code>，<code>X</code>的兄弟节点为<code>W</code>，<code>W</code>的左孩子为<code>WL</code>，右孩子为<code>WR</code>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/02.png" alt="" /></div></p>
+
+<p>&ensp;&ensp;假设<code>X</code>为<code>P</code>的左孩子，<code>X</code>是右孩子的情况只需与之对称操作即可，下面对各种情况展开讨论：</p>
+
+<ul>
+<li><p><code>case 1</code>：<code>X</code>是红色或为新的根节点。<font color=#ff0000>（终止情况）</font><br />
+&ensp;&ensp;直接将其变为黑色即可，这样分别恢复了性质<code>4</code>和性质<code>2</code>。<br />
+&ensp;&ensp;剩下都是<code>X</code>为黑色的情况，需要考虑<code>X</code>的兄弟<code>W</code>的颜色。</p></li>
+
+<li><p><code>case 2</code>：<code>W</code>为红色，<code>X</code>为黑色。<br />
+&ensp;&ensp;由性质<code>3</code>可知，节点<code>P</code>、<code>WL</code>、<code>WR</code>必为黑色。<br />
+&ensp;&ensp;对<code>P</code>左旋，互换<code>P</code>和<code>W</code>的颜色，节点<code>W</code>重新指向<code>X</code>当前的兄弟<code>WL</code>。此时所有路径的黑色节点数并未受到影响，即经过<code>X</code>的路径（路径1、2）上的黑色节点依然比其他路径少一个，和删除<code>Z</code>之后一样。但已经将该情况转变为<code>case 3</code>，再根据当前黑色<code>W</code>的两个孩子的颜色继续调整。
+<div align=center><img src="/image/post/C&amp;C++/STL01/03.png" alt="" /></div></p></li>
+
+<li><p><code>case 3</code>：<code>W</code>为黑色，<code>X</code>为黑色。</p>
+
+<ul>
+<li><p><code>case 3.1</code>：<code>W</code>的孩子节点<code>WL</code>、<code>WR</code>均为黑色。</p>
+
+<ul>
+<li><p><code>case 3.1.1</code>：<code>P</code>为黑色。<br />
+&ensp;&ensp;只需把<code>W</code>变为红色，这样所有经过<code>W</code>的路径（路径3~6）比之前少一个黑色节点，就与经过<code>X</code>的路径（路径1、2）上的黑色节点数一致了。但经过<code>P</code>的路径（1~6）比不经过<code>P</code>的路径少一个黑色节点，再把<code>X</code>节点指向<code>P</code>，<font color=#ff0000>从<code>case 2</code>开始重新进行平衡处理</font>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/04.png" alt="" /></div></p></li>
+
+<li><p><code>case 3.1.2</code>：<code>P</code>为红色。<font color=#ff0000>（终止情况）</font><br />
+&ensp;&ensp;只需互换<code>W</code>和<code>P</code>的颜色即可。因为<code>P</code>变为黑色，经过<code>X</code>的路径（路径1、2）多了一个黑色节点，与删除<code>Z</code>节点前的数量一致。而其他路径（路径3~6）上的黑色节点数并未受到影响，因此红黑树恢复性质<code>4</code>，重平衡完毕。
+<div align=center><img src="/image/post/C&amp;C++/STL01/05.png" alt="" /></div></p></li>
+</ul></li>
+
+<li><p><code>case 3.2</code>：<code>W</code>的孩子节点有红色，<code>P</code>可红可黑。</p>
+
+<ul>
+<li><code>case 3.2.1</code>：<code>WL</code>为红色，<code>WR</code>为黑色。<br />
+&ensp;&ensp;对<code>W</code>进行右旋操作，并互换<code>W</code>和<code>WL</code>的颜色，此时所有路径的黑色节点数并未受到影响，但将该情况转化为<code>case 3.2.2</code>。
+<div align=center><img src="/image/post/C&amp;C++/STL01/06.png" alt="" /></div></li>
+<li><code>case 3.2.2</code>：<code>WR</code>为红色，<code>WL</code>可红可黑。<font color=#ff0000>（终止情况）</font><br />
+&ensp;&ensp;对<code>P</code>进行左旋操作，并互换<code>P</code>和<code>W</code>的颜色，并将<code>WR</code>变为黑色。因为<code>P</code>变为黑色，经过<code>X</code>的路径（路径1、2）多了一个黑色节点，与删除<code>Z</code>节点前的数量一致。而其他路径（路径3~6）上的黑色节点数并未受到影响，因此红黑树恢复性质<code>4</code>，重平衡完毕。
+<div align=center><img src="/image/post/C&amp;C++/STL01/07.png" alt="" /></div></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h2 id="总结">总结</h2>
+
+<p>&ensp;&ensp;学习红黑树时，发现许多数据结构相关书籍，包括《STL源码剖析》都没有详细分析红黑树的删除操作。网上博客的许多资料总觉得不够清晰，关于删除节点后重新平衡这一关键步骤讲得不够有条理。总之，<code>case 1</code>、<code>case 2</code>、<code>case 3</code>通过相互转化，不断调整红黑树，最终转化成终止情况<code>case 1</code>、<code>case 3.1.2</code>、<code>case 3.2.2</code>结束调整。具体代码可以参见我 github 中实现的 <a href="https://github.com/ysw1912/TinySTL">TinySTL</a> 中的<code>tree.h</code>头文件。</p>
 
     </div>
 
@@ -448,7 +436,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-06-14</span>
+    <span class="item-content">2018-06-07</span>
   </p>
   
   <p class="copyright-item">
@@ -489,14 +477,14 @@
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/cc&#43;&#43;/cpp03/">
+          <a class="prev" href="/post/cc&#43;&#43;/stl02/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">内存问题</span>
+            <span class="prev-text nav-default">链表排序</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
-          <a class="next" href="/post/cc&#43;&#43;/rbtree_delete/">
-            <span class="next-text nav-default">红黑树删除节点</span>
+          <a class="next" href="/post/cc&#43;&#43;/effective_cpp_note/">
+            <span class="next-text nav-default">Effective C&#43;&#43; 笔记</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -513,10 +501,10 @@
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'stl02.md',
-    title: '链表排序',
+    id: 'rbtree_delete.md',
+    title: '红黑树删除节点',
     link: decodeURI(location.href),
-    desc: '链表排序 \x26emsp;\x26emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该',
+    desc: '红黑树 \x26ensp;\x26ensp;红黑树是一种自平衡的二叉查找树（BST），可在O(logN)时间内完成查找、插入、删除等操作。 \x26ensp;\x26e',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {

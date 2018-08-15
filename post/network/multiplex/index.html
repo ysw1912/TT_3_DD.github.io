@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-cn" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>三种I/O多路复用模型 - Hide on bush</title>
+  <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="ysw1912" />
+  <meta name="description" content="I/O多路复用 &amp;emsp;&amp;emsp;常见的 I/O 模型有 5 种： 阻塞 I/O 非阻塞 I/O I/O复用 信号驱动 I/O 异步 I/O &amp;emsp;&amp;emsp;其中，I/O 复用是" />
+
+  <meta name="keywords" content="Hugo, Blog, ysw1912" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.41" />
+
+
+<link rel="canonical" href="https://ysw1912.github.io/post/network/multiplex/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="三种I/O多路复用模型" />
+<meta property="og:description" content="I/O多路复用 &emsp;&emsp;常见的 I/O 模型有 5 种： 阻塞 I/O 非阻塞 I/O I/O复用 信号驱动 I/O 异步 I/O &emsp;&emsp;其中，I/O 复用是" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ysw1912.github.io/post/network/multiplex/" />
+
+
+
+<meta property="article:published_time" content="2018-08-15T14:30:00&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-08-15T14:30:00&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="三种I/O多路复用模型">
+<meta itemprop="description" content="I/O多路复用 &emsp;&emsp;常见的 I/O 模型有 5 种： 阻塞 I/O 非阻塞 I/O I/O复用 信号驱动 I/O 异步 I/O &emsp;&emsp;其中，I/O 复用是">
+
+
+<meta itemprop="datePublished" content="2018-08-15T14:30:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-08-15T14:30:00&#43;08:00" />
+<meta itemprop="wordCount" content="2591">
+
+
+
+<meta itemprop="keywords" content="网络编程," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="三种I/O多路复用模型"/>
+<meta name="twitter:description" content="I/O多路复用 &emsp;&emsp;常见的 I/O 模型有 5 种： 阻塞 I/O 非阻塞 I/O I/O复用 信号驱动 I/O 异步 I/O &emsp;&emsp;其中，I/O 复用是"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Hide on bush</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/">
+          首页
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/post/">
+          归档
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/tags/">
+          标签
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/categories/">
+          分类
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://ysw1912.github.io/about/">
+          关于
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Hide on bush
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/">首页</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/post/">归档</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/tags/">标签</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/categories/">分类</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://ysw1912.github.io/about/">关于</a>
+          
+
+        
+
+      </li>
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">三种I/O多路复用模型</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-15 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"> 网络编程 </a>
+            
+          </div>
+        <span class="more-meta"> 约 2591 字 </span>
+        <span class="more-meta"> 预计阅读 6 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#i-o多路复用">I/O多路复用</a></li>
+<li><a href="#select">select</a>
+<ul>
+<li>
+<ul>
+<li><a href="#原理">原理</a></li>
+<li><a href="#使用场景">使用场景</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#poll">poll</a>
+<ul>
+<li>
+<ul>
+<li><a href="#原理-1">原理</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#epoll">epoll</a>
+<ul>
+<li>
+<ul>
+<li><a href="#原理-2">原理</a></li>
+<li><a href="#使用场景-1">使用场景</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h2 id="i-o多路复用">I/O多路复用</h2>
+
+<p>&emsp;&emsp;常见的 I/O 模型有 5 种：</p>
+
+<ul>
+<li>阻塞 I/O</li>
+<li>非阻塞 I/O</li>
+<li>I/O复用</li>
+<li>信号驱动 I/O</li>
+<li>异步 I/O</li>
+</ul>
+
+<p>&emsp;&emsp;其中，I/O 复用是通过一种机制，一个进程可以<font color=#ff0000>监听多个</font>文件描述符，一旦某个 fd 就绪（一般是读就绪或写就绪），就<font color=#ff0000>通知</font>程序进行相应的操作。</p>
+
+<p>&emsp;&emsp;目前 Linux 上主要的 I/O 多路复用模型有三种，select、poll、epoll，它们本质上都是同步 I/O，即要求读写事件就绪后自己负责进行读写，这会导致请求进程阻塞，直到 I/O 操作完成。</p>
+
+<h2 id="select">select</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/select.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">select</span><span class="p">(</span><span class="kt">int</span> <span class="n">maxfdp1</span><span class="p">,</span> <span class="n">fd_set</span><span class="o">*</span> <span class="n">readset</span><span class="p">,</span> <span class="n">fd_set</span><span class="o">*</span> <span class="n">writeset</span><span class="p">,</span> <span class="n">fd_set</span><span class="o">*</span> <span class="n">exceptset</span><span class="p">,</span> 
+           <span class="k">const</span> <span class="k">struct</span> <span class="n">timeval</span><span class="o">*</span> <span class="n">timeout</span><span class="p">);</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><code>maxfdp1</code>参数指定内核监控的文件描述符个数，描述符 0, 1, 2, &hellip;, maxfdp1 - 1 将被测试。该值受限于<code>&lt;sys/select.h&gt;</code>中定义的<code>FD_SETSIZE</code>常值，x86 系统下一般为 1024。</li>
+<li>中间三个相同类型的参数指向<code>fd_set</code>（描述符集）的数据类型，分别表示监控的文件描述符集的<font color=#ff0000>读、写、异常</font>三种属性。fd_set 类型变量每一位代表了一个描述符，是一个由 1024 个二进制位构成的<code>bitmap</code>。select 返回时，它们作为传出参数，表示相应事件就绪的文件描述符集。</li>
+<li><code>timeout</code> 设置 select 的超时时间。
+
+<ul>
+<li>若设为 NULL，则将 select 置于阻塞状态，直到有 fds 准备好 I/O 时才返回；</li>
+<li>若设为 “0 秒 0 毫秒”，则将 select 设为非阻塞，检查 fds 后立即返回，成为轮询（polling）；</li>
+<li>若设置 timeout 值大于 0，则在超时时间内有事件到来才返回，超时后不管怎样一定返回。</li>
+</ul></li>
+</ul>
+
+<h4 id="原理">原理</h4>
+
+<p>&emsp;&emsp;具体的源码分析参见该博客：<a href="https://blog.csdn.net/lizhiguo0532/article/details/6568964">select(poll)系统调用实现解析</a>。这里仅做大致梳理。</p>
+
+<p><strong><code>select()</code>系统调用</strong></p>
+
+<ol>
+<li>调用 copy_from_user() 从用户空间取 timeout 数据到内核空间。</li>
+<li>调用<code>core_sys_select()</code>实现 select 核心工作。</li>
+<li>若有设置超时值，则拷贝离超时时刻的剩余时间到用户空间。</li>
+</ol>
+
+<p><strong><code>core_sys_select()</code>主要工作</strong></p>
+
+<ol>
+<li>创建一个 fd_set_bits 类型变量，包装 6 个 unsigned long*，用于存储三个描述符集 readset、writeset、exceptset 的入值和返回结果。</li>
+<li>从用户空间取得三个 fd_set，且先将返回结果初始化为 0，准备工作完毕。</li>
+<li>调用<code>do_select()</code>实现核心的轮询工作。</li>
+<li>将结果拷贝回用户空间。</li>
+</ol>
+
+<p><strong><code>do_select()</code>主要工作</strong></p>
+
+<ol>
+<li>取出 32 个文件描述符对应的 bitmap，若其中没有待监听的描述符，则跳入下一轮 32 个描述符的循环。这里每次循环检测 32 个描述符，刚好一个 unsigned long 型数（x86）。</li>
+<li>如果本次 32 个描述符中有待监听的描述符存在，首先找到那一位的 fd。调用驱动程序中的<code>poll</code>函数，其中<code>__pollwait()</code>函数将当前进程添加到对应 fd 的等待队列中。当该 fd 有事件到来时，就会唤醒这个进程。<code>poll</code>函数返回时返回一个表示事件是否就绪的掩码。</li>
+<li>根据<code>poll</code>返回的 mask 给结果 bitmap 赋值，返回给上级函数 core_sys_select()。</li>
+<li>若轮询一遍未发现就绪事件，则根据所设超时时间进入休眠。</li>
+</ol>
+
+<h4 id="使用场景">使用场景</h4>
+
+<p>&emsp;&emsp;从 select 的实现来看，它有如下缺点：</p>
+
+<ol>
+<li>监听的文件描述符数量有 FD_SETSIZE 的限制。</li>
+<li>需要将整个描述符集的 bitmap 在用户空间与内核空间来回拷贝，这在 fd 很多时开销巨大。</li>
+<li>内核需要轮询整个监听 fd 集，以测试其中是否有就绪者。</li>
+<li>select 返回时，该进程从所有监听的 fd 的等待队列中移除。而下次 select 再次重新传入所有监听的 fd，再重新将进程挂在到监听的 fd 的等待队列中。重复的开销太大。</li>
+<li>用户获取事件时，需要遍历整个监听 fd 集。</li>
+</ol>
+
+<p>&emsp;&emsp;因此，解决 1024 以下客户端时的小型并发时使用 select 比较合适，但如果客户连接过多，由于 select 采用轮询，会大大降低服务器效率。</p>
+
+<h2 id="poll">poll</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;poll.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">poll</span><span class="p">(</span><span class="k">struct</span> <span class="n">pollfd</span><span class="o">*</span> <span class="n">fdarray</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">nfds</span><span class="p">,</span> <span class="kt">int</span> <span class="n">timeout</span><span class="p">);</span>
+
+<span class="k">struct</span> <span class="n">pollfd</span>
+<span class="p">{</span>
+    <span class="kt">int</span>    <span class="n">fd</span><span class="p">;</span>		<span class="c1">// 需要检测的 fd
+</span><span class="c1"></span>    <span class="kt">short</span>  <span class="n">events</span><span class="p">;</span>	<span class="c1">// fd 上关心的事件，传入参数
+</span><span class="c1"></span>    <span class="kt">short</span>  <span class="n">revents</span><span class="p">;</span>	<span class="c1">// fd 上发生的事件，作为 poll 返回时的传出参数
+</span><span class="c1"></span><span class="p">};</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;select 使用三个 bitmap 表示的三个 fd_set，它们既作为传入参数，又作为传出参数。</p>
+
+<p>&emsp;&emsp;poll 不同于 select：</p>
+
+<ol>
+<li>使用指向 pollfd 结构的指针实现，分离了监视事件和发生事件，调用前后不需要重置。若不再监控某 fd，可把 pollfd 中的 fd 设置为 -1。</li>
+<li>不再把事件分为三组（读/写/异常），而由调用者自己设置，其值为 “POLLIN” 等常值的按位或。</li>
+<li>内核中不使用 bitmap 组织描述符，使用链表，因此没有最大数量的限制。</li>
+<li>int 型的 timeout 是毫秒级时间。</li>
+</ol>
+
+<h4 id="原理-1">原理</h4>
+
+<p>&emsp;&emsp;除了对于描述符集合的存储方式不同外，poll 与 select 本质上没有区别，poll 只解决了 select 最大描述符数量的限制，但依然在内核中采用轮询遍历 fd，并且需要在用户空间与内核空间来回拷贝数据，随着 fd 的增加会造成服务器性能显著下降。</p>
+
+<h2 id="epoll">epoll</h2>
+
+<p>&emsp;&emsp;epoll 是 Linux 特有的 I/O 复用函数，避免了 select 和 poll 的缺点，实现上 epoll 使用<font color=#ff0000>一组函数</font>来完成任务。</p>
+
+<p>&emsp;&emsp;对于长期监听的 fd，以及对这些 fd 期待的事件也不会改变时，每次调用 select 或 poll 仍然需要一次从用户空间到内核空间的拷贝。因此我们希望<font color=#ff0000>让内核长期保存所有需要监听的 fd 以及对应事件，并在需要时对部分 fd 以及期待事件进行修改</font>。</p>
+
+<p>&emsp;&emsp;因此 epoll 把用户关心的 fd 上的事件放在内核里的一个事件表里，并用一个额外的 fd 来唯一标识内核中的这个事件表，该 fd 的创建如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;sys/epoll.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">int</span> <span class="nf">epoll_create</span><span class="p">(</span><span class="kt">int</span> <span class="n">size</span><span class="p">);</span>	<span class="o">//</span> <span class="n">size提示事件表的大小</span><span class="err">，建议内核监听的</span><span class="n">fd个数</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;并用如下函数操作 epoll 的内核事件表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">epoll_ctl</span><span class="p">(</span><span class="kt">int</span> <span class="n">epfd</span><span class="p">,</span> <span class="kt">int</span> <span class="n">op</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="k">struct</span> <span class="n">epoll_event</span><span class="o">*</span> <span class="n">event</span><span class="p">);</span>
+
+<span class="k">struct</span> <span class="n">epoll_event</span>
+<span class="p">{</span>
+    <span class="n">__uint32_t</span>    <span class="n">events</span><span class="p">;</span>	<span class="c1">// epoll事件
+</span><span class="c1"></span>    <span class="n">epoll_data_t</span>  <span class="n">data</span><span class="p">;</span>		<span class="c1">// 一般使用data.fd，指定事件从属的目标fd
+</span><span class="c1"></span><span class="p">};</span></code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;其中 op 参数指定操作类型，有如下 3 种：</p>
+
+<ul>
+<li>EPOLL_CTL_ADD 往事件表中注册 fd 上的事件</li>
+<li>EPOLL_CTL_MOD 修改事件表中 fd 上的事件</li>
+<li>EPOLL_CTL_DEL 删除事件表中 fd 上的事件</li>
+</ul>
+
+<p>&emsp;&emsp;epoll 除了提供 select/poll 那种 I/O 事件的 LT（Level Trigger，电平触发）</p>
+
+<h4 id="原理-2">原理</h4>
+
+<p>&emsp;&emsp;调用 epoll_create() 时，会在内核的高速 cache 中创建一个事件表，用来存储所要监听的所有 fd。存储所用的数据结构就是<font color=#ff0000>红黑树</font>，每次往事件表中注册 fd 上的事件</p>
+
+<p>&emsp;&emsp;epoll 使用了共享内存，利用 mmap 将用户进程和内核中的一段虚拟地址映射到同一块物理地址上，内核对 fd 上的事件进行检查就不用来回拷贝</p>
+
+<h4 id="使用场景-1">使用场景</h4>
+
+<p>&emsp;&emsp;epoll 作为 Linux 下 select/poll 的增强版本，有如下优势：</p>
+
+<ol>
+<li>不必每次等待事件前都要重新准备要监听的 fd 集合，通过创建一个事件表复用了这些集合。</li>
+<li>用户获取事件时，无须遍历整个监听的 fd 集，极大地提高了应用程序索引就绪 fd 的效率。</li>
+</ol>
+
+<p>&emsp;&emsp;因此 epoll 是目前 linux 大规模并发网络程序中的首选模型，适合连接数量巨大，但同一时刻活跃连接数量较少的场景。如果同一时刻活跃读较高，epoll 对于 select/poll 的提升并不明显。</p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">ysw1912</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-08-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/image/pay/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/cc&#43;&#43;/pthread/">
+            <span class="next-text nav-default">POSIX thread</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  <div id="comments-gitment"></div>
+  <link rel="stylesheet" href="/lib/gitment/gitment-0.0.3.min.css">
+    <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
+  <script type="text/javascript">
+  const gitment = new Gitment({
+    id: 'multiplex.md',
+    title: '三种I\/O多路复用模型',
+    link: decodeURI(location.href),
+    desc: 'I\/O多路复用 \x26emsp;\x26emsp;常见的 I\/O 模型有 5 种： 阻塞 I\/O 非阻塞 I\/O I\/O复用 信号驱动 I\/O 异步 I\/O \x26emsp;\x26emsp;其中，I\/O 复用是',
+    owner: 'ysw1912',
+    repo: 'blog_comments',
+    oauth: {
+      client_id: '85cc0c5a3f49196bdeb0',
+      client_secret: 'd35ce92810461ae478b60b96a11ed65df8f978bd'
+    }
+  })
+  gitment.render('comments-gitment')
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:793377164@qq.com" rel="me noopener" class="iconfont icon-email"
+        title="email" target="_blank">
+      </a>
+      <a href="https://twitter.com/YangStewie/" rel="me noopener" class="iconfont icon-twitter"
+        title="twitter" target="_blank">
+      </a>
+      <a href="https://github.com/ysw1912/" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+  <a href="https://ysw1912.github.io/index.xml" rel="noopener" type="application/rss+xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">ysw1912</span></span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+</body>
+</html>
