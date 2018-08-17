@@ -29,6 +29,78 @@
     </item>
     
     <item>
+      <title>网络编程中的一些注意点</title>
+      <link>https://ysw1912.github.io/post/network/some_tips/</link>
+      <pubDate>Fri, 17 Aug 2018 20:10:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/network/some_tips/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;sigpipe&#34;&gt;SIGPIPE&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;向一个已关闭的 socket 或 pipe 写入数据，send() 会返回 -1，errno 为 EPIPE，同时系统会发出一个&lt;code&gt;SIGPIPE&lt;/code&gt;信号给进程。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;收到 SIGPIPE 的默认行为是终止进程，对于命令行管道效果不错。例如以下命令，用来解压缩一个大的日志文件 “huge.log.gz”：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;gunzip -c huge.log.gz | grep ERROR | head&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;找出日志文件中含有 ERROR 的行，head 打印输出的前 10 行，之后就关闭，grep ERROR 则会收到 SIGPIPE 信号，gunzip 也会收到 SIGPIPE，避免将整个大文件解压缩。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;而在网络编程情况下，如果一个 client 关闭 socket，服务器如果不作处理，则会收到 SIGPIPE 而退出，并影响到其他所有 client。因此服务器进程启动时，应&lt;font color=#ff0000&gt;先将 SIGPIPE 信号忽略掉&lt;/font&gt;。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>如何正确关闭TCP连接</title>
+      <link>https://ysw1912.github.io/post/network/how_to_close_tcp_connection_correctly/</link>
+      <pubDate>Fri, 17 Aug 2018 17:35:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/network/how_to_close_tcp_connection_correctly/</guid>
+      
+        <description>
+
+&lt;h2 id=&#34;问题&#34;&gt;问题&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;在使用 TCP 网络编程时，有时发送了一些数据后，要传输的数据的最后几 kb，有时是几 Mb 没有到达。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;具体参见博客：&lt;a href=&#34;https://blog.netherlabs.nl/articles/2009/01/18/the-ultimate-so_linger-page-or-why-is-my-tcp-not-reliable&#34;&gt;The ultimate SO_LINGER page, or: why is my tcp not reliable&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;&lt;code&gt;send()&lt;/code&gt;成功返回只意味着内核接收了数据，并准备在某些时候发送它们。内核接收数据后，还要把数据包发送到网卡，并在网络中各个网卡遍历，最终到达远程主机。远程主机的内核确认到数据，拥有该 socket 的进程从中读取数据，此时数据才真正到达应用程序，用文件系统的话来说，是 “hit the disk”。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;当调用&lt;code&gt;close()&lt;/code&gt;关闭 socket fd 时，整个 TCP 连接也关闭了，即使一些数据还在内核的发送缓冲区里，或者已经发送但未被确认。&lt;font color=#ff0000&gt;发送方如果 send() 后立即 close() &lt;/font&gt;，就可能出现数据其实还未发送的情况。设置 socket 选项&lt;code&gt;SO_LINGER&lt;/code&gt;会&lt;font color=#ff0000&gt;尝试将残留在发送缓冲区的数据发送给对方&lt;/font&gt;，看似解决了这种问题，但有时依然会出现数据发送不全的问题。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;原因在于，发送方执行 close() 时，如果它的&lt;font color=#ff0000&gt;接收缓冲区中仍有数据没有读取&lt;/font&gt;，或者调用 close() 后&lt;font color=#ff0000&gt;有新的数据到达&lt;/font&gt;，这时它会发送一个&lt;code&gt;RST&lt;/code&gt;告知对方数据丢失，没有正常使用&lt;code&gt;FIN&lt;/code&gt;断开连接，因此设置&lt;code&gt;SO_LINGER&lt;/code&gt;没有效果。&lt;/p&gt;
+
+&lt;h2 id=&#34;解决&#34;&gt;解决&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;那么如果发送方先读取了自己接受缓冲区的数据，再 close()，问题会得到解决吗？并不会。这时需要借助&lt;code&gt;shutdown()&lt;/code&gt;，shutdown() 会确实发送一个&lt;code&gt;FIN&lt;/code&gt;给对方，说明对方也即将关闭 socket，此时可以&lt;font color=#ff0000&gt;通过 recv() 返回 0 （收到 EOF）检测到接受端的关闭&lt;/font&gt;。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;正确的关闭逻辑如下，建议用这种方式代替&lt;code&gt;SO_LINGER&lt;/code&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;发送方：send() → shutdown(WR) → recv() == 0（由接收方 close 导致） → close()&lt;/li&gt;
+&lt;li&gt;接收方：recv() == 0（由发送方 shutdown 导致） → more to send? → close()&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;值得注意，如果遇到恶意或错误 client，永远不 close()，则服务器 recv() 不会返回 0（阻塞且 errno == EAGAIN），因此需要加一个超时控制，若 shutdown(WR) 若干秒后 recv() 未返回 0，则直接 close() 强制关闭连接。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;即使如此，&lt;font color=#ff0000&gt;shutdown() 也不能保证接收方接受到所有数据&lt;/font&gt;，这只是发送方能做到的最大努力。最好的办法还是像 HTTP 协议那样，附有消息的长度信息，这就需要有能力&lt;font color=#ff0000&gt;自己设计协议&lt;/font&gt;。&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;还有一种方法，Linux 记录了未确认数据的数量，可以使用&lt;code&gt;ioctl&lt;/code&gt;的&lt;code&gt;SIOCOUTQ&lt;/code&gt;选项查询，如果这个数字达到 0，我们&lt;font color=#ff0000&gt;至少可以确认所有的发送数据到达了远程操作系统&lt;/font&gt;，只是只能在 Linux 平台下实现。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>三种I/O多路复用模型</title>
       <link>https://ysw1912.github.io/post/network/multiplex/</link>
       <pubDate>Wed, 15 Aug 2018 14:30:00 +0800</pubDate>

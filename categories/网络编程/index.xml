@@ -7,10 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Wed, 15 Aug 2018 14:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Aug 2018 20:10:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>网络编程中的一些注意点</title>
+      <link>https://ysw1912.github.io/post/network/some_tips/</link>
+      <pubDate>Fri, 17 Aug 2018 20:10:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/network/some_tips/</guid>
+      <description>SIGPIPE &amp;emsp;&amp;emsp;向一个已关闭的 socket 或 pipe 写入数据，send() 会返回 -1，errno 为 EPIPE，同时系统会发出一个SIGPIPE信号</description>
+    </item>
+    
+    <item>
+      <title>如何正确关闭TCP连接</title>
+      <link>https://ysw1912.github.io/post/network/how_to_close_tcp_connection_correctly/</link>
+      <pubDate>Fri, 17 Aug 2018 17:35:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/network/how_to_close_tcp_connection_correctly/</guid>
+      <description>问题 &amp;emsp;&amp;emsp;在使用 TCP 网络编程时，有时发送了一些数据后，要传输的数据的最后几 kb，有时是几 Mb 没有到达。 &amp;emsp;&amp;emsp;</description>
+    </item>
     
     <item>
       <title>三种I/O多路复用模型</title>
