@@ -13,12 +13,12 @@
     
     
     <item>
-      <title>网络编程中的一些注意点</title>
-      <link>https://ysw1912.github.io/post/network/some_tips/</link>
+      <title>TCP 网络编程三部曲</title>
+      <link>https://ysw1912.github.io/post/network/trilogy_of_tcp_programming/</link>
       <pubDate>Fri, 17 Aug 2018 20:10:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/network/some_tips/</guid>
-      <description>SIGPIPE &amp;emsp;&amp;emsp;向一个已关闭的 socket 或 pipe 写入数据，send() 会返回 -1，errno 为 EPIPE，同时系统会发出一个SIGPIPE信号</description>
+      <guid>https://ysw1912.github.io/post/network/trilogy_of_tcp_programming/</guid>
+      <description>SO_REUSEADDR &amp;emsp;&amp;emsp;允许 TCP server crash/kill 后复用端口，立即重启。 &amp;emsp;&amp;emsp;传统的 fork-per-connection 模型需要使用，fork 出的子进程后，父进程的 listen 退出</description>
     </item>
     
     <item>

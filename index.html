@@ -278,7 +278,7 @@
     
       <article class="post bg-white">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/network/some_tips/">网络编程中的一些注意点</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/network/trilogy_of_tcp_programming/">TCP 网络编程三部曲</a></h1>
     
     <div class="post-meta">
       <span class="post-time"> 2018-08-17 </span>
@@ -287,18 +287,18 @@
             <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"> 网络编程 </a>
           
         </div>
-      <span class="more-meta"> 约 333 字 </span>
-      <span class="more-meta"> 预计阅读 1 分钟 </span>
+      <span class="more-meta"> 约 732 字 </span>
+      <span class="more-meta"> 预计阅读 2 分钟 </span>
     </div>
   </header>
   
   <div class="post-content">
     
     <div class="post-summary">
-      SIGPIPE &emsp;&emsp;向一个已关闭的 socket 或 pipe 写入数据，send() 会返回 -1，errno 为 EPIPE，同时系统会发出一个SIGPIPE信号
+      SO_REUSEADDR &emsp;&emsp;允许 TCP server crash/kill 后复用端口，立即重启。 &emsp;&emsp;传统的 fork-per-connection 模型需要使用，fork 出的子进程后，父进程的 listen 退出
     </div>
     <div class="read-more">
-      <a href="/post/network/some_tips/" class="read-more-link">阅读全文</a>
+      <a href="/post/network/trilogy_of_tcp_programming/" class="read-more-link">阅读全文</a>
     </div>
     
   </div>
