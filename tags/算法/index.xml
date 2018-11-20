@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on Hide on bush</title>
+    <link>https://ysw1912.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on Hide on bush</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>ysw1912</copyright>
+    <lastBuildDate>Tue, 20 Nov 2018 11:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://ysw1912.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2D凸包问题</title>
+      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
+      <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
+      <description>凸包问题 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点</description>
+    </item>
+    
+    <item>
+      <title>链表排序</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/stl02/</link>
+      <pubDate>Thu, 14 Jun 2018 18:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/stl02/</guid>
+      <description>链表排序 &amp;emsp;&amp;emsp;在学习STL中的双向链表std::list时，被它的sort()函数惊艳到，发现《STL源码剖析》一书中对该</description>
+    </item>
+    
+  </channel>
+</rss>

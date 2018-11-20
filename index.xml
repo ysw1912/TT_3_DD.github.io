@@ -37,7 +37,12 @@
       
         <description>
 
-&lt;h3 id=&#34;2d凸包&#34;&gt;2D凸包&lt;/h3&gt;
+&lt;h3 id=&#34;凸包问题&#34;&gt;凸包问题&lt;/h3&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/00.jpg&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;正式讨论凸包问题之前，这里先引入一些辅助概念。&lt;/p&gt;
 </description>
       
     </item>
