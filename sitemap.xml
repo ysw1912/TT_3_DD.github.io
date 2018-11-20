@@ -10,6 +10,13 @@
   </url>
   
   <url>
+    <loc>https://ysw1912.github.io/post/opengl/opengl01/</loc>
+    <lastmod>2018-11-20T19:28:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</loc>
     <lastmod>2018-11-20T19:21:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -178,8 +185,22 @@
   </url>
   
   <url>
+    <loc>https://ysw1912.github.io/tags/opengl/</loc>
+    <lastmod>2018-11-20T19:28:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ysw1912.github.io/categories/opengl/</loc>
+    <lastmod>2018-11-20T19:28:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ysw1912.github.io/post/</loc>
-    <lastmod>2018-11-20T19:21:00+08:00</lastmod>
+    <lastmod>2018-11-20T19:28:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

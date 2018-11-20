@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opengl on Hide on bush</title>
+    <link>https://ysw1912.github.io/tags/opengl/</link>
+    <description>Recent content in Opengl on Hide on bush</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>ysw1912</copyright>
+    <lastBuildDate>Tue, 20 Nov 2018 19:28:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://ysw1912.github.io/tags/opengl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）</title>
+      <link>https://ysw1912.github.io/post/opengl/opengl01/</link>
+      <pubDate>Tue, 20 Nov 2018 19:28:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/opengl/opengl01/</guid>
+      <description>GLFW &amp;emsp;&amp;emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &amp;</description>
+    </item>
+    
+  </channel>
+</rss>
