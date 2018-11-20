@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-20T11:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T11:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="916">
+<meta itemprop="wordCount" content="1315">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 916 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta"> 约 1315 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
       </div>
     </header>
 
@@ -408,7 +408,7 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 
 <h3 id="jarvis-s-algorithm-or-wrapping">Jarvis’s Algorithm or Wrapping</h3>
 
-<div align=center>![](/image/post/algorithm/2d_convex_hull/04.png)</div>
+<p>&emsp;&emsp;算法流程如下：</p>
 
 <ol>
 <li>初始化 p 为最左侧的点（x 坐标最小的点）</li>
@@ -417,7 +417,8 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 <ol>
 <li>找到下一个点 q，使得对于任意其他点 r，有三元组 (p, q, r) 的方向是逆时针</li>
 <li>存储 q 作为 p 的下一个输出元素</li>
-<li>p = q</li>
+<li>p = q
+<div align=center><img src="/image/post/algorithm/2d_convex_hull/04.png" alt="" /></div></li>
 </ol></li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -440,8 +441,28 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 
 <h3 id="graham-scan">Graham Scan</h3>
 
-<div align=center>![](/image/post/algorithm/2d_convex_hull/05.png)</div>
-<div align=center>![](/image/post/algorithm/2d_convex_hull/06.png)</div>
+<p>&emsp;&emsp;算法可以分为两个主要部分：</p>
+
+<ol>
+<li><p>预处理</p>
+
+<ol>
+<li>找到最下方的点（y 坐标最小的点），若有 y 坐标相同，则取 x 坐标较小的点。使该点 p0 作为输出凸包的第一个元素 points[0]。</li>
+<li>将剩下 n - 1 个点排序，以 p0 到该点与 x 轴的逆时针夹角从小到大的顺序排序，若有角度相同，则将距离 p0 较近的点放在前面。</li>
+<li>看是否有多个点有相同角度，移除它们，仅保留距离 p0 最远的那个点。此时得到的数组 points 是一条闭合路径。
+<div align=center><img src="/image/post/algorithm/2d_convex_hull/05.png" alt="" /></div></li>
+</ol></li>
+
+<li><p>接受或拒绝点</p>
+
+<ol>
+<li>创建空栈 S，将 points[0]、points[1]、points[2] 入栈。</li>
+<li>处理剩余的每个 points[i]：</li>
+<li>追踪当前的三个点 prev(p)：栈顶的下一个点，curr&copy;：位于栈顶的点，next(n)：points[i]，如果它们的方向不是逆时针（向左转），则移除当前栈顶的点 c，否则保留。</li>
+<li>将 points[i] 入栈
+<div align=center><img src="/image/post/algorithm/2d_convex_hull/06.png" alt="" /></div></li>
+</ol></li>
+</ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
@@ -458,7 +479,7 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 </code></pre></td></tr></table>
 </div>
 </div>
-<p>&emsp;&emsp;算法的复杂度为 O(m * n)，其中 m 是输出凸包中点的数量，n 是输入点集中点的数量。最坏的情况下，点集中所有点都在输出的凸包上，时间复杂度为 O(n^2)。</p>
+<p>&emsp;&emsp;算法的第 1.1 步（找到最下方的点）花 O(n) 时间，第 1.2 步（点的排序）花 O(n * logn) 时间，第 1.3 步花 O(n) 时间。第 2 个步骤中，每个元素入栈和出栈最多一次，假设栈操作 O(1) 时间，则第 2 步总共花 O(n) 时间。因此总体的时间复杂度是 O(n * logn)。</p>
 
     </div>
 
