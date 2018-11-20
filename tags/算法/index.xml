@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Thu, 14 Jun 2018 18:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 20 Nov 2018 11:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2D凸包问题</title>
+      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
+      <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
+      <description>凸包问题 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点</description>
+    </item>
     
     <item>
       <title>链表排序</title>
