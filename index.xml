@@ -124,6 +124,13 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$&lt;/p&gt;
 &lt;li&gt;p = q&lt;/li&gt;
 &lt;/ol&gt;&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;div align=center&gt;![](/image/post/algorithm/2d_convex_hull/04.png)&lt;/div&gt;
+
+&lt;h3 id=&#34;graham-scan&#34;&gt;Graham Scan&lt;/h3&gt;
+
+&lt;div align=center&gt;![](/image/post/algorithm/2d_convex_hull/05.png)&lt;/div&gt;
+&lt;div align=center&gt;![](/image/post/algorithm/2d_convex_hull/06.png)&lt;/div&gt;
 </description>
       
     </item>
