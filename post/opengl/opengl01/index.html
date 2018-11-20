@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="GLFW &amp;emsp;&amp;emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置" />
+  <meta name="description" content="GLFW &amp;emsp;&amp;emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &amp;" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）" />
-<meta property="og:description" content="GLFW &emsp;&emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置" />
+<meta property="og:description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/opengl/opengl01/" />
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）">
-<meta itemprop="description" content="GLFW &emsp;&emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置">
+<meta itemprop="description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &">
 
 
 <meta itemprop="datePublished" content="2018-11-20T19:28:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T19:28:00&#43;08:00" />
-<meta itemprop="wordCount" content="1171">
+<meta itemprop="wordCount" content="1187">
 
 
 
 <meta itemprop="keywords" content="OpenGL," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）"/>
-<meta name="twitter:description" content="GLFW &emsp;&emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置"/>
+<meta name="twitter:description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,7 +294,7 @@
               <a href="/categories/opengl/"> OpenGL </a>
             
           </div>
-        <span class="more-meta"> 约 1171 字 </span>
+        <span class="more-meta"> 约 1187 字 </span>
         <span class="more-meta"> 预计阅读 3 分钟 </span>
       </div>
     </header>
@@ -327,7 +327,7 @@
 
 <h2 id="glfw">GLFW</h2>
 
-<p>&emsp;&emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。</p>
+<p>&emsp;&emsp;<strong>GLFW</strong> 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。</p>
 
 <h3 id="配置步骤">配置步骤</h3>
 
@@ -337,16 +337,16 @@
 <p>&emsp;&emsp;用 <a href="https://cmake.org/download/">CMake</a> 编译 GLFW 源代码，源代码目录选择 GLFW 源代码的根目录，然后新建一个 build 文件夹作为 build 目录。
 <div align=center><img src="/image/post/opengl/01/01.png" alt="" /></div></p>
 
-<p>点击** Configure <strong>，生成器我这里选择了</strong> Visual Studio 15 2017 Win64 <strong>，这里要根据自己 VS 所使用的编译环境选择，我 VS 常用</strong> x64 <strong>环境因此用 64 位的生成器。若 VS 使用</strong> x86 <strong>环境，这里选择</strong> Visual Studio 15 2017 **，否则之后会出现链接错误！
+<p>点击 <strong>Configure</strong>，生成器我这里选择了 <strong>Visual Studio 15 2017 Win64</strong>，这里要根据自己 VS 所使用的编译环境选择，我 VS 常用 <strong>x64</strong> 环境因此用 64 位的生成器。若 VS 使用 <strong>x86</strong> 环境，这里选择 <strong>Visual Studio 15 2017</strong>，否则之后会出现链接错误！
 <div align=center><img src="/image/post/opengl/01/02.png" alt="" /></div></p>
 
-<p>再次点击** Configure <strong>，最后点击</strong> Generate **，
+<p>再次点击 <strong>Configure</strong>，最后点击 <strong>Generate</strong>，
 <div align=center><img src="/image/post/opengl/01/03.png" alt="" /></div></p>
 
 <p>即可在 build 目录下生成 Visual Studio 的解决方案。
 <div align=center><img src="/image/post/opengl/01/04.png" alt="" /></div></p>
 
-<p>&emsp;&emsp;直接打开解决方案** GLFW.sln <strong>文件（整个解决方案中有 30 个项目，我们需要的是其中的一个 glfw，其用于生成 glfw3.lib 文件）。在 glfw 项目上右键</strong> 生成 <strong>，编译生成库</strong> glfw3.lib <strong>就会出现在</strong> src/Debug **文件夹内。
+<p>&emsp;&emsp;直接打开解决方案 <strong>GLFW.sln</strong> 文件（整个解决方案中有 30 个项目，我们需要的是其中的一个 glfw，其用于生成 glfw3.lib 文件）。在 glfw 项目上右键 <strong>生成</strong>，编译生成库 <strong>glfw3.lib</strong> 就会出现在 <strong>src/Debug</strong> 文件夹内。
 <div align=center><img src="/image/post/opengl/01/05.png" alt="" /></div>
 &nbsp;
 <div align=center><img src="/image/post/opengl/01/06.png" alt="" /></div>
@@ -357,28 +357,28 @@
 
 <p>&emsp;&emsp;由于 OpenGL 只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。而 OpenGL 驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。所以任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。但这样写出的代码复杂繁琐，因此我们需要 GLAD。</p>
 
-<p>&emsp;&emsp;** GLAD <strong>是目前最流行的开源库，能帮我们简化这个流程。在此之前，我们首先用</strong> OpenGL Extension Viewer <strong>（<a href="https://opengl-extensions-viewer.en.softonic.com/">softonic下载页</a>）查看自己的 OpenGL 版本，我这里是</strong> 4.0 **。
+<p>&emsp;&emsp;<strong>GLAD</strong> 是目前最流行的开源库，能帮我们简化这个流程。在此之前，我们首先用 <strong>OpenGL Extension Viewer</strong>（<a href="https://opengl-extensions-viewer.en.softonic.com/">softonic下载页</a>）查看自己的 OpenGL 版本，我这里是 <strong>4.0</strong>。
 <div align=center><img src="/image/post/opengl/01/08.png" alt="" /></div></p>
 
-<p>&emsp;&emsp;打开 <a href="http://glad.dav1d.de/">GLAD在线服务页面</a> ，默认语言为** C/C++ <strong>，选择</strong> OpenGL <strong>，API 选择使用的对应的版本，Profile 选择</strong> Core <strong>，默认勾上了</strong> Generate a loader <strong>，点击</strong> GENERATE **。
+<p>&emsp;&emsp;打开 <a href="http://glad.dav1d.de/">GLAD在线服务页面</a> ，默认语言为 <strong>C/C++</strong>，选择 <strong>OpenGL</strong>，API 选择使用的对应的版本，Profile 选择 <strong>Core</strong>，默认勾上了 <strong>Generate a loader</strong>，点击 <strong>GENERATE</strong>。
 <div align=center><img src="/image/post/opengl/01/09.png" alt="" /></div></p>
 
-<p>新窗口中右键下载压缩包** glad.zip**并解压。</p>
+<p>新窗口中右键下载压缩包 <strong>glad.zip</strong> 并解压。</p>
 
 <h2 id="配置-visual-studio-工程">配置 Visual Studio 工程</h2>
 
-<p>&emsp;&emsp;该有的库都有了之后，我们需要让 VS 知道库和头文件的位置。推荐的方式是建立一个新的目录，里面包含** include <strong>和</strong> lib **文件夹，在这里存放 OpenGL 工程用到的所有第三方库和头文件，方便库的管理。上面获得的库的文件组织结构如下：
+<p>&emsp;&emsp;该有的库都有了之后，我们需要让 VS 知道库和头文件的位置。推荐的方式是建立一个新的目录，里面包含 <strong>include</strong> 和 <strong>lib</strong> 文件夹，在这里存放 OpenGL 工程用到的所有第三方库和头文件，方便库的管理。上面获得的库的文件组织结构如下：
 <div align=center><img src="/image/post/opengl/01/10.png" alt="" /></div>
 &nbsp;
 <div align=center><img src="/image/post/opengl/01/11.png" alt="" /></div></p>
 
-<p>&emsp;&emsp;新建 Visual C++ 空项目，在项目** 属性 <strong>的</strong> VC++ <strong>选项卡中包含目录以及库目录中添加之前建立的</strong> include <strong>和</strong> lib **文件夹，这样就可以使用<code>&lt;GLFW/..&gt;</code>和<code>&lt;glad/glad.h&gt;</code>来引用头文件。
+<p>&emsp;&emsp;新建 Visual C++ 空项目，在项目 <strong>属性</strong> 的 <strong>VC++</strong> 选项卡中包含目录以及库目录中添加之前建立的 <strong>include</strong> 和 <strong>lib</strong> 文件夹，这样就可以使用<code>&lt;GLFW/..&gt;</code>和<code>&lt;glad/glad.h&gt;</code>来引用头文件。
 <div align=center><img src="/image/post/opengl/01/12.png" alt="" /></div></p>
 
-<p>要链接一个库我们必须告诉链接器它的文件名，在** 链接器 <strong>选项卡里的</strong> 输入 <strong>选项卡里添加</strong> glfw3.lib <strong>文件。由于这里使用 Windows 平台（Linux 下需要链接</strong> libGL.so <strong>库文件），</strong> opengl32.lib <strong>已经包含在 Microsoft SDK 里，它在 VS2017 安装时就默认安装了，这里只需将</strong> opengl32.lib **添加进链接器里即可。
+<p>要链接一个库我们必须告诉链接器它的文件名，在 <strong>链接器</strong> 选项卡里的 <strong>输入</strong> 选项卡里添加 <strong>glfw3.lib</strong> 文件。由于这里使用 Windows 平台（Linux 下需要链接 <strong>libGL.so</strong> 库文件），<strong>opengl32.lib</strong> 已经包含在 Microsoft SDK 里，它在 VS2017 安装时就默认安装了，这里只需将 <strong>opengl32.lib</strong> 添加进链接器里即可。
 <div align=center><img src="/image/post/opengl/01/13.png" alt="" /></div></p>
 
-<p>&emsp;&emsp;最后将** glad.zip<strong>提供的</strong> glad.c **文件添加到工程中，所有工作就完成了。</p>
+<p>&emsp;&emsp;最后将 <strong>glad.zip</strong> 提供的 <strong>glad.c</strong> 文件添加到工程中，所有工作就完成了。</p>
 
 <h2 id="opengl-编程测试">OpenGL 编程测试</h2>
 <div class="highlight"><div class="chroma">
@@ -475,7 +475,7 @@
     id: 'opengl01.md',
     title: 'Win10\x2bVS2017配置OpenGL开发环境（GLFW\x2bGLAD）',
     link: decodeURI(location.href),
-    desc: 'GLFW \x26emsp;\x26emsp;** GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置',
+    desc: 'GLFW \x26emsp;\x26emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 \x26',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {
