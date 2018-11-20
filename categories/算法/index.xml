@@ -18,7 +18,7 @@
       <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
-      <description>MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包问题 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最</description>
+      <description>MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸</description>
     </item>
     
     <item>

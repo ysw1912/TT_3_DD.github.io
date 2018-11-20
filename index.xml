@@ -50,7 +50,7 @@
 &lt;script type=&#34;text/javascript&#34; src=&#34;path-to-MathJax/MathJax.js?config=TeX-AMS_HTML&#34;&gt;
 &lt;/script&gt;
 
-&lt;h2 id=&#34;凸包问题&#34;&gt;凸包问题&lt;/h2&gt;
+&lt;h2 id=&#34;凸包&#34;&gt;凸包&lt;/h2&gt;
 
 &lt;p&gt;&amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
 &lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/00.jpg&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
@@ -83,9 +83,9 @@ $$ \tau = \frac{y_3 - y_2}{x_3 - x_2}. $$&lt;/p&gt;
 $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;若表达式为负，方向是逆时针（向左转）&lt;/li&gt;
+&lt;li&gt;若表达式为负，方向是逆时针&lt;/li&gt;
 &lt;li&gt;若表达式为0，方向是共线&lt;/li&gt;
-&lt;li&gt;若表达式为正，方向是顺时针（向右转）&lt;/li&gt;
+&lt;li&gt;若表达式为正，方向是顺时针&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&#34;两线段相交&#34;&gt;两线段相交&lt;/h4&gt;
@@ -93,19 +93,37 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$&lt;/p&gt;
 &lt;p&gt;&amp;emsp;&amp;emsp;利用上述方向的概念，很容易判断两线段&lt;font color=#ff0000&gt; (p1, q1) &lt;/font&gt;和&lt;font color=#0000ff&gt; (p2, q2) &lt;/font&gt;是否相交。&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;一般情况
-&amp;emsp;&amp;emsp;(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;p2&lt;/font&gt;) 和 (&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;q2&lt;/font&gt;) 方向不同并且 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;p1&lt;/font&gt;) 和 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;q1&lt;/font&gt;) 方向不同。
-&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/02.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;一般情况&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;li&gt;&lt;p&gt;特殊情况
-&amp;emsp;&amp;emsp;(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;p2&lt;/font&gt;)、(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;q2&lt;/font&gt;)、(&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;p1&lt;/font&gt;) 和 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;q1&lt;/font&gt;) 4 个方向均共线并且&lt;/p&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;p2&lt;/font&gt;) 和 (&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;q2&lt;/font&gt;) 方向不同并且 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;p1&lt;/font&gt;) 和 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;q1&lt;/font&gt;) 方向不同。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/02.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;font color=#ff0000&gt; (p1, q1) &lt;/font&gt;和&lt;font color=#0000ff&gt; (p2, q2) &lt;/font&gt; 的 x 轴部分相交&lt;/li&gt;
-&lt;li&gt;&lt;font color=#ff0000&gt; (p1, q1) &lt;/font&gt;和&lt;font color=#0000ff&gt; (p2, q2) &lt;/font&gt; 的 y 轴部分相交
-&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/03.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;特殊情况&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;p2&lt;/font&gt;)、(&lt;font color=#ff0000&gt;p1, q1&lt;/font&gt;, &lt;font color=#0000ff&gt;q2&lt;/font&gt;)、(&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;p1&lt;/font&gt;) 和 (&lt;font color=#0000ff&gt;p2, q2&lt;/font&gt;, &lt;font color=#ff0000&gt;q1&lt;/font&gt;) 4 个方向均共线并且
+  - &lt;font color=#ff0000&gt; (p1, q1) &lt;/font&gt;和&lt;font color=#0000ff&gt; (p2, q2) &lt;/font&gt; 的 x 轴部分相交
+  - &lt;font color=#ff0000&gt; (p1, q1) &lt;/font&gt;和&lt;font color=#0000ff&gt; (p2, q2) &lt;/font&gt; 的 y 轴部分相交
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/03.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2d凸包问题&#34;&gt;2D凸包问题&lt;/h2&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;凸包问题最常见的两种解法是 Jarvis 步进法和 Graham 扫描法，有了上面的基础，这两种方法很容易实现出来。&lt;/p&gt;
+
+&lt;h3 id=&#34;jarvis-s-algorithm-or-wrapping&#34;&gt;Jarvis’s Algorithm or Wrapping&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;初始化 p 为最左侧的点（x 坐标最小的点）&lt;/li&gt;
+&lt;li&gt;循环如下步骤，直到回到初始的最左侧的点
+
+&lt;ol&gt;
+&lt;li&gt;找到下一个点 q，使得对于任意其他点 r，有三元组 (p, q, r) 的方向是逆时针&lt;/li&gt;
+&lt;li&gt;存储 q 作为 p 的下一个输出元素&lt;/li&gt;
+&lt;li&gt;p = q&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ol&gt;
 </description>
       
     </item>
