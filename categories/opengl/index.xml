@@ -18,7 +18,7 @@
       <pubDate>Tue, 20 Nov 2018 19:28:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/opengl/opengl01/</guid>
-      <description>GLFW &amp;emsp;&amp;emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &amp;</description>
+      <description>GLFW &amp;emsp;&amp;emsp;**GLFW **是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步</description>
     </item>
     
   </channel>
