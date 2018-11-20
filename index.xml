@@ -29,45 +29,6 @@
     </item>
     
     <item>
-      <title>2D凸包问题</title>
-      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
-      <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
-      
-      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
-      
-        <description>
-
-&lt;script type=&#34;text/javascript&#34; src=&#34;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&#34;&gt;&lt;/script&gt;
-
-&lt;h3 id=&#34;凸包问题&#34;&gt;凸包问题&lt;/h3&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
-&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/00.jpg&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;正式讨论凸包问题之前，这里先引入一些辅助概念。&lt;/p&gt;
-
-&lt;h3 id=&#34;有序点的方向&#34;&gt;有序点的方向&lt;/h3&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;一个平面内有序点的方向（Orientation）可以有三种：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;逆时针 CounterClockwise&lt;/li&gt;
-&lt;li&gt;顺时针 Clockwise&lt;/li&gt;
-&lt;li&gt;共线 Colinear
-&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/01.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&amp;emsp;&amp;emsp;对于点a($x_1, y_1$)、b($x_2, y_2$)、c($x_3, y_3$)，线段ab的斜率为
-$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1} $$
-线段bc的斜率为
-$$ \sigma = \frac{y_3 - y_2}{x_3 - x_2} $$&lt;/p&gt;
-
-&lt;p&gt;若&lt;/p&gt;
-</description>
-      
-    </item>
-    
-    <item>
       <title>TCP 网络编程三部曲</title>
       <link>https://ysw1912.github.io/post/network/trilogy_of_tcp_programming/</link>
       <pubDate>Fri, 17 Aug 2018 20:10:00 +0800</pubDate>
@@ -2741,6 +2702,62 @@ B (0x0x7fc1865ab1a0) 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
+      
+        <description>
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js&#34;&gt;&lt;/script&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;author: &amp;ldquo;ysw1912&amp;rdquo;
+date: 2018-11-20T11:00:00+08:00
+lastmod: 2018-11-20T11:00:00+08:00
+title: &amp;ldquo;2D凸包问题&amp;rdquo;
+tags: [
+    &amp;ldquo;算法&amp;rdquo;
+]
+categories: [
+    &amp;ldquo;算法&amp;rdquo;
+]&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;凸包问题&#34;&gt;凸包问题&lt;/h3&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/00.jpg&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;正式讨论凸包问题之前，这里先引入一些辅助概念。&lt;/p&gt;
+
+&lt;h3 id=&#34;有序点的方向&#34;&gt;有序点的方向&lt;/h3&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;一个平面内有序点的方向（Orientation）可以有三种：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;逆时针 CounterClockwise&lt;/li&gt;
+&lt;li&gt;顺时针 Clockwise&lt;/li&gt;
+&lt;li&gt;共线 Colinear
+&lt;div align=center&gt;&lt;img src=&#34;https://ysw1912.github.io/image/post/algorithm/2d_convex_hull/01.png&#34; alt=&#34;&#34; /&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&amp;emsp;&amp;emsp;对于点a($x_1, y_1$)、b($x_2, y_2$)、c($x_3, y_3$)，线段ab的斜率为
+$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1} $$
+线段bc的斜率为
+$$ \sigma = \frac{y_3 - y_2}{x_3 - x_2} $$&lt;/p&gt;
+
+&lt;p&gt;若&lt;/p&gt;
+</description>
       
     </item>
     
