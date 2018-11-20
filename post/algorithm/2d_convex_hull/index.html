@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-20T11:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T11:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="368">
+<meta itemprop="wordCount" content="573">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 368 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span class="more-meta"> 约 573 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
 
@@ -308,10 +308,13 @@
 <ul>
 <li>
 <ul>
+<li><a href="#凸包问题">凸包问题</a>
+<ul>
 <li>
 <ul>
-<li><a href="#凸包问题">凸包问题</a></li>
 <li><a href="#有序点的方向">有序点的方向</a></li>
+<li><a href="#两线段相交">两线段相交</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -336,14 +339,14 @@
 <script type="text/javascript" src="path-to-MathJax/MathJax.js?config=TeX-AMS_HTML">
 </script>
 
-<h3 id="凸包问题">凸包问题</h3>
+<h2 id="凸包问题">凸包问题</h2>
 
 <p>&emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/00.jpg" alt="" /></div></p>
 
 <p>&emsp;&emsp;正式讨论凸包问题之前，这里先引入一些辅助概念。</p>
 
-<h3 id="有序点的方向">有序点的方向</h3>
+<h4 id="有序点的方向">有序点的方向</h4>
 
 <p>&emsp;&emsp;一个平面内有序点的方向（Orientation）可以有三种：</p>
 
@@ -354,19 +357,44 @@
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/01.png" alt="" /></div></li>
 </ul>
 
-<p>&emsp;&emsp;对于点a($x_1, y_1$)、b($x_2, y_2$)、c($x_3, y_3$)，线段ab的斜率为
+<p>&emsp;&emsp;对于点$a(x_1, y_1)$、$b(x_2, y_2)$、$c($x_3, y_3)$，线段$ab$的斜率为
 $$ \sigma = \frac{y_2 - y_1}{x_2 - x_1}, $$
-线段bc的斜率为
+线段$bc$的斜率为
 $$ \tau = \frac{y_3 - y_2}{x_3 - x_2}. $$</p>
 
 <ul>
 <li>若$ \sigma &lt; \tau $，方向是逆时针（向左转）</li>
-<li>若σ &lt; τ，方向是共线</li>
-<li>若σ &lt; τ，方向是顺时针（向右转）</li>
+<li>若$ \sigma = \tau $，方向是共线</li>
+<li>若$ \sigma &gt; \tau $，方向是顺时针（向右转）</li>
 </ul>
 
 <p>&emsp;&emsp;因此，三个有序点的方向依赖于表达式
 $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
+
+<ul>
+<li>若表达式为负，方向是逆时针（向左转）</li>
+<li>若表达式为0，方向是共线</li>
+<li>若表达式为正，方向是顺时针（向右转）</li>
+</ul>
+
+<h4 id="两线段相交">两线段相交</h4>
+
+<p>&emsp;&emsp;利用上述方向的概念，很容易判断两线段<font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font>是否相交。</p>
+
+<ul>
+<li><p>一般情况
+&emsp;&emsp;(<font color=#ff0000>p1, q1</font>, <font color=#0000ff>p2</font>) 和 (<font color=#ff0000>p1, q1</font>, <font color=#0000ff>q2</font>) 方向不同并且 (<font color=#0000ff>p2, q2</font>, <font color=#ff0000>p1</font>) 和 (<font color=#0000ff>p2, q2</font>, <font color=#ff0000>q1</font>) 方向不同。
+<div align=center><img src="/image/post/algorithm/2d_convex_hull/02.png" alt="" /></div></p></li>
+
+<li><p>特殊情况
+&emsp;&emsp;(<font color=#ff0000>p1, q1</font>, <font color=#0000ff>p2</font>)、(<font color=#ff0000>p1, q1</font>, <font color=#0000ff>q2</font>)、(<font color=#0000ff>p2, q2</font>, <font color=#ff0000>p1</font>) 和 (<font color=#0000ff>p2, q2</font>, <font color=#ff0000>q1</font>) 4 个方向均共线并且</p>
+
+<ul>
+<li><font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font> 的 x 轴部分相交</li>
+<li><font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font> 的 y 轴部分相交
+<div align=center><img src="/image/post/algorithm/2d_convex_hull/03.png" alt="" /></div></li>
+</ul></li>
+</ul>
 
     </div>
 
