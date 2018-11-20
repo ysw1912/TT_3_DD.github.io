@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-20T11:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T11:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="729">
+<meta itemprop="wordCount" content="916">
 
 
 
@@ -294,7 +294,7 @@
               <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 729 字 </span>
+        <span class="more-meta"> 约 916 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
@@ -362,10 +362,10 @@
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/01.png" alt="" /></div></li>
 </ul>
 
-<p>&emsp;&emsp;对于点$a(x_1, y_1)$、$b(x_2, y_2)$、$c($x_3, y_3)$，线段$ab$的斜率为
-$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1}, $$
+<p>&emsp;&emsp;对于点$a(x_1, y_1)$、$b(x_2, y_2)$、$c(x_3, y_3)$，线段$ab$的斜率为
+$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1} $$
 线段$bc$的斜率为
-$$ \tau = \frac{y_3 - y_2}{x_3 - x_2}. $$</p>
+$$ \tau = \frac{y_3 - y_2}{x_3 - x_2} $$</p>
 
 <ul>
 <li>若$ \sigma &lt; \tau $，方向是逆时针（向左转）</li>
@@ -408,6 +408,8 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 
 <h3 id="jarvis-s-algorithm-or-wrapping">Jarvis’s Algorithm or Wrapping</h3>
 
+<div align=center>![](/image/post/algorithm/2d_convex_hull/04.png)</div>
+
 <ol>
 <li>初始化 p 为最左侧的点（x 坐标最小的点）</li>
 <li>循环如下步骤，直到回到初始的最左侧的点
@@ -418,13 +420,45 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 <li>p = q</li>
 </ol></li>
 </ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">ConvexHull</span><span class="p">()</span>
+<span class="p">{</span>
 
-<div align=center>![](/image/post/algorithm/2d_convex_hull/04.png)</div>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;算法的复杂度为 O(m * n)，其中 m 是输出凸包中点的数量，n 是输入点集中点的数量。最坏的情况下，点集中所有点都在输出的凸包上，时间复杂度为 O(n^2)。</p>
 
 <h3 id="graham-scan">Graham Scan</h3>
 
 <div align=center>![](/image/post/algorithm/2d_convex_hull/05.png)</div>
 <div align=center>![](/image/post/algorithm/2d_convex_hull/06.png)</div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">ConvexHull</span><span class="p">()</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>&emsp;&emsp;算法的复杂度为 O(m * n)，其中 m 是输出凸包中点的数量，n 是输入点集中点的数量。最坏的情况下，点集中所有点都在输出的凸包上，时间复杂度为 O(n^2)。</p>
 
     </div>
 
