@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-20T11:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T11:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1315">
+<meta itemprop="wordCount" content="2349">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 1315 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta"> 约 2349 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
       </div>
     </header>
 
@@ -349,7 +349,7 @@
 <p>&emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点或者在多边形边上或者在其内。
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/00.jpg" alt="" /></div></p>
 
-<p>&emsp;&emsp;正式讨论凸包问题之前，这里先引入一些辅助概念。</p>
+<p>&emsp;&emsp;正式讨论凸包问题之前，这里先引入一个辅助概念——“方向”。</p>
 
 <h4 id="有序点的方向">有序点的方向</h4>
 
@@ -381,7 +381,42 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 <li>若表达式为0，方向是共线</li>
 <li>若表达式为正，方向是顺时针</li>
 </ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Point</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
+<span class="p">};</span>
 
+<span class="cm">/* -1 逆时针
+</span><span class="cm">	0 共线
+</span><span class="cm">	1 顺时针 */</span>
+<span class="kt">int</span> <span class="nf">Orientation</span><span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">q</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">q</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">v</span> <span class="o">?</span> <span class="n">v</span> <span class="o">/</span> <span class="n">abs</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">:</span> <span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <h4 id="两线段相交">两线段相交</h4>
 
 <p>&emsp;&emsp;利用上述方向的概念，很容易判断两线段<font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font>是否相交。</p>
@@ -401,7 +436,70 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
   - <font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font> 的 x 轴部分相交
   - <font color=#ff0000> (p1, q1) </font>和<font color=#0000ff> (p2, q2) </font> 的 y 轴部分相交
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/03.png" alt="" /></div></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// 给定p、q、r三点共线，判断q是否在线段pr上
+</span><span class="c1"></span><span class="kt">bool</span> <span class="nf">OnSegment</span><span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">q</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">q</span><span class="p">.</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">min</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+		<span class="n">q</span><span class="p">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="n">max</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">q</span><span class="p">.</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">min</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">.</span><span class="n">y</span><span class="p">))</span>
+		<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="c1">// 判断线段ab与线段cd是否相交
+</span><span class="c1"></span><span class="kt">bool</span> <span class="nf">Intersect</span><span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">o1</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">o2</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">o3</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">o4</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">o1</span> <span class="o">!=</span> <span class="n">o2</span> <span class="o">&amp;&amp;</span> <span class="n">o3</span> <span class="o">!=</span> <span class="n">o4</span><span class="p">)</span>
+		<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+
+	<span class="c1">// a、b、c共线且c在线段ab上
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">o1</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">OnSegment</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">o2</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">OnSegment</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">o3</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">OnSegment</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">o4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">OnSegment</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+
+	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="2d凸包问题">2D凸包问题</h2>
 
 <p>&emsp;&emsp;凸包问题最常见的两种解法是 Jarvis 步进法和 Graham 扫描法，有了上面的基础，这两种方法很容易实现出来。</p>
@@ -415,7 +513,7 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 <li>循环如下步骤，直到回到初始的最左侧的点
 
 <ol>
-<li>找到下一个点 q，使得对于任意其他点 r，有三元组 (p, q, r) 的方向是逆时针</li>
+<li>找到下一个点 q，使得对于任意其他点 r，有三元组 (p, q, r) 的方向是逆时针，这里就要用到上面方向的概念</li>
 <li>存储 q 作为 p 的下一个输出元素</li>
 <li>p = q
 <div align=center><img src="/image/post/algorithm/2d_convex_hull/04.png" alt="" /></div></li>
@@ -423,16 +521,58 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">ConvexHull</span><span class="p">()</span>
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">ConvexHull1</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&amp;</span> <span class="n">points</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&amp;</span> <span class="n">hull</span><span class="p">)</span>
 <span class="p">{</span>
+	<span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>	<span class="k">return</span><span class="p">;</span>
 
+	<span class="n">size_t</span> <span class="n">leftmost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">points</span><span class="p">[</span><span class="n">leftmost</span><span class="p">].</span><span class="n">x</span><span class="p">)</span>
+			<span class="n">leftmost</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+
+	<span class="n">size_t</span> <span class="n">p</span> <span class="o">=</span> <span class="n">leftmost</span><span class="p">;</span>
+	<span class="k">do</span> <span class="p">{</span>
+		<span class="n">hull</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">p</span><span class="p">]);</span>
+
+		<span class="n">size_t</span> <span class="n">q</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+		<span class="c1">// 找到q，相对于p是最逆时针的
+</span><span class="c1"></span>		<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">// p-&gt;i-&gt;q方向为逆时针，因此i比q更加逆时针，更新q
+</span><span class="c1"></span>			<span class="k">if</span> <span class="p">(</span><span class="n">Orientation</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">p</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="n">q</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+				<span class="n">q</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+		<span class="p">}</span>
+
+		<span class="n">p</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span>
+	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">leftmost</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
@@ -465,16 +605,196 @@ $$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">ConvexHull</span><span class="p">()</span>
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="c1">// 交换两个点
+</span><span class="c1"></span><span class="kt">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="n">Point</span> <span class="o">&amp;</span><span class="n">lhs</span><span class="p">,</span> <span class="n">Point</span> <span class="o">&amp;</span><span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
+	<span class="n">Point</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">lhs</span><span class="p">;</span>
+	<span class="n">lhs</span> <span class="o">=</span> <span class="n">rhs</span><span class="p">;</span>
+	<span class="n">rhs</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="c1">// 返回两个点的距离的平方
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">DistSq</span><span class="p">(</span><span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="n">Point</span><span class="o">&amp;</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">lhs</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">rhs</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 用于Compare的全局变量
+</span><span class="c1"></span><span class="n">Point</span> <span class="n">p0</span><span class="p">;</span>
+
+<span class="c1">// 排序比较函数，比较与全局变量p0的角度
+</span><span class="c1">// p0p1角度 ＜ p0p2角度，返回-1
+</span><span class="c1">// p0p1角度 ＞ p0p2角度，返回 1
+</span><span class="c1"></span><span class="kt">int</span> <span class="nf">Compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">lhs</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">rhs</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">Point</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">Point</span><span class="o">*</span><span class="p">)</span><span class="n">lhs</span><span class="p">;</span>
+	<span class="n">Point</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Point</span><span class="o">*</span><span class="p">)</span><span class="n">rhs</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">o</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="o">*</span><span class="n">p1</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">o</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">DistSq</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="o">*</span><span class="n">p1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">DistSq</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="o">*</span><span class="n">p2</span><span class="p">))</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="k">else</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">o</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 返回栈顶的下一个Point 
+</span><span class="c1"></span><span class="n">Point</span> <span class="nf">NextToTop</span><span class="p">(</span><span class="n">stack</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">S</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">Point</span> <span class="n">p</span> <span class="o">=</span> <span class="n">S</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+	<span class="n">S</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+	<span class="n">Point</span> <span class="n">res</span> <span class="o">=</span> <span class="n">S</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+	<span class="n">S</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">ConvexHull2</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">points</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;&amp;</span> <span class="n">hull</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">size_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+	<span class="c1">// 找到最下方的点，优先左边
+</span><span class="c1"></span>	<span class="n">size_t</span> <span class="n">bottommost</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">ymin</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">y</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;</span> <span class="n">ymin</span> <span class="o">||</span> <span class="p">(</span><span class="n">ymin</span> <span class="o">==</span> <span class="n">y</span> <span class="o">&amp;&amp;</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">points</span><span class="p">[</span><span class="n">bottommost</span><span class="p">].</span><span class="n">x</span><span class="p">))</span>
+			<span class="n">ymin</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">y</span><span class="p">,</span> <span class="n">bottommost</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">// 将其换到第一个位置
+</span><span class="c1"></span>	<span class="n">Swap</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="n">bottommost</span><span class="p">]);</span>
+
+	<span class="c1">// 用Compare排序
+</span><span class="c1"></span>	<span class="n">p0</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	<span class="n">qsort</span><span class="p">(</span><span class="o">&amp;</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Point</span><span class="p">),</span> <span class="n">Compare</span><span class="p">);</span>
+
+	<span class="c1">// 若有多个点与p0角度相同，仅留下距p0最远的那个
+</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>	<span class="c1">// 记录删除元素后points的元素数量
+</span><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// 当i与i + 1角度相同，则一直移除i
+</span><span class="c1"></span>		<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">Orientation</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+			<span class="n">i</span><span class="o">++</span><span class="p">;</span>
+		<span class="n">points</span><span class="p">[</span><span class="n">num</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+		<span class="n">num</span><span class="o">++</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+	<span class="n">stack</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span> <span class="n">S</span><span class="p">;</span>
+	<span class="n">S</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+	<span class="n">S</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+	<span class="n">S</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// 若栈顶第二个点、栈顶点、points[i]的方向不是逆时针
+</span><span class="c1"></span>		<span class="c1">// 则一直移除栈顶点
+</span><span class="c1"></span>		<span class="k">while</span> <span class="p">(</span><span class="n">Orientation</span><span class="p">(</span><span class="n">NextToTop</span><span class="p">(</span><span class="n">S</span><span class="p">),</span> <span class="n">S</span><span class="p">.</span><span class="n">top</span><span class="p">(),</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+			<span class="n">S</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+		<span class="n">S</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 栈S中元素即为输出
+</span><span class="c1"></span>	<span class="n">hull</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">S</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">S</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+		<span class="n">hull</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">S</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+		<span class="n">S</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+	<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
