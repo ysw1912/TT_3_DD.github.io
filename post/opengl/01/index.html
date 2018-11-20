@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>我的花里胡哨的VS2017 - Hide on bush</title>
+  <title>Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD） - Hide on bush</title>
   <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="&amp;ensp;&amp;ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C&#43;&#43; Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方" />
+  <meta name="description" content="GLFW &amp;emsp;&amp;emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &amp;" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -37,7 +37,7 @@
 <meta name="generator" content="Hugo 0.41" />
 
 
-<link rel="canonical" href="https://ysw1912.github.io/post/ide/vs01/" />
+<link rel="canonical" href="https://ysw1912.github.io/post/opengl/01/" />
 
 
 
@@ -57,20 +57,16 @@
 
 
 
-<meta property="og:title" content="我的花里胡哨的VS2017" />
-<meta property="og:description" content="&ensp;&ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C&#43;&#43; Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方" />
+<meta property="og:title" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）" />
+<meta property="og:description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ysw1912.github.io/post/ide/vs01/" />
+<meta property="og:url" content="https://ysw1912.github.io/post/opengl/01/" />
 
 
 
-<meta property="article:published_time" content="2018-06-04T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2018-11-20T19:28:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-06-04T00:00:00&#43;00:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-11-20T20:24:00&#43;08:00"/>
 
 
 
@@ -78,20 +74,24 @@
 
 
 
-<meta itemprop="name" content="我的花里胡哨的VS2017">
-<meta itemprop="description" content="&ensp;&ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C&#43;&#43; Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方">
-
-
-<meta itemprop="datePublished" content="2018-06-04T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-06-04T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="482">
 
 
 
-<meta itemprop="keywords" content="IDE," />
+
+<meta itemprop="name" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）">
+<meta itemprop="description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &">
+
+
+<meta itemprop="datePublished" content="2018-11-20T19:28:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-11-20T19:28:00&#43;08:00" />
+<meta itemprop="wordCount" content="1187">
+
+
+
+<meta itemprop="keywords" content="OpenGL," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="我的花里胡哨的VS2017"/>
-<meta name="twitter:description" content="&ensp;&ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C&#43;&#43; Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方"/>
+<meta name="twitter:title" content="Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）"/>
+<meta name="twitter:description" content="GLFW &emsp;&emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -285,17 +285,17 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">我的花里胡哨的VS2017</h1>
+      <h1 class="post-title">Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2018-06-04 </span>
+        <span class="post-time"> 2018-11-20 </span>
         <div class="post-category">
             
-              <a href="/categories/ide/"> IDE </a>
+              <a href="/categories/opengl/"> OpenGL </a>
             
           </div>
-        <span class="more-meta"> 约 482 字 </span>
-        <span class="more-meta"> 预计阅读 1 分钟 </span>
+        <span class="more-meta"> 约 1187 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
       </div>
     </header>
 
@@ -308,16 +308,13 @@
 <ul>
 <li>
 <ul>
-<li><a href="#一-主题设置">一、主题设置</a>
+<li><a href="#glfw">GLFW</a>
 <ul>
-<li><a href="#1-moeide-提供的功能-添加背景">1、MoeIDE 提供的功能：添加背景</a></li>
-<li><a href="#2-color-theme-editor-提供的功能-设置主题">2、Color Theme Editor 提供的功能：设置主题</a></li>
+<li><a href="#配置步骤">配置步骤</a></li>
 </ul></li>
-<li><a href="#二-coding-设置">二、Coding 设置</a>
-<ul>
-<li><a href="#1-字体">1、字体</a></li>
-<li><a href="#2-注释快捷键">2、注释快捷键</a></li>
-</ul></li>
+<li><a href="#glad">GLAD</a></li>
+<li><a href="#配置-visual-studio-工程">配置 Visual Studio 工程</a></li>
+<li><a href="#opengl-编程测试">OpenGL 编程测试</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -328,62 +325,84 @@
     <div class="post-content">
       
 
-<p>&ensp;&ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C/C++ Coding~~
-<div align=center><img src="/image/post/IDE/VS01/01.png" alt="" /></div></p>
+<h2 id="glfw">GLFW</h2>
 
-<h2 id="一-主题设置">一、主题设置</h2>
+<p>&emsp;&emsp;<strong>GLFW</strong> 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。</p>
 
-<p>工具 → 扩展和更新
-<div align=center><img src="/image/post/IDE/VS01/02.png" alt="" /></div></p>
+<h3 id="配置步骤">配置步骤</h3>
 
-<p>下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE
-<div align=center><img src="/image/post/IDE/VS01/03.png" alt="" /></div></p>
+<p>&emsp;&emsp;访问 <a href="http://www.glfw.org/download.html/">GLFW官网</a>，下载源码包并解压。也可以直接下载预编译的二进制文件，但必须使用和自己编译环境匹配的版本，为了避免兼容问题，这里我们从源代码开始编译。
+<div align=center><img src="/image/post/opengl/01/00.png" alt="" /></div></p>
 
-<p>下载方式：联机 → 搜索插件名（这里我已经下好了）
-<div align=center><img src="/image/post/IDE/VS01/04.png" alt="" /></div></p>
+<p>&emsp;&emsp;用 <a href="https://cmake.org/download/">CMake</a> 编译 GLFW 源代码，源代码目录选择 GLFW 源代码的根目录，然后新建一个 build 文件夹作为 build 目录。
+<div align=center><img src="/image/post/opengl/01/01.png" alt="" /></div></p>
 
-<h3 id="1-moeide-提供的功能-添加背景">1、MoeIDE 提供的功能：添加背景</h3>
+<p>点击 <strong>Configure</strong>，生成器我这里选择了 <strong>Visual Studio 15 2017 Win64</strong>，这里要根据自己 VS 所使用的编译环境选择，我 VS 常用 <strong>x64</strong> 环境因此用 64 位的生成器。若 VS 使用 <strong>x86</strong> 环境，这里选择 <strong>Visual Studio 15 2017</strong>，否则之后会出现链接错误！
+<div align=center><img src="/image/post/opengl/01/02.png" alt="" /></div></p>
 
-<p>工具 → 选项 → MoeIDE
-<div align=center><img src="/image/post/IDE/VS01/05.png" alt="" /></div></p>
+<p>再次点击 <strong>Configure</strong>，最后点击 <strong>Generate</strong>，
+<div align=center><img src="/image/post/opengl/01/03.png" alt="" /></div></p>
 
-<p>设置背景图片和拉伸等
-<div align=center><img src="/image/post/IDE/VS01/06.png" alt="" /></div></p>
+<p>即可在 build 目录下生成 Visual Studio 的解决方案。
+<div align=center><img src="/image/post/opengl/01/04.png" alt="" /></div></p>
 
-<p>浓度默认是 100%，这样图片会很亮，与代码的对比度不高，看代码不方便，我设置成 33%。</p>
+<p>&emsp;&emsp;直接打开解决方案 <strong>GLFW.sln</strong> 文件（整个解决方案中有 30 个项目，我们需要的是其中的一个 glfw，其用于生成 glfw3.lib 文件）。在 glfw 项目上右键 <strong>生成</strong>，编译生成库 <strong>glfw3.lib</strong> 就会出现在 <strong>src/Debug</strong> 文件夹内。
+<div align=center><img src="/image/post/opengl/01/05.png" alt="" /></div>
+&nbsp;
+<div align=center><img src="/image/post/opengl/01/06.png" alt="" /></div>
+&nbsp;
+<div align=center><img src="/image/post/opengl/01/07.png" alt="" /></div></p>
 
-<h3 id="2-color-theme-editor-提供的功能-设置主题">2、Color Theme Editor 提供的功能：设置主题</h3>
+<h2 id="glad">GLAD</h2>
 
-<p>工具 → Change Color Theme → 选择自带的“Light Transparent”，可根据喜好自行设置
-<div align=center><img src="/image/post/IDE/VS01/07.png" alt="" /></div></p>
+<p>&emsp;&emsp;由于 OpenGL 只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。而 OpenGL 驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。所以任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。但这样写出的代码复杂繁琐，因此我们需要 GLAD。</p>
 
-<p>但默认的主题下，左边的“解决方案资源管理器” 的背景不透明，需要自己修改。
-<div align=center><img src="/image/post/IDE/VS01/08.png" alt="" /></div></p>
+<p>&emsp;&emsp;<strong>GLAD</strong> 是目前最流行的开源库，能帮我们简化这个流程。在此之前，我们首先用 <strong>OpenGL Extension Viewer</strong>（<a href="https://opengl-extensions-viewer.en.softonic.com/">softonic下载页</a>）查看自己的 OpenGL 版本，我这里是 <strong>4.0</strong>。
+<div align=center><img src="/image/post/opengl/01/08.png" alt="" /></div></p>
 
-<p>工具 → Customize Colors → 找到设置的主题，我这里是 “Light Transparent” → Edit Theme → 点击 Show All Elements
-<div align=center><img src="/image/post/IDE/VS01/09.png" alt="" /></div></p>
+<p>&emsp;&emsp;打开 <a href="http://glad.dav1d.de/">GLAD在线服务页面</a> ，默认语言为 <strong>C/C++</strong>，选择 <strong>OpenGL</strong>，API 选择使用的对应的版本，Profile 选择 <strong>Core</strong>，默认勾上了 <strong>Generate a loader</strong>，点击 <strong>GENERATE</strong>。
+<div align=center><img src="/image/post/opengl/01/09.png" alt="" /></div></p>
 
-<p>能看到成百上千个控件，要自己定制主题颜色需要花大量的时间寻找、猜测和测试。<br />
-我找到 “解决方案资源管理器” 的背景是 TreeView → Background，将其设为透明，OK！
-<div align=center><img src="/image/post/IDE/VS01/10.png" alt="" /></div></p>
+<p>新窗口中右键下载压缩包 <strong>glad.zip</strong> 并解压。</p>
 
-<h2 id="二-coding-设置">二、Coding 设置</h2>
+<h2 id="配置-visual-studio-工程">配置 Visual Studio 工程</h2>
 
-<h3 id="1-字体">1、字体</h3>
+<p>&emsp;&emsp;该有的库都有了之后，我们需要让 VS 知道库和头文件的位置。推荐的方式是建立一个新的目录，里面包含 <strong>include</strong> 和 <strong>lib</strong> 文件夹，在这里存放 OpenGL 工程用到的所有第三方库和头文件，方便库的管理。上面获得的库的文件组织结构如下：
+<div align=center><img src="/image/post/opengl/01/10.png" alt="" /></div>
+&nbsp;
+<div align=center><img src="/image/post/opengl/01/11.png" alt="" /></div></p>
 
-<p>选项 → 环境 → 字体和颜色
-<div align=center><img src="/image/post/IDE/VS01/11.png" alt="" /></div></p>
+<p>&emsp;&emsp;新建 Visual C++ 空项目，在项目 <strong>属性</strong> 的 <strong>VC++</strong> 选项卡中包含目录以及库目录中添加之前建立的 <strong>include</strong> 和 <strong>lib</strong> 文件夹，这样就可以使用<code>&lt;GLFW/..&gt;</code>和<code>&lt;glad/glad.h&gt;</code>来引用头文件。
+<div align=center><img src="/image/post/opengl/01/12.png" alt="" /></div></p>
 
-<p>字体使用 Consolas 和微软雅黑的混合版本，可自行上网下载。</p>
+<p>要链接一个库我们必须告诉链接器它的文件名，在 <strong>链接器</strong> 选项卡里的 <strong>输入</strong> 选项卡里添加 <strong>glfw3.lib</strong> 文件。由于这里使用 Windows 平台（Linux 下需要链接 <strong>libGL.so</strong> 库文件），<strong>opengl32.lib</strong> 已经包含在 Microsoft SDK 里，它在 VS2017 安装时就默认安装了，这里只需将 <strong>opengl32.lib</strong> 添加进链接器里即可。
+<div align=center><img src="/image/post/opengl/01/13.png" alt="" /></div></p>
 
-<h3 id="2-注释快捷键">2、注释快捷键</h3>
+<p>&emsp;&emsp;最后将 <strong>glad.zip</strong> 提供的 <strong>glad.c</strong> 文件添加到工程中，所有工作就完成了。</p>
 
-<p>选项 → 环境 → 键盘
-<div align=center><img src="/image/post/IDE/VS01/12.png" alt="" /></div>
-<div align=center><img src="/image/post/IDE/VS01/13.png" alt="" /></div></p>
-
-<p>这样可以实现类似于 PyCharm 默认的 Ctrl + / 注释，取消注释则是按两下 Ctrl + \。</p>
-
+<h2 id="opengl-编程测试">OpenGL 编程测试</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;glad/glad.h&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;GLFW/glfw3.h&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     
@@ -395,7 +414,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-06-04</span>
+    <span class="item-content">2018-11-20</span>
   </p>
   
   <p class="copyright-item">
@@ -427,21 +446,16 @@
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/ide/">IDE</a>
+          <a href="/tags/opengl/">OpenGL</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/cuda/01/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Win10&#43;VS2017配置CUDA项目</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/jottings/hello-world/">
-            <span class="next-text nav-default">Hello World</span>
+          <a class="next" href="/post/algorithm/2d_convex_hull/">
+            <span class="next-text nav-default">2D凸包问题</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -458,10 +472,10 @@
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'vs01.md',
-    title: '我的花里胡哨的VS2017',
+    id: '01.md',
+    title: 'Win10\x2bVS2017配置OpenGL开发环境（GLFW\x2bGLAD）',
     link: decodeURI(location.href),
-    desc: '\x26ensp;\x26ensp;首先放上我的 VS2017 效果图，花里胡哨但十分养眼，无限有利于 C\/C\x2b\x2b Coding~~ 一、主题设置 工具 → 扩展和更新 下载插件 Color Theme Editor for Visual Studio 2017 和 MoeIDE 下载方',
+    desc: 'GLFW \x26emsp;\x26emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 \x26',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {

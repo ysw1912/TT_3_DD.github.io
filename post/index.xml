@@ -14,10 +14,10 @@
     
     <item>
       <title>Win10&#43;VS2017配置OpenGL开发环境（GLFW&#43;GLAD）</title>
-      <link>https://ysw1912.github.io/post/opengl/opengl01/</link>
+      <link>https://ysw1912.github.io/post/opengl/01/</link>
       <pubDate>Tue, 20 Nov 2018 19:28:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/opengl/opengl01/</guid>
+      <guid>https://ysw1912.github.io/post/opengl/01/</guid>
       <description>GLFW &amp;emsp;&amp;emsp;GLFW 是一个专门针对 OpenGL 的 C 语言库，它允许用户创建 OpenGL 上下文并显示窗口，它提供了一些渲染物体所需的最低限度的接口。其用来代替之前的 GLUT 库。 配置步骤 &amp;</description>
     </item>
     
@@ -131,10 +131,10 @@
     
     <item>
       <title>Win10&#43;VS2017配置CUDA项目</title>
-      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      <link>https://ysw1912.github.io/post/cuda/01/</link>
+      <pubDate>Mon, 04 Jun 2018 10:30:00 +0800</pubDate>
       
-      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</guid>
+      <guid>https://ysw1912.github.io/post/cuda/01/</guid>
       <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、</description>
     </item>
     

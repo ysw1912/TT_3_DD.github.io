@@ -84,14 +84,5 @@
       <description>pointer与const 1 2 3 4 5 6 char s[] = &amp;#34;Hello&amp;#34;; const char* p = s; // 非const指针，const数据（底层const：星号左边） char const* p = s; // 同上，co</description>
     </item>
     
-    <item>
-      <title>Win10&#43;VS2017配置CUDA项目</title>
-      <link>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</link>
-      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/cuda01/</guid>
-      <description>一、新建项目 打开 VS2017 → 新建项目 → Win32控制台应用程序 → “空项目” 二、调整配置管理器平台类型 右键项目 → 属性 → 配置管理器 → 全改为“x64” 三、</description>
-    </item>
-    
   </channel>
 </rss>
