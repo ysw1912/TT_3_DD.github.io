@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="凸包问题 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点" />
+  <meta name="description" content="MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包问题 &amp;emsp;&amp;emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="2D凸包问题" />
-<meta property="og:description" content="凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点" />
+<meta property="og:description" content="MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/algorithm/2d_convex_hull/" />
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="2D凸包问题">
-<meta itemprop="description" content="凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点">
+<meta itemprop="description" content="MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最">
 
 
 <meta itemprop="datePublished" content="2018-11-20T11:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-20T11:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="337">
+<meta itemprop="wordCount" content="368">
 
 
 
 <meta itemprop="keywords" content="算法," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="2D凸包问题"/>
-<meta name="twitter:description" content="凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点"/>
+<meta name="twitter:description" content="MathJax.Hub.Config({ tex2jax: { inlineMath: [ [&#39;$&#39;,&#39;$&#39;], [&#34;\\(&#34;,&#34;\\)&#34;] ], processEscapes: true } }); 凸包问题 &emsp;&emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,7 +294,7 @@
               <a href="/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
             
           </div>
-        <span class="more-meta"> 约 337 字 </span>
+        <span class="more-meta"> 约 368 字 </span>
         <span class="more-meta"> 预计阅读 1 分钟 </span>
       </div>
     </header>
@@ -325,6 +325,16 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript" src="path-to-MathJax/MathJax.js?config=TeX-AMS_HTML">
+</script>
 
 <h3 id="凸包问题">凸包问题</h3>
 
@@ -345,17 +355,18 @@
 </ul>
 
 <p>&emsp;&emsp;对于点a($x_1, y_1$)、b($x_2, y_2$)、c($x_3, y_3$)，线段ab的斜率为
-$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1} $$
+$$ \sigma = \frac{y_2 - y_1}{x_2 - x_1}, $$
 线段bc的斜率为
-$$ \sigma = \frac{y_3 - y_2}{x_3 - x_2} $$</p>
+$$ \tau = \frac{y_3 - y_2}{x_3 - x_2}. $$</p>
 
 <ul>
-<li>若σ &lt; τ，方向是逆时针（向左转）</li>
+<li>若$ \sigma &lt; \tau $，方向是逆时针（向左转）</li>
 <li>若σ &lt; τ，方向是共线</li>
 <li>若σ &lt; τ，方向是顺时针（向右转）</li>
 </ul>
 
-<p>&emsp;&emsp;因此，三个有序点的方向依赖于表达式</p>
+<p>&emsp;&emsp;因此，三个有序点的方向依赖于表达式
+$$ (y_2 - y_1) \times (x_3 - x_2) - (y_3 - y_2) \times (x_2 - x_1) $$</p>
 
     </div>
 
@@ -429,7 +440,7 @@ $$ \sigma = \frac{y_3 - y_2}{x_3 - x_2} $$</p>
     id: '2d_convex_hull.md',
     title: '2D凸包问题',
     link: decodeURI(location.href),
-    desc: '凸包问题 \x26emsp;\x26emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最小凸多边形，满足Q中的点',
+    desc: 'MathJax.Hub.Config({ tex2jax: { inlineMath: [ [\x27$\x27,\x27$\x27], [\x22\\\\(\x22,\x22\\\\)\x22] ], processEscapes: true } }); 凸包问题 \x26emsp;\x26emsp;凸包（Convex Hull）是一个计算几何（图形学）中的概念。点集Q的凸包是指一个最',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {
