@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Sun, 15 Jul 2018 08:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 20 Nov 2018 11:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/tags/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2D凸包问题</title>
+      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
+      <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
+      <description>2D凸包</description>
+    </item>
     
     <item>
       <title>POSIX thread</title>

@@ -29,6 +29,20 @@
     </item>
     
     <item>
+      <title>2D凸包问题</title>
+      <link>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</link>
+      <pubDate>Tue, 20 Nov 2018 11:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/algorithm/2d_convex_hull/</guid>
+      
+        <description>
+
+&lt;h3 id=&#34;2d凸包&#34;&gt;2D凸包&lt;/h3&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>TCP 网络编程三部曲</title>
       <link>https://ysw1912.github.io/post/network/trilogy_of_tcp_programming/</link>
       <pubDate>Fri, 17 Aug 2018 20:10:00 +0800</pubDate>
