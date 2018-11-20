@@ -2756,7 +2756,11 @@ $$ \sigma = \frac{y_2 - y_1}{x_2 - x_1} $$
 线段bc的斜率为
 $$ \sigma = \frac{y_3 - y_2}{x_3 - x_2} $$&lt;/p&gt;
 
-&lt;p&gt;若&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;若σ &amp;lt; τ，方向是逆时针（向左转）&lt;/li&gt;
+&lt;li&gt;若σ &amp;lt; τ，方向是共线&lt;/li&gt;
+&lt;li&gt;若σ &amp;lt; τ，方向是顺时针（向右转）&lt;/li&gt;
+&lt;/ul&gt;
 </description>
       
     </item>
