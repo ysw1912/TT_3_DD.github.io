@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-22T11:50:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-22T11:50:00&#43;08:00" />
-<meta itemprop="wordCount" content="982">
+<meta itemprop="wordCount" content="985">
 
 
 
@@ -294,7 +294,7 @@
               <a href="/categories/golang/"> Golang </a>
             
           </div>
-        <span class="more-meta"> 约 982 字 </span>
+        <span class="more-meta"> 约 985 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
       </div>
     </header>
@@ -392,10 +392,12 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nx">FuncName</span><span class="p">(</span> <span class="cm">/* 参数列表 */</span> <span class="p">)</span> <span class="p">(</span><span class="nx">o1</span> <span class="nx">type1</span><span class="p">,</span> <span class="nx">o2</span> <span class="nx">type2</span> <span class="cm">/* &lt;-返回值列表 */</span> <span class="p">)</span> <span class="p">{</span>	<span class="c1">// 若没有返回值，可直接省去返回值列表
-</span><span class="c1"></span>    <span class="c1">// 函数体
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 若没有返回值，可直接省去返回值列表
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">FuncName</span><span class="p">(</span> <span class="cm">/* 参数列表 */</span> <span class="p">)</span> <span class="p">(</span><span class="nx">o1</span> <span class="nx">type1</span><span class="p">,</span> <span class="nx">o2</span> <span class="nx">type2</span> <span class="cm">/* &lt;-返回值列表 */</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 函数体
 </span><span class="c1"></span>    <span class="o">...</span>
     <span class="k">return</span> <span class="nx">v1</span><span class="p">,</span> <span class="nx">v2</span>	<span class="c1">// 可返回多个值
 </span><span class="c1"></span><span class="p">}</span></code></pre></td></tr></table>
@@ -474,6 +476,8 @@
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-go" data-lang="go"><span class="nx">i</span> <span class="o">:=</span> <span class="mi">666</span>
@@ -482,10 +486,12 @@
 <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">i</span> <span class="o">:=</span> <span class="mi">12345</span>	<span class="c1">// 若此处使用 i = 12345，则会捕获外部变量 i 并修改
 </span><span class="c1"></span>    <span class="nx">str</span> <span class="p">=</span> <span class="s">&#34;go&#34;</span>
-    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;内部： i = %d, str = %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span>	<span class="c1">// print &#34;内部： i = 12345, str = go&#34;
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;内部： i = %d, str = %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span>
+    <span class="c1">// print &#34;内部： i = 12345, str = go&#34;
 </span><span class="c1"></span><span class="p">}()</span> <span class="c1">// 可直接调用匿名函数
 </span><span class="c1"></span>
-<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;外部： i = %d, str = %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span>		<span class="o">//</span> <span class="nx">print</span> <span class="s">&#34;外部： i = 666, str = go&#34;</span></code></pre></td></tr></table>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&#34;外部： i = %d, str = %s\n&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">str</span><span class="p">)</span>
+<span class="o">//</span> <span class="nx">print</span> <span class="s">&#34;外部： i = 666, str = go&#34;</span></code></pre></td></tr></table>
 </div>
 </div>
 <p>&emsp;&emsp;下面是一个函数返回值为闭包的例子：</p>
