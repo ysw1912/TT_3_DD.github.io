@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Hide on bush</title>
+    <link>https://ysw1912.github.io/categories/golang/</link>
+    <description>Recent content in Golang on Hide on bush</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>ysw1912</copyright>
+    <lastBuildDate>Thu, 22 Nov 2018 11:50:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://ysw1912.github.io/categories/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go 语言入门</title>
+      <link>https://ysw1912.github.io/post/go/01/</link>
+      <pubDate>Thu, 22 Nov 2018 11:50:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/go/01/</guid>
+      <description>Go 语言 &amp;emsp;&amp;emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &amp;emsp;&amp;emsp;条件表达式没有括号</description>
+    </item>
+    
+  </channel>
+</rss>
