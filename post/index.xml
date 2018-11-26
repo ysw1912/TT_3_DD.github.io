@@ -18,7 +18,7 @@
       <pubDate>Thu, 22 Nov 2018 11:50:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/go/01/</guid>
-      <description>Go 语言 &amp;emsp;&amp;emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &amp;emsp;&amp;emsp;条件表达式没有括号</description>
+      <description>Go 语言 &amp;emsp;&amp;emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int // 指针默认值nil 数组 1 2 3 4 5 6 7</description>
     </item>
     
     <item>

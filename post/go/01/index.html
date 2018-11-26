@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="Go 语言 &amp;emsp;&amp;emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &amp;emsp;&amp;emsp;条件表达式没有括号" />
+  <meta name="description" content="Go 语言 &amp;emsp;&amp;emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int // 指针默认值nil 数组 1 2 3 4 5 6 7" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -58,7 +58,7 @@
 
 
 <meta property="og:title" content="Go 语言入门" />
-<meta property="og:description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &emsp;&emsp;条件表达式没有括号" />
+<meta property="og:description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int // 指针默认值nil 数组 1 2 3 4 5 6 7" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://ysw1912.github.io/post/go/01/" />
 
@@ -66,7 +66,7 @@
 
 <meta property="article:published_time" content="2018-11-22T11:50:00&#43;08:00"/>
 
-<meta property="article:modified_time" content="2018-11-22T13:01:00&#43;08:00"/>
+<meta property="article:modified_time" content="2018-11-26T22:04:00&#43;08:00"/>
 
 
 
@@ -79,19 +79,19 @@
 
 
 <meta itemprop="name" content="Go 语言入门">
-<meta itemprop="description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &emsp;&emsp;条件表达式没有括号">
+<meta itemprop="description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int // 指针默认值nil 数组 1 2 3 4 5 6 7">
 
 
 <meta itemprop="datePublished" content="2018-11-22T11:50:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-22T11:50:00&#43;08:00" />
-<meta itemprop="wordCount" content="985">
+<meta itemprop="wordCount" content="1276">
 
 
 
 <meta itemprop="keywords" content="Golang," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Go 语言入门"/>
-<meta name="twitter:description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if &emsp;&emsp;条件表达式没有括号"/>
+<meta name="twitter:description" content="Go 语言 &emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int // 指针默认值nil 数组 1 2 3 4 5 6 7"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -294,8 +294,8 @@
               <a href="/categories/golang/"> Golang </a>
             
           </div>
-        <span class="more-meta"> 约 985 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta"> 约 1276 字 </span>
+        <span class="more-meta"> 预计阅读 3 分钟 </span>
       </div>
     </header>
 
@@ -309,6 +309,15 @@
 <li>
 <ul>
 <li><a href="#go-语言">Go 语言</a></li>
+<li><a href="#变量">变量</a>
+<ul>
+<li>
+<ul>
+<li><a href="#指针">指针</a></li>
+<li><a href="#数组">数组</a></li>
+<li><a href="#切片">切片</a></li>
+</ul></li>
+</ul></li>
 <li><a href="#流程控制">流程控制</a>
 <ul>
 <li>
@@ -340,6 +349,85 @@
 
 <p>&emsp;&emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。</p>
 
+<h2 id="变量">变量</h2>
+
+<h4 id="指针">指针</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">p</span> <span class="o">*</span><span class="kt">int</span>	<span class="o">//</span> <span class="nx">指针默认值nil</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="数组">数组</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">arr</span> <span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="kt">int</span>
+
+<span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>           <span class="c1">// 未初始化元素值为 0
+</span><span class="c1"></span><span class="nx">b</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>      <span class="c1">// 通过初始化值确定数组长度
+</span><span class="c1"></span><span class="nx">c</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">2</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">200</span><span class="p">}</span> <span class="c1">// 通过索引号初始化元素，未初始化元素值为 0
+</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">)</span>        <span class="c1">// print &#34;[1 2 0] [1 2 3] [0 0 100 0 200]&#34;
+</span><span class="c1"></span>
+<span class="c1">// 支持多维数组，第二维不能写&#34;...&#34;
+</span><span class="c1"></span><span class="nx">d</span> <span class="o">:=</span> <span class="p">[</span><span class="o">...</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{{</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">},</span> <span class="p">{</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">},</span> <span class="p">{</span><span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">},</span> <span class="p">{</span><span class="mi">40</span><span class="p">,</span> <span class="mi">41</span><span class="p">}}</span>
+
+<span class="c1">// 传指针参数，若传值则会拷贝整个数组
+</span><span class="c1"></span><span class="kd">func</span> <span class="nx">modify</span><span class="p">(</span><span class="nx">array</span> <span class="o">*</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="err">（</span><span class="o">*</span><span class="nx">array</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">10</span>	<span class="c1">// 传值则 array[0] = 10
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">array</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="nx">modify</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">array</span><span class="p">)</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="切片">切片</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 声明slice时，方括号内没有任何字符
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">s1</span> <span class="p">[]</span><span class="kt">int</span>	<span class="c1">// 空切片
+</span><span class="c1"></span><span class="nx">s2</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+
+<span class="c1">// make([]T, length, capacity)
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">s3</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>	<span class="c1">// capacity可省略，则和length相同
+</span><span class="c1"></span><span class="nx">s4</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="nx">s5</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
 <h2 id="流程控制">流程控制</h2>
 
 <h4 id="if">if</h4>
@@ -546,7 +634,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2018-11-22</span>
+    <span class="item-content">2018-11-26</span>
   </p>
   
   <p class="copyright-item">
@@ -607,7 +695,7 @@
     id: '01.md',
     title: 'Go 语言入门',
     link: decodeURI(location.href),
-    desc: 'Go 语言 \x26emsp;\x26emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 流程控制 if \x26emsp;\x26emsp;条件表达式没有括号',
+    desc: 'Go 语言 \x26emsp;\x26emsp;本文也并非 Go 语言基础语法的全部罗列，只是摘录一些独特特性。 变量 指针 1 var p *int \/\/ 指针默认值nil 数组 1 2 3 4 5 6 7',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {
