@@ -84,7 +84,7 @@
 
 <meta itemprop="datePublished" content="2018-11-22T11:50:00&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-22T11:50:00&#43;08:00" />
-<meta itemprop="wordCount" content="1276">
+<meta itemprop="wordCount" content="1986">
 
 
 
@@ -294,8 +294,8 @@
               <a href="/categories/golang/"> Golang </a>
             
           </div>
-        <span class="more-meta"> 约 1276 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta"> 约 1986 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
       </div>
     </header>
 
@@ -333,6 +333,14 @@
 <li><a href="#函数类型">函数类型</a></li>
 <li><a href="#不定参数">不定参数</a></li>
 <li><a href="#闭包">闭包</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#复合类型">复合类型</a>
+<ul>
+<li>
+<ul>
+<li><a href="#map">map</a></li>
+<li><a href="#结构体">结构体</a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -622,6 +630,104 @@
 </div>
 </div>
 <p>&emsp;&emsp;对 squares 的一次调用会生成一个局部变量 x 并返回一个匿名函数，可以看到变量的生命周期不由它的作用域决定：squares 返回后，变量 x 仍然隐式的存在于 f 中。</p>
+
+<h2 id="复合类型">复合类型</h2>
+
+<h4 id="map">map</h4>
+
+<p>&emsp;&emsp;map 是一种<strong>无序</strong>的键值对的集合。
+- 一个 map 里所有的 key 都是唯一的，必须是支持 <strong>==</strong> 和 <strong>!=</strong> 操作符的类型。
+- 切片、函数、包含切片的结构类型由于具有引用语义，也不能作为 key。
+- 在函数间传递映射并不会制造出该映射的一个副本，不是值传递，而是引用传递。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">m1</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span>	<span class="c1">// 空(nil)map
+</span><span class="c1"></span>
+<span class="nx">m2</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{}</span>
+<span class="nx">m3</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+
+<span class="nx">m4</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>	<span class="c1">// 第2个参数指定容量
+</span><span class="c1"></span>
+<span class="c1">// 初始化的右括号不能换行
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">m5</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mi">123</span><span class="p">:</span> <span class="s">&#34;qop&#34;</span><span class="p">,</span> <span class="mi">233</span><span class="p">:</span> <span class="s">&#34;lina&#34;</span><span class="p">}</span>
+<span class="nx">m6</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mi">123</span><span class="p">:</span> <span class="s">&#34;qop&#34;</span><span class="p">,</span> <span class="mi">233</span><span class="p">:</span> <span class="s">&#34;lina&#34;</span><span class="p">}</span>
+<span class="nx">m6</span><span class="p">[</span><span class="mi">345</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#34;siren&#34;</span>  <span class="c1">// 追加， go底层会自动为map分配空间。无法对 nil map 追加元素，必须先初始化
+</span><span class="c1"></span>
+<span class="c1">// 判断某个 key 所对应的value是否存在
+</span><span class="c1">// 若存在，第一个返回值是 value，第二个返回值是 true
+</span><span class="c1">// 若不存在，第一个返回值是 空，第二个返回值是 false
+</span><span class="c1"></span><span class="nx">value</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">m6</span><span class="p">[</span><span class="mi">999</span><span class="p">]</span>
+
+<span class="nb">delete</span><span class="p">(</span><span class="nx">m6</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span> <span class="o">//</span> <span class="nx">删除</span> <span class="nx">key</span> <span class="nx">值为</span> <span class="mi">123</span> <span class="nx">的</span> <span class="kd">map</span></code></pre></td></tr></table>
+</div>
+</div>
+<h4 id="结构体">结构体</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Student</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">id</span>   <span class="kt">int</span>
+    <span class="nx">name</span> <span class="kt">string</span>
+    <span class="nx">sex</span>  <span class="kt">byte</span>
+    <span class="nx">age</span>  <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">s1</span> <span class="nx">Student</span> <span class="p">=</span> <span class="nx">Student</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#34;yyf&#34;</span><span class="p">,</span> <span class="sc">&#39;m&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">}</span>
+<span class="nx">s2</span> <span class="o">:=</span> <span class="nx">Student</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#34;lilith&#34;</span><span class="p">,</span> <span class="sc">&#39;f&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">}</span>
+<span class="nx">s3</span> <span class="o">:=</span> <span class="nx">Student</span><span class="p">{</span><span class="nx">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;longdd&#34;</span><span class="p">}</span>	<span class="c1">// 指定初始化某个成员，没有初始化的成员为零值
+</span><span class="c1"></span>
+<span class="c1">// 指针变量
+</span><span class="c1"></span><span class="kd">var</span> <span class="nx">s4</span> <span class="o">*</span><span class="nx">Student</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Student</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#34;zhou&#34;</span><span class="p">,</span> <span class="sc">&#39;m&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">}</span>
+<span class="nx">s5</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Student</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="s">&#34;820&#34;</span><span class="p">,</span> <span class="sc">&#39;m&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="c1">// Go没有 -&gt; 操作符，对于指针变量 p，p.成员 和 (*p).成员 是等价的
+</span><span class="c1"></span><span class="nx">s5</span><span class="p">.</span><span class="nx">id</span> <span class="p">=</span> <span class="mi">6</span>
+<span class="p">(</span><span class="o">*</span><span class="nx">s5</span><span class="p">).</span><span class="nx">id</span> <span class="p">=</span> <span class="mi">7</span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li>如果结构体的全部成员都是可以比较的，那么结构体也是可以比较的（只可以使用 == 或 != 运算符比较）。</li>
+<li>向函数传递结构体参数，可以传值，也可以传引用。</li>
+<li>要使某个符号（包括结构体变量或者结构体的成员变量）对其他包（package）可见（即可以访问），需要将该符号定义为以大写字母开头。</li>
+<li>定义结构体字段时，Go 支持只提供类型而不写字段名的方式，即<strong>匿名字段</strong>，也称为嵌入字段。当匿名字段也是一个结构体的时候，那么这个结构体所拥有的全部字段都被隐式地引入了当前定义的这个结构体。所有的内置类型和自定义类型都可以作为匿名字段，包括结构体指针。</li>
+</ul>
 
     </div>
 
