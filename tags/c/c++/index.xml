@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Sun, 15 Jul 2018 08:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 11 Jul 2019 09:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/tags/c/c++/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GFlags使用</title>
+      <link>https://ysw1912.github.io/post/cc&#43;&#43;/gflags/</link>
+      <pubDate>Thu, 11 Jul 2019 09:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/cc&#43;&#43;/gflags/</guid>
+      <description>GFlags使用 GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己</description>
+    </item>
     
     <item>
       <title>POSIX thread</title>
