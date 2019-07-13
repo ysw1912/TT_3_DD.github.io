@@ -45,13 +45,16 @@
 
 &lt;h4 id=&#34;定义-flag&#34;&gt;定义 Flag&lt;/h4&gt;
 
-&lt;p&gt;​    使用 gflags 需要包含头文件&lt;code&gt;#include &amp;lt;gflags/gflags.h&amp;gt;&lt;/code&gt;，支持的类型有：
-- &lt;code&gt;DEFINE_bool&lt;/code&gt;: boolean
-- &lt;code&gt;DEFINE_int32&lt;/code&gt;: 32-bit integer
-- &lt;code&gt;DEFINE_int64&lt;/code&gt;: 64-bit integer
-- &lt;code&gt;DEFINE_uint64&lt;/code&gt;: unsigned 64-bit integer
-- &lt;code&gt;DEFINE_double&lt;/code&gt;: double
-- &lt;code&gt;DEFINE_string&lt;/code&gt;: C++ string&lt;/p&gt;
+&lt;p&gt;​    使用 gflags 需要包含头文件&lt;code&gt;#include &amp;lt;gflags/gflags.h&amp;gt;&lt;/code&gt;，支持的类型有：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_bool&lt;/code&gt;: boolean&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_int32&lt;/code&gt;: 32-bit integer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_int64&lt;/code&gt;: 64-bit integer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_uint64&lt;/code&gt;: unsigned 64-bit integer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_double&lt;/code&gt;: double&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DEFINE_string&lt;/code&gt;: C++ string&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;该宏的三个参数分别代表命令行参数名，参数默认值，参数的帮助信息。&lt;/p&gt;
 
