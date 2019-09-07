@@ -18,7 +18,7 @@
       <pubDate>Thu, 11 Jul 2019 09:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/gflags/</guid>
-      <description>GFlags ​ GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，</description>
+      <description>GFlags &amp;emsp;&amp;emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链</description>
     </item>
     
     <item>

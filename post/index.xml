@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>ysw1912</copyright>
-    <lastBuildDate>Thu, 11 Jul 2019 09:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Sep 2019 22:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://ysw1912.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>为何删除文件后磁盘空间未释放</title>
+      <link>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</link>
+      <pubDate>Sat, 07 Sep 2019 22:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</guid>
+      <description>问题 &amp;emsp;&amp;emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&amp;#34;loop.log&amp;#34;, &amp;#34;a+&amp;#34;); const char* content = &amp;#34;A test sentence\n&amp;#34;; for (int i = 1; ; ++i) { int n_write = fwrite(content, 1, strlen(content), fp);</description>
+    </item>
     
     <item>
       <title>GFlags使用</title>
@@ -18,7 +27,7 @@
       <pubDate>Thu, 11 Jul 2019 09:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/cc&#43;&#43;/gflags/</guid>
-      <description>GFlags ​ GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，</description>
+      <description>GFlags &amp;emsp;&amp;emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链</description>
     </item>
     
     <item>

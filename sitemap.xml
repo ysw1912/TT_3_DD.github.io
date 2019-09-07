@@ -10,8 +10,15 @@
   </url>
   
   <url>
+    <loc>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</loc>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://ysw1912.github.io/post/cc&#43;&#43;/gflags/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -137,21 +144,21 @@
   
   <url>
     <loc>https://ysw1912.github.io/tags/c/c&#43;&#43;/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/c/c&#43;&#43;/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/categories/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -220,6 +227,20 @@
   </url>
   
   <url>
+    <loc>https://ysw1912.github.io/tags/linux/</loc>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ysw1912.github.io/categories/linux/</loc>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ysw1912.github.io/tags/opengl/</loc>
     <lastmod>2018-11-20T20:24:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -235,14 +256,14 @@
   
   <url>
     <loc>https://ysw1912.github.io/post/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ysw1912.github.io/tags/</loc>
-    <lastmod>2019-07-13T18:00:00+08:00</lastmod>
+    <lastmod>2019-09-07T22:00:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

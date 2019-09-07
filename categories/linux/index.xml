@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Hide on bush</title>
+    <link>https://ysw1912.github.io/categories/linux/</link>
+    <description>Recent content in Linux on Hide on bush</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>ysw1912</copyright>
+    <lastBuildDate>Sat, 07 Sep 2019 22:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://ysw1912.github.io/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>为何删除文件后磁盘空间未释放</title>
+      <link>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</link>
+      <pubDate>Sat, 07 Sep 2019 22:00:00 +0800</pubDate>
+      
+      <guid>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</guid>
+      <description>问题 &amp;emsp;&amp;emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&amp;#34;loop.log&amp;#34;, &amp;#34;a+&amp;#34;); const char* content = &amp;#34;A test sentence\n&amp;#34;; for (int i = 1; ; ++i) { int n_write = fwrite(content, 1, strlen(content), fp);</description>
+    </item>
+    
+  </channel>
+</rss>

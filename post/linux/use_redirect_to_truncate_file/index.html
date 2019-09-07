@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>GFlags使用 - Hide on bush</title>
+  <title>为何删除文件后磁盘空间未释放 - Hide on bush</title>
   <link rel="alternate" hreflang="zh-cn" href="https://ysw1912.github.io/" />
 
 <meta name="renderer" content="webkit" />
@@ -25,7 +25,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="ysw1912" />
-  <meta name="description" content="GFlags &amp;emsp;&amp;emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链" />
+  <meta name="description" content="问题 &amp;emsp;&amp;emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&amp;#34;loop.log&amp;#34;, &amp;#34;a&#43;&amp;#34;); const char* content = &amp;#34;A test sentence\n&amp;#34;; for (int i = 1; ; &#43;&#43;i) { int n_write = fwrite(content, 1, strlen(content), fp);" />
 
   <meta name="keywords" content="Hugo, Blog, ysw1912" />
 
@@ -37,7 +37,7 @@
 <meta name="generator" content="Hugo 0.41" />
 
 
-<link rel="canonical" href="https://ysw1912.github.io/post/cc&#43;&#43;/gflags/" />
+<link rel="canonical" href="https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/" />
 
 
 
@@ -57,14 +57,14 @@
 
 
 
-<meta property="og:title" content="GFlags使用" />
-<meta property="og:description" content="GFlags &emsp;&emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链" />
+<meta property="og:title" content="为何删除文件后磁盘空间未释放" />
+<meta property="og:description" content="问题 &emsp;&emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&#34;loop.log&#34;, &#34;a&#43;&#34;); const char* content = &#34;A test sentence\n&#34;; for (int i = 1; ; &#43;&#43;i) { int n_write = fwrite(content, 1, strlen(content), fp);" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://ysw1912.github.io/post/cc&#43;&#43;/gflags/" />
+<meta property="og:url" content="https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/" />
 
 
 
-<meta property="article:published_time" content="2019-07-11T09:00:00&#43;08:00"/>
+<meta property="article:published_time" content="2019-09-07T22:00:00&#43;08:00"/>
 
 <meta property="article:modified_time" content="2019-09-07T22:00:00&#43;08:00"/>
 
@@ -78,20 +78,20 @@
 
 
 
-<meta itemprop="name" content="GFlags使用">
-<meta itemprop="description" content="GFlags &emsp;&emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链">
+<meta itemprop="name" content="为何删除文件后磁盘空间未释放">
+<meta itemprop="description" content="问题 &emsp;&emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&#34;loop.log&#34;, &#34;a&#43;&#34;); const char* content = &#34;A test sentence\n&#34;; for (int i = 1; ; &#43;&#43;i) { int n_write = fwrite(content, 1, strlen(content), fp);">
 
 
-<meta itemprop="datePublished" content="2019-07-11T09:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-11T09:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="668">
+<meta itemprop="datePublished" content="2019-09-07T22:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-07T22:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="203">
 
 
 
-<meta itemprop="keywords" content="C/C&#43;&#43;," />
+<meta itemprop="keywords" content="Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="GFlags使用"/>
-<meta name="twitter:description" content="GFlags &emsp;&emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链"/>
+<meta name="twitter:title" content="为何删除文件后磁盘空间未释放"/>
+<meta name="twitter:description" content="问题 &emsp;&emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&#34;loop.log&#34;, &#34;a&#43;&#34;); const char* content = &#34;A test sentence\n&#34;; for (int i = 1; ; &#43;&#43;i) { int n_write = fwrite(content, 1, strlen(content), fp);"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -285,17 +285,17 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">GFlags使用</h1>
+      <h1 class="post-title">为何删除文件后磁盘空间未释放</h1>
       
       <div class="post-meta">
-        <span class="post-time"> 2019-07-11 </span>
+        <span class="post-time"> 2019-09-07 </span>
         <div class="post-category">
             
-              <a href="/categories/c/c&#43;&#43;/"> C/C&#43;&#43; </a>
+              <a href="/categories/linux/"> Linux </a>
             
           </div>
-        <span class="more-meta"> 约 668 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        <span class="more-meta"> 约 203 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
       </div>
     </header>
 
@@ -308,15 +308,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#gflags">GFlags</a>
-<ul>
 <li>
 <ul>
-<li><a href="#定义-flag">定义 Flag</a></li>
-<li><a href="#使用-flag">使用 Flag</a></li>
-<li><a href="#验证-flag">验证 Flag</a></li>
-<li><a href="#改变-flag-默认值">改变 Flag 默认值</a></li>
-</ul></li>
+<li><a href="#问题">问题</a></li>
+<li><a href="#原因">原因</a></li>
+<li><a href="#解决">解决</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -328,50 +324,56 @@
     <div class="post-content">
       
 
-<h2 id="gflags">GFlags</h2>
+<h3 id="问题">问题</h3>
 
-<p>&emsp;&emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链接了该文件的应用都能使用这些flag，这样就能方便地复用代码。但要注意，如果不同的文件定义了相同的 flag，链接时会报错。</p>
+<p>&emsp;&emsp;某日志文件 loop.test 正在被进程 log_server 不断写入</p>
 
-<p>&emsp;&emsp;样例代码参见 <a href="https://github.com/ysw1912/Cpp-Practice-Test/tree/master/gflags_test">GitHub/Cpp-Practice-Test/gflags_test</a></p>
+<p><em>log_server.c</em></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;loop.log&#34;</span><span class="p">,</span> <span class="s">&#34;a+&#34;</span><span class="p">);</span>
+  <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">content</span> <span class="o">=</span> <span class="s">&#34;A test sentence</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n_write</span> <span class="o">=</span> <span class="n">fwrite</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">content</span><span class="p">),</span> <span class="n">fp</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Write %d lines, %d bytes</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">n_write</span><span class="p">);</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></td></tr></table>
+</div>
+</div>
+<div align=center>![](/image/post/linux/use_redirect_to_truncate_file/01.png)</div>
+<div align=center>![](/image/post/linux/use_redirect_to_truncate_file/02.png)</div>
 
-<hr />
+<h3 id="原因">原因</h3>
 
-<h4 id="定义-flag">定义 Flag</h4>
+<p>&emsp;&emsp;该文件正在被 server 进程使用，系统不会删除，因此这部分的磁盘空间不会释放，一种方法是中断该进程，但在实际项目中显然不允许我们随意重启服务。</p>
 
-<p>&emsp;&emsp;使用 gflags 需要包含头文件<code>#include &lt;gflags/gflags.h&gt;</code>，支持的类型有：</p>
+<div align=center>![](/image/post/linux/use_redirect_to_truncate_file/03.png)</div>
 
-<ul>
-<li><code>DEFINE_bool</code>: boolean</li>
-<li><code>DEFINE_int32</code>: 32-bit integer</li>
-<li><code>DEFINE_int64</code>: 64-bit integer</li>
-<li><code>DEFINE_uint64</code>: unsigned 64-bit integer</li>
-<li><code>DEFINE_double</code>: double</li>
-<li><code>DEFINE_string</code>: C++ string</li>
-</ul>
+<h3 id="解决">解决</h3>
 
-<p>该宏的三个参数分别代表命令行参数名，参数默认值，参数的帮助信息。</p>
-
-<p>&emsp;&emsp;gflags 不支持列表，但可以借助 string 实现。</p>
-
-<p>&emsp;&emsp;在头文件使用<code>DECLARE_type</code>声明 flag，在对应源文件使用<code>DEFINE_type</code>定义，则 include 头文件后即可使用。</p>
-
-<h4 id="使用-flag">使用 Flag</h4>
-
-<p>&emsp;&emsp;定义的 flag 可以像正常的变量一样使用，只需在前面加上<code>FLAGS_</code>前缀。</p>
-
-<h4 id="验证-flag">验证 Flag</h4>
-
-<p>&emsp;&emsp;DEFINE 一个 flag 后，可以给其注册一个验证函数。</p>
-
-<p>&emsp;&emsp;宏<code>DEFINE_validator</code>调用函数<code>RegisterFlagValidator()</code>，并返回注册是否成功。</p>
-
-<p>&emsp;&emsp;如果<code>ParseCommandLineFlags()</code>时参数不合法，则报错。</p>
-
-<h4 id="改变-flag-默认值">改变 Flag 默认值</h4>
-
-<p>&emsp;&emsp;只需要在调用<code>ParseCommandLineFlags()</code>之前将 flag 赋值为需要的默认值即可。</p>
-
-<p>&emsp;&emsp;或者使用<code>SetCommandLineOption(const char* name, const char* value)</code>将 value 对应的值赋给 FLAGS_name。</p>
+<p>&emsp;&emsp;可以使用重定向符清空文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">find . -type f -name <span class="s1">&#39;loop.log&#39;</span> -exec sh -c <span class="s1">&#39;&gt; {}&#39;</span> <span class="se">\;</span></code></pre></td></tr></table>
+</div>
+</div>
+<div align=center>![](/image/post/linux/use_redirect_to_truncate_file/04.png)</div>
 
     </div>
 
@@ -416,21 +418,16 @@
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="/tags/c/c&#43;&#43;/">C/C&#43;&#43;</a>
+          <a href="/tags/linux/">Linux</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/linux/use_redirect_to_truncate_file/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">为何删除文件后磁盘空间未释放</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/post/go/01/">
-            <span class="next-text nav-default">Go 语言入门</span>
+          <a class="next" href="/post/cc&#43;&#43;/gflags/">
+            <span class="next-text nav-default">GFlags使用</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -447,10 +444,10 @@
     <script src="/lib/gitment/gitment-0.0.3.min.js"></script>
   <script type="text/javascript">
   const gitment = new Gitment({
-    id: 'gflags.md',
-    title: 'GFlags使用',
+    id: 'use_redirect_to_truncate_file.md',
+    title: '为何删除文件后磁盘空间未释放',
     link: decodeURI(location.href),
-    desc: 'GFlags \x26emsp;\x26emsp;GFlags 是 Google 开源的一个命令行 flag 库。与 getopt 之类不同，flag 的定义可以散布在各个源码中，而不用放在一起。一个源码文件可以定义一些它自己的flag，链',
+    desc: '问题 \x26emsp;\x26emsp;某日志文件 loop.test 正在被进程 log_server 不断写入 log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(\x26#34;loop.log\x26#34;, \x26#34;a\x2b\x26#34;); const char* content = \x26#34;A test sentence\\n\x26#34;; for (int i = 1; ; \x2b\x2bi) { int n_write = fwrite(content, 1, strlen(content), fp);',
     owner: 'ysw1912',
     repo: 'blog_comments',
     oauth: {
