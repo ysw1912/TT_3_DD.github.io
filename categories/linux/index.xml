@@ -18,7 +18,7 @@
       <pubDate>Sat, 07 Sep 2019 22:00:00 +0800</pubDate>
       
       <guid>https://ysw1912.github.io/post/linux/use_redirect_to_truncate_file/</guid>
-      <description>问题 &amp;emsp;&amp;emsp;如图，某日志文件 loop.log 正在被进程 log_server 不断写入。 ![](/image/post/linux/use_redirect_to_truncate_file/01.png) 其对应代码大致如下： log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&amp;#34;loop.log&amp;#34;, &amp;#34;a+&amp;#34;); const char* content = &amp;#34;A test sentence\n&amp;#34;;</description>
+      <description>问题 &amp;emsp;&amp;emsp;如图，某日志文件 loop.log 正在被进程 log_server 不断写入。 其对应代码大致如下： log_server.c 1 2 3 4 5 6 7 8 9 int main() { FILE* fp = fopen(&amp;#34;loop.log&amp;#34;, &amp;#34;a+&amp;#34;); const char* content = &amp;#34;A test sentence\n&amp;#34;; for</description>
     </item>
     
   </channel>
